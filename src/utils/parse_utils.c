@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 11:39:04 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/05/18 13:34:39 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/02 14:02:33 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int		skip_comm(char *str)
 int		get_sep(char *str, char **tb)
 {
 	int	i;
+	int	len;
 
 	i = -1;
 	while (tb[++i] && ft_strncmp(str, tb[i], ft_strlen(tb[i])))

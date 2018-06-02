@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 19:03:40 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/05/25 13:04:26 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/02 17:07:56 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,10 +327,17 @@ void		*erasehash(void **item);
 /*
 ** math functions
 */
+int	 parse_op(char *str);
 char			**ft_custom_split(char *s, char **tb);
 int (**f_opget(void))(int, int);
 int		calc_op(char **op_tb);
 
+int		is_local(char *str);
+int		get_value(t_do_op *tmp);
+int		do_op(t_do_op *a, t_do_op *op, t_do_op *b);
+int		browse_last(t_do_op *list);
+int		exec_op(char **tb);
+int		bracket(char *str, char *brack);
 /*
 ** bitwise
 */

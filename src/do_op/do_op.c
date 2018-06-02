@@ -6,18 +6,44 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 11:08:36 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/05/21 11:08:36 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/02 16:37:09 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/sh.h"
 
-# define A 0
-# define O 1
-# define B 2
-# define RES 3
+int (**f_opget(void))(int, int)
+{
+	static int		(*f_op[14])(int, int);
+	
+	f_op[0] = ft_left_shift;
+	f_op[1] = ft_right_shift;
+	f_op[2] = ft_log_or;
+	f_op[3] = ft_log_and;
+	f_op[4] = ft_power;
+	f_op[6] = ft_and;
+	f_op[5] = ft_or;
+	f_op[7] = ft_xor;
+	f_op[8] = ft_bitneg;
+	f_op[9] = ft_summ;
+	f_op[10] = ft_sub;
+	f_op[11] = ft_div;
+	f_op[12] = ft_mult;
+	f_op[13] = ft_mod;
+	return (f_op);
+}
 
-int		do_op(int *val)
+int		get_value(t_do_op *tmp)
+{
+	if (tmp->is_set)
+		return (tmp->value);
+	tmp->is_set = 1;
+	if (ft_str_isdigit(tmp->content))
+		return (ft_atoi(tmp->content));
+	return (is_local(tmp->content));
+}
+
+int		do_op(t_do_op *a, t_do_op *op, t_do_op *b)
 {
 	int i;
 	static int		(**f_op)(int, int) = 0;
@@ -25,42 +51,11 @@ int		do_op(int *val)
 	if (!f_op)
 		f_op = f_opget();
 	i = -1;
-	return (f_op[val[O]](val[A], val[B]));
+	a->value = get_value(a);
+	b->value = get_value(b);
+//	ft_printf("%d %d %d\n", a->value, op->code, b->value);
+	return (f_op[op->code](a->value, b->value));
 }
 
 int		is_local(char *str);
 
-int		get_value(char *str)
-{
-	if (!(ft_occiter2(str, ft_isdigit) < 0))
-		return(ft_atoi(str));
-	return (is_local(str));
-}
-
-int		calc_op(char **op_tb)
-{
-	int 		i;
-	int			is_digit;
-	int			is_set[4];
-	int			val[4];
-
-	i = -1;
-	ft_bzero(&is_set, sizeof(is_set));
-	while (op_tb[++i])
-	{
-		if (!is_set[O] && (val[O] = get_sep(op_tb[i], OPE)) >= 0 && ++is_set[O])
-			continue ;
-		//ft_printf("RES[%d]A[%d]O[%d]B[%d][%d]%s\n",val[RES],val[A], is_set[O], is_set[B], i, op_tb[i]);
-		if (is_set[RES] && (is_set[A] = 1))
-			val[A] = val[RES];
-		if (!is_set[A] && ++is_set[A])
-			val[A] = get_value(op_tb[i]);
-		else if (!is_set[O])
-			exit(-ft_printf("no op\n"));
-		else if (++is_set[B])
-			val[A] = get_value(op_tb[i]);
-		else
-			exit(-ft_printf("invalid\n"));
-	}
-	return (val[RES]);
-}

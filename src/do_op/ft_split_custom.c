@@ -6,12 +6,14 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 16:34:09 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/05/18 16:00:22 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/02 17:28:59 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../includes/sh.h"
+
+
 
 static int		countletters(char const *s, char **tb)
 {
@@ -21,9 +23,10 @@ static int		countletters(char const *s, char **tb)
 	while (get_sep((char*)&s[cl], tb) < 0  && s[cl])
 	{
 		if (ft_isin(s[cl], " \n\t"))
-			return(cl);
+			return (cl);
 		if (s[cl] && get_sep((char*)&s[cl], tb) < 0)
 			cl++;
+		cl += bracket((char*)&s[cl], "()");
 	}
 	return (cl);
 }
@@ -40,10 +43,10 @@ static int		countwords(char const *s, char **tb)
 	{
 		while (s[i] && ft_isin(s[i], " \n\t"))
 			i++;
-		while (s[i] && (tmp = get_sep((char*)&s[i], tb)) >= 0 && ++i2)
-			i += ft_strlen(tb[tmp]);
 		if (s[i] && get_sep((char*)&s[i], tb) < 0 && ++i2)
 			i += countletters(&s[i], tb);
+		while (s[i] && (tmp = get_sep((char*)&s[i], tb)) >= 0 && ++i2)
+			i += ft_strlen(tb[tmp]);
 	}
 	return (i2);
 }

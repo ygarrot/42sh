@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 12:04:19 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/05/18 12:30:27 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/02 13:04:02 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,17 @@ struct			s_glob
 {
 	int		(*f_built[20])(int a, int b);
 }				t_do_op;*/
+
+typedef struct s_do_op 
+{
+    struct s_do_op *prev;
+    struct s_do_op *next;
+    char *content;
+	bool	is_set;
+	int		value;
+	int		code;
+}		t_do_op;
+
 
 typedef struct	s_line
 {
