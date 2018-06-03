@@ -5,35 +5,12 @@
 
 void	free_op(t_do_op *tmp)
 {
-	//	ft_printf("[%s]\n", tmp->content);
 	tmp->next ? tmp->next->prev = tmp->prev : 0;
 	tmp->prev ? tmp->prev->next = tmp->next : 0;
 	ft_memdel((void**)&tmp->content);
 	ft_memdel((void**)&tmp);
 }
 
-# define BIT (char *[14]){"<<", ">>", "|", "||", "&&", "&", "^", "~"}
-/*
-int browse_list(t_do_op *list, int mode)
-{
-	t_do_op *begin;
-	t_do_op *tmp;
-
-	begin = list;
-	while (list)
-	{
-		if (!mode && (list->code == 9 || list->code == 10))
-			list->code == 9 ? list->value++ : list->value--;
-		if (!mode && list->code == PARENTH)
-		{
-			list->value = parse_op(list->content);
-			list->is_set = 1;
-		}
-		list = list->next;
-	}
-	return (browse_last(begin));
-}
-*/
 t_do_op	*pre_op(t_do_op *list)
 {
 	t_do_op *tmp;
@@ -45,10 +22,6 @@ t_do_op	*pre_op(t_do_op *list)
 		list->value = parse_op(list->content);
 		list->is_set = 1;
 		return (list);
-	}
-	if (ft_isin('=', list->content))
-	{
-	
 	}
 	tmp = list->next->next;
 	list->prev->value = do_op(list->prev, list, list->next);
@@ -62,20 +35,23 @@ t_do_op	*pre_op(t_do_op *list)
 
 t_do_op	*if_function(t_do_op *list, int status)
 {
-	if ((status == 0 && (*list->content == '(' || !ft_strcmp(list->content, "--")|| !ft_strcmp(list->content, "++"))) ||
+	if ((status == 0 && (*list->content == '('  
+					|| get_sep(list->content, OP_CREMENT) >= 0))||
 			(status == 1 && (!ft_strcmp(list->content, "--") || !ft_strcmp(list->content, "++"))) ||
 			/*(status == 2 && (!ft_strcmp(list->content, "-") || !ft_strcmp(list->content, "+"))) ||*/
 			(status == 3 && ft_isin(*list->content, "~!")) ||
 			(status == 4 && !ft_strcmp(list->content, "**")) ||
-			(status == 5 && ft_isin(*list->content, "*/")) ||
+			(status == 5 && ft_isin(*list->content, "*/%")) ||
 			(status == 6 && ft_isin(*list->content, "-+")) ||
-			(status == 7 && !ft_strcmp(list->content, "++")) ||
-			(status == 8 && !ft_strcmp(list->content, "==")) ||
-			(status == 9 && !ft_strcmp(list->content, "^")) ||
-			(status == 10 && !ft_strcmp(list->content, "|")) ||
-			(status == 11  && !ft_strcmp(list->content, "&&")) ||
-			(status == 12 && !ft_strcmp(list->content, "||")) ||
-			(status == 13 && !ft_strcmp(list->content, "?")))
+			(status == 7 && (get_sep(list->content, SHIFT) >= 0)) ||
+			(status == 8 && (get_sep(list->content, HCOMP) >= 0)) ||
+			(status == 9 && (get_sep(list->content, LCOMP) >= 0)) ||
+			(status == 10 && !ft_strcmp(list->content, "&")) ||
+			(status == 11 && !ft_strcmp(list->content, "^")) ||
+			(status == 12 && !ft_strcmp(list->content, "|")) ||
+			(status == 13  && !ft_strcmp(list->content, "&&")) ||
+			(status == 14 && !ft_strcmp(list->content, "||")) ||
+			(status == 15 && !ft_strcmp(list->content, "?")))
 		list = pre_op(list);
 	return(list);
 }
@@ -124,7 +100,8 @@ int		exec_op(char **tb)
 		tb[i + 1] ? list->next = (t_do_op*)ft_memalloc(sizeof(t_do_op)) : 0;
 		list->next ? list->next->prev = list : 0;
 		list->content = tb[i];
-		list->code = get_sep(tb[i], OPE);
+		list->code = get_sep(tb[i], OPE) ;
+		list->code >= 0 ? list->code = get_sep(tb[i], COMP) + 13 : 0;
 		//	ft_printf("{red}%s %d{reset}\n", tb[i], list->code);
 		list = list->next;
 	}

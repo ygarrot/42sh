@@ -1,38 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   logic_op.c                                         :+:      :+:    :+:   */
+/*   ft_comp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/18 14:33:00 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/03 15:34:10 by ygarrot          ###   ########.fr       */
+/*   Created: 2018/06/03 15:20:06 by ygarrot           #+#    #+#             */
+/*   Updated: 2018/06/03 15:27:56 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh.h"
+#include "../../includes/sh.h"
 
-int		ft_log_and(int a, int b)
+int	ft_comp_supe(int a, int b)
 {
-	return (a && b);
+	return (a >= b);
 }
 
-int		ft_log_or(int a, int b)
+int	ft_comp_inf(int a, int b)
 {
-	return (a || b);
+	return (a < b);
 }
 
-int		ft_or(int a, int b)
+int	ft_comp_sup(int a, int b)
 {
-	return (a | b);
+	return (a > b);
 }
 
-int		ft_and(int a, int b)
+int	ft_comp(int a, int b)
 {
-	return (a & b);
+	return (a == b);
 }
 
-int	ft_comp_infe(int a, int b)
+int	ft_comp_neg(int a, int b)
 {
-	return (a <= b);
+	return (a != b);
 }

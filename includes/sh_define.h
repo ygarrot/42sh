@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 12:08:50 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/05/26 12:20:08 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/03 15:30:16 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,14 @@
 
 # define COMPLETION_FILE 1
 # define COMPLETION_COM 2
-						// 0    2     4     8    16    32    64   128  256 512  1024 2048  4096 8192
+
 # define OPE (char *[16]){"<<", ">>", "||", "&&","**",  "|", "&", "^", "~", "+", "-", "/", "*", "%"}
 # define OP_CREMENT (char *[3]){"--", "++"}
+
+# define SHIFT (char *[4]){ "<<", ">>"}
+# define COMP (char *[7]){"==", "!=", "<=", ">=", "<", ">"}
+# define HCOMP (char *[4]){ "<=", ">=", "<", ">"}
+# define HCOMP (char *[4]){ "<=", ">=", "<", ">"}
+# define LCOMP (char *[3]){ "==", "!="}
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 12:06:05 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/03 14:32:58 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/03 15:35:59 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 #define OP_ASSIGN "= *= /= %= += -= <<= >>= &= ^= |="
 
 //#define OP_BIT "<< >> | || && & ^ ~"
-#define ALL_OP "*= /= %= += -= <<= >>= &= ^= |=  == != <= >= -- ++ << >> || | ** && & ^ ~ < > = * / % - + "
+#define ALL_OP "*= /= %= += -= <<= >>= &= ^= |=  == != <= >= -- ++ << >> || | ** && & ^ ~ < > = * / % - + ? :"
 
-
-# define COMP (char *[14]){ "==", "!=", "<=", ">=", "<", ">"}
 # define ASSIGN (char *[14]){"*=", "/=", "%=", "+=", "-=", "<<=", ">>=", "&=", "^=", "|=", "="}
 
 	
@@ -75,8 +73,7 @@ int	 parse_op(char *str)
 			exit(ft_printf("2 operators\n"));
 		if (get_sep(op_tb[tab_len], ASSIGN) >= 0 && ft_str_isdigit(op_tb[tab_len - 1]))
 			exit(ft_printf("lvalue required"));
-		if (ft_charchr('*', op_tb[tab_len]) >= 0
-				|| ft_charchr('/',op_tb[tab_len]) >= 0)
+		if (ft_mcharchr("*/%", op_tb[tab_len]) >= 0)
 		{
 			if (ft_str_isdigit(op_tb[tab_len - 1]) && !ft_atoi(op_tb[tab_len - 1 ]))
 				exit(ft_printf("Divide by 0\n"));
@@ -89,5 +86,5 @@ int	 parse_op(char *str)
 
 int	main()
 {
-	ft_printf("%d\n", parse_op("(2+3)+4*2"));
+	ft_printf("%d\n", parse_op("1 || 2"));
 }

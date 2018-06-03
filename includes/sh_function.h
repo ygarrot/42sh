@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 19:03:40 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/02 17:07:56 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/03 15:27:43 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -363,5 +363,16 @@ int		ft_mod(int a, int b);
 
 int		skip_char(char *str, char *to_skip);
 int		ft_occiter2(char *str, int (*f)(int));
+
+/*
+** comp op
+*/
+
+int	ft_comp_infe(int a, int b);
+int	ft_comp_supe(int a, int b);
+int	ft_comp_inf(int a, int b);
+int	ft_comp_sup(int a, int b);
+int	ft_comp_neg(int a, int b);
+int	ft_comp(int a, int b);
 
 #endif

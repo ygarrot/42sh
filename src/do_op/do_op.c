@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 11:08:36 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/03 14:34:17 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/03 15:28:29 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int (**f_opget(void))(int, int)
 {
-	static int		(*f_op[14])(int, int);
+	static int		(*f_op[20])(int, int);
 	
 	f_op[0] = ft_left_shift;
 	f_op[1] = ft_right_shift;
@@ -30,6 +30,12 @@ int (**f_opget(void))(int, int)
 	f_op[11] = ft_div;
 	f_op[12] = ft_mult;
 	f_op[13] = ft_mod;
+	f_op[14] = ft_comp_infe;
+	f_op[15] = ft_comp_supe;
+	f_op[16] = ft_comp_inf;
+	f_op[17] = ft_comp_sup;
+	f_op[18] = ft_comp;
+	f_op[19] = ft_comp_neg;
 	return (f_op);
 }
 
