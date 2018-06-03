@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 11:08:36 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/02 16:37:09 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/03 14:34:17 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int (**f_opget(void))(int, int)
 
 int		get_value(t_do_op *tmp)
 {
+	if (!tmp)
+		return (0);
 	if (tmp->is_set)
 		return (tmp->value);
 	tmp->is_set = 1;
@@ -45,16 +47,14 @@ int		get_value(t_do_op *tmp)
 
 int		do_op(t_do_op *a, t_do_op *op, t_do_op *b)
 {
-	int i;
 	static int		(**f_op)(int, int) = 0;
 
 	if (!f_op)
 		f_op = f_opget();
-	i = -1;
 	a->value = get_value(a);
 	b->value = get_value(b);
-//	ft_printf("%d %d %d\n", a->value, op->code, b->value);
-	return (f_op[op->code](a->value, b->value));
+	//ft_printf("%s %s %s\n", a->content, op->content, b->content);
+	return (f_op[op->code](a ? a->value : 0, b ? b->value : 0));
 }
 
 int		is_local(char *str);

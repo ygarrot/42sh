@@ -3,21 +3,9 @@
 
 #define PARENTH 0xF00000
 
-/*
-typedef struct s_do_op 
-{
-    struct s_do_op *prev;
-    struct s_do_op *next;
-    char *content;
-	bool	is_set;
-	int		value;
-	int		code;
-}		t_do_op;
-*/
-
 void	free_op(t_do_op *tmp)
 {
-//	ft_printf("[%s]\n", tmp->content);
+	//	ft_printf("[%s]\n", tmp->content);
 	tmp->next ? tmp->next->prev = tmp->prev : 0;
 	tmp->prev ? tmp->prev->next = tmp->next : 0;
 	ft_memdel((void**)&tmp->content);
@@ -25,7 +13,7 @@ void	free_op(t_do_op *tmp)
 }
 
 # define BIT (char *[14]){"<<", ">>", "|", "||", "&&", "&", "^", "~"}
-
+/*
 int browse_list(t_do_op *list, int mode)
 {
 	t_do_op *begin;
@@ -41,22 +29,73 @@ int browse_list(t_do_op *list, int mode)
 			list->value = parse_op(list->content);
 			list->is_set = 1;
 		}
-		if ((!mode && get_sep(list->content, BIT) >= 0)
-				|| (mode && list->code > 10 && list->code < 14))
-		{
-			tmp = list->next->next;
-			list->prev->value = do_op(list->prev, list, list->next);
-			list = list->prev;
-			free_op(list->next->next);
-			free_op(list->next);
-			list->is_set = 1;
-			list->next = tmp;
-		}
 		list = list->next;
 	}
-	if (!mode)
-		browse_list(begin, 1);
-	return (mode ? 0 : browse_last(begin));
+	return (browse_last(begin));
+}
+*/
+t_do_op	*pre_op(t_do_op *list)
+{
+	t_do_op *tmp;
+
+	if (*list->content == '(')
+	{
+		ft_printf("ici\n");
+		ft_strcpy(list->content, &list->content[1]);
+		list->value = parse_op(list->content);
+		list->is_set = 1;
+		return (list);
+	}
+	if (ft_isin('=', list->content))
+	{
+	
+	}
+	tmp = list->next->next;
+	list->prev->value = do_op(list->prev, list, list->next);
+	list = list->prev;
+	free_op(list->next->next);
+	free_op(list->next);
+	list->is_set = 1;
+	list->next = tmp;
+	return (list);
+}
+
+t_do_op	*if_function(t_do_op *list, int status)
+{
+	if ((status == 0 && (*list->content == '(' || !ft_strcmp(list->content, "--")|| !ft_strcmp(list->content, "++"))) ||
+			(status == 1 && (!ft_strcmp(list->content, "--") || !ft_strcmp(list->content, "++"))) ||
+			/*(status == 2 && (!ft_strcmp(list->content, "-") || !ft_strcmp(list->content, "+"))) ||*/
+			(status == 3 && ft_isin(*list->content, "~!")) ||
+			(status == 4 && !ft_strcmp(list->content, "**")) ||
+			(status == 5 && ft_isin(*list->content, "*/")) ||
+			(status == 6 && ft_isin(*list->content, "-+")) ||
+			(status == 7 && !ft_strcmp(list->content, "++")) ||
+			(status == 8 && !ft_strcmp(list->content, "==")) ||
+			(status == 9 && !ft_strcmp(list->content, "^")) ||
+			(status == 10 && !ft_strcmp(list->content, "|")) ||
+			(status == 11  && !ft_strcmp(list->content, "&&")) ||
+			(status == 12 && !ft_strcmp(list->content, "||")) ||
+			(status == 13 && !ft_strcmp(list->content, "?")))
+		list = pre_op(list);
+	return(list);
+}
+
+int	the_order(t_do_op *begin)
+{
+	int i;
+	t_do_op *list;
+
+	i = -1;
+	while (begin && begin->next && ++i < 17)
+	{
+		list = begin;
+		while (list && list->next)
+		{
+			list = if_function(list, i);
+			list && list->next ? list = list->next : 0;
+		}
+	}
+	return (begin ? begin->value : 0);
 }
 
 void	set_assign(t_do_op *list)
@@ -66,29 +105,9 @@ void	set_assign(t_do_op *list)
 	while (list->prev)
 	{
 		if (list->code < 10 && list->code >= 0)
-			list->prev->value = browse_list(list, 0);
+			list->prev->value = the_order(list);
 		list = list->prev;
 	}
-}
-
-int		browse_last(t_do_op *list)
-{
-	t_do_op	*tmp;
-	int		res;
-
-	if (!list)
-		return (0);
-	if (!list->next)
-		return (list->value);
-	tmp = list;
-	list->value = do_op(list, list->next, list->next->next);
-	list = list->next->next->next;
-	while (list)
-	{
-		tmp->value = do_op(tmp, list, list->next);
-		list = list->next->next;
-	}
-	return (tmp->value);
 }
 
 int		exec_op(char **tb)
@@ -106,14 +125,10 @@ int		exec_op(char **tb)
 		list->next ? list->next->prev = list : 0;
 		list->content = tb[i];
 		list->code = get_sep(tb[i], OPE);
-		if (ft_charchr('(', tb[i]) >= 0)
-		{
-			list->code = PARENTH;
-			ft_strcpy(list->content, &list->content[1]);
-		}
-	//	ft_printf("{red}%s %d{reset}\n", tb[i], list->code);
+		//	ft_printf("{red}%s %d{reset}\n", tb[i], list->code);
 		list = list->next;
 	}
 	ft_memdel((void**)&tb);
-	return (browse_list(begin, 0));
+	return (the_order(begin));
+	//return (browse_list(begin, 0));
 }
