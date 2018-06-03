@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 12:06:05 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/03 15:36:24 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/03 16:40:18 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ int	 parse_op(char *str)
 			&& ((tab_len <= 0 || get_sep(op_tb[tab_len - 1], all) >= 0)
 			|| (!op_tb[tab_len + 1] || get_sep(op_tb[tab_len + 1], all) >= 0))))
 			exit(ft_printf("2 operators\n"));
-		if (get_sep(op_tb[tab_len], ASSIGN) >= 0 && ft_str_isdigit(op_tb[tab_len - 1]))
-			exit(ft_printf("lvalue required"));
+		if (get_sep(op_tb[tab_len], ASSIGN) >= 0 && op_tb[tab_len][0] != '=' && ft_str_isdigit(op_tb[tab_len - 1]))
+			exit(ft_printf("lvalue required\n"));
 		if (ft_mcharchr("*/%", op_tb[tab_len]) >= 0)
 		{
 			if (ft_str_isdigit(op_tb[tab_len - 1]) && !ft_atoi(op_tb[tab_len - 1 ]))
@@ -84,5 +84,5 @@ int	 parse_op(char *str)
 
 int	main()
 {
-	ft_printf("%d\n", parse_op("1 || 2"));
+	ft_printf("%d\n", parse_op("1|2 2"));
 }

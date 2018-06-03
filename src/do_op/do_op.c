@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 11:08:36 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/03 15:36:40 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/03 16:45:23 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ int (**f_opget(void))(int, int)
 
 int		get_value(t_do_op *tmp)
 {
+	char *s;
+	int i;
+
 	if (!tmp)
 		return (0);
 	if (tmp->is_set)
@@ -48,7 +51,10 @@ int		get_value(t_do_op *tmp)
 	tmp->is_set = 1;
 	if (ft_str_isdigit(tmp->content))
 		return (ft_atoi(tmp->content));
-	return (is_local(tmp->content));
+	s = ft_variable_pars(tmp->content);
+	i = ft_atoi(s);
+	ft_memdel((void**)&s);
+	return (i);
 }
 
 int		do_op(t_do_op *a, t_do_op *op, t_do_op *b)
@@ -59,9 +65,9 @@ int		do_op(t_do_op *a, t_do_op *op, t_do_op *b)
 		f_op = f_opget();
 	a->value = get_value(a);
 	b->value = get_value(b);
+	op->code = get_sep(op->content, OPE) ;
+	op->code < 0 ? op->code = get_sep(op->content, COMP) : 0;
+	//ft_printf("%d %d %d\n", a->value, op->value, b->value);
 	//ft_printf("%s %s %s\n", a->content, op->content, b->content);
 	return (f_op[op->code](a ? a->value : 0, b ? b->value : 0));
 }
-
-int		is_local(char *str);
-

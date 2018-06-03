@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 14:33:00 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/03 15:38:20 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/03 15:40:14 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int		ft_log_and(int a, int b)
 
 int		ft_log_or(int a, int b)
 {
-	ft_printf("ici\n");
 	return (a || b);
 }
 

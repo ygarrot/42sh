@@ -1,7 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exe_op.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/03 15:43:55 by ygarrot           #+#    #+#             */
+/*   Updated: 2018/06/03 16:48:29 by ygarrot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/sh.h"
-
-
-#define PARENTH 0xF00000
 
 void	free_op(t_do_op *tmp)
 {
@@ -17,7 +26,6 @@ t_do_op	*pre_op(t_do_op *list)
 
 	if (*list->content == '(')
 	{
-		ft_printf("ici\n");
 		ft_strcpy(list->content, &list->content[1]);
 		list->value = parse_op(list->content);
 		list->is_set = 1;
@@ -30,6 +38,7 @@ t_do_op	*pre_op(t_do_op *list)
 	free_op(list->next);
 	list->is_set = 1;
 	list->next = tmp;
+	ft_printf("[%d]\n", list->value);
 	return (list);
 }
 
@@ -62,6 +71,7 @@ int	the_order(t_do_op *begin)
 	t_do_op *list;
 
 	i = -1;
+# define ASSIGN (char *[14]){"*=", "/=", "%=", "+=", "-=", "<<=", ">>=", "&=", "^=", "|=", "="}
 	while (begin && begin->next && ++i < 17)
 	{
 		list = begin;
@@ -74,16 +84,24 @@ int	the_order(t_do_op *begin)
 	return (begin ? begin->value : 0);
 }
 
-void	set_assign(t_do_op *list)
+int	set_assign(t_do_op *list)
 {
+	char *tmp;
+
 	while (list->next)
 		list = list->next;
 	while (list->prev)
 	{
-		if (list->code < 10 && list->code >= 0)
+		if (get_sep(list->content, ASSIGN) >= 0)
+		{
 			list->prev->value = the_order(list);
+			tmp = ft_itoa(list->prev->value);
+			ft_variable_builtin(ft_implode('=', list->content, tmp));
+			ft_memdel((void**)&tmp);
+		}
 		list = list->prev;
 	}
+	return (the_order(list));
 }
 
 int		exec_op(char **tb)
@@ -100,12 +118,9 @@ int		exec_op(char **tb)
 		tb[i + 1] ? list->next = (t_do_op*)ft_memalloc(sizeof(t_do_op)) : 0;
 		list->next ? list->next->prev = list : 0;
 		list->content = tb[i];
-		list->code = get_sep(tb[i], OPE) ;
-		list->code >= 0 ? list->code = get_sep(tb[i], COMP) + 13 : 0;
 		//	ft_printf("{red}%s %d{reset}\n", tb[i], list->code);
 		list = list->next;
 	}
 	ft_memdel((void**)&tb);
-	return (the_order(begin));
-	//return (browse_list(begin, 0));
+	return (set_assign(begin));
 }
