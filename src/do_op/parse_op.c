@@ -18,11 +18,8 @@
 
 #include "../../includes/sh.h"
 
-int		parenth(char **str, int i, char rep)
+int		parenth(char **str, int i, char rep, bool recc)
 {
-	int tmp;
-
-	tmp = i;
 	if (!*str)
 		return (1);
 	while ((*str)[++i])
@@ -31,11 +28,11 @@ int		parenth(char **str, int i, char rep)
 		{
 			while ((*str)[++i])
 			{
-				if ((*str)[i] == ')' && ((tmp < 0 ? (*str)[i] = rep : 0) || 1))
+				if ((*str)[i] == ')' && ((!recc ? (*str)[i] = rep : 0) || 1))
 				{
 					return (i);
 				}
-				if ((*str)[i] == '(' && (i = parenth(str, i - 1, rep)) < 0)
+				if ((*str)[i] == '(' && (i = parenth(str, i - 1, rep, 1)) < 0)
 					return (-ft_printf("Parenthesis error\n"));
 			}
 			return (-1);
@@ -55,7 +52,7 @@ char	*parse_op(char *str)
 	tab_len = ft_tablen(op_tb) ;
 	while (--tab_len + 1)
 	{
-		if (parenth(&op_tb[tab_len], -1, '\0') < 0 || (get_sep(op_tb[tab_len], all) >= 0
+		if (parenth(&op_tb[tab_len], -1, '\0', 0) < 0 || (get_sep(op_tb[tab_len], all) >= 0
 			&& ((tab_len <= 0 || get_sep(op_tb[tab_len - 1], all) >= 0)
 			|| (!op_tb[tab_len + 1] || get_sep(op_tb[tab_len + 1], all) >= 0))))
 			exit(ft_printf("2 operators\n"));
