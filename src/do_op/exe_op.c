@@ -27,7 +27,7 @@ t_do_op	*pre_op(t_do_op *list)
 	if (*list->content == '(')
 	{
 		ft_strcpy(list->content, &list->content[1]);
-		list->value = parse_op(list->content);
+		list->value = ft_atoi(parse_op(list->content));
 		list->is_set = 1;
 		return (list);
 	}
@@ -38,7 +38,7 @@ t_do_op	*pre_op(t_do_op *list)
 	free_op(list->next);
 	list->is_set = 1;
 	list->next = tmp;
-	ft_printf("[%d]\n", list->value);
+	//ft_printf("[%d]\n", list->value);
 	return (list);
 }
 
@@ -104,7 +104,7 @@ int	set_assign(t_do_op *list)
 	return (the_order(list));
 }
 
-int		exec_op(char **tb)
+char		*exec_op(char **tb)
 {
 	t_do_op		*list;
 	t_do_op		*begin;
@@ -122,5 +122,5 @@ int		exec_op(char **tb)
 		list = list->next;
 	}
 	ft_memdel((void**)&tb);
-	return (set_assign(begin));
+	return (ft_itoa(set_assign(begin)));
 }

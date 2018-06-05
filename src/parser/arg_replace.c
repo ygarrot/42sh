@@ -48,6 +48,7 @@ void	arg_replace(t_shell *sh, char **arg)
 	while ((*arg)[++i])
 	{
 		i += skip_double(&(*arg)[i]);
+		sub_ar(sh, arg, i);
 		comm_substitute(sh, arg, i);
 		assign(sh, arg, i);
 		if (!arg[0] || !arg[0][i])

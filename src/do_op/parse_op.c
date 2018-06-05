@@ -18,15 +18,7 @@
 
 #include "../../includes/sh.h"
 
-int		is_local(char *str)
-{
-	if (1)
-		return (1);
-	else if (2)
-		return (0);
-}
-
-int		parenth(char **str, int i)
+int		parenth(char **str, int i, char rep)
 {
 	int tmp;
 
@@ -39,11 +31,11 @@ int		parenth(char **str, int i)
 		{
 			while ((*str)[++i])
 			{
-				if ((*str)[i] == ')' && ((tmp < 0 ? (*str)[i] = '\0' : 0) || 1))
+				if ((*str)[i] == ')' && ((tmp < 0 ? (*str)[i] = rep : 0) || 1))
 				{
 					return (i);
 				}
-				if ((*str)[i] == '(' && (i = parenth(str, i - 1)) < 0)
+				if ((*str)[i] == '(' && (i = parenth(str, i - 1, rep)) < 0)
 					return (-ft_printf("Parenthesis error\n"));
 			}
 			return (-1);
@@ -52,11 +44,10 @@ int		parenth(char **str, int i)
 	return (i);
 }
 
-int	 parse_op(char *str)
+char	*parse_op(char *str)
 {
 	char	**op_tb;
 	int			tab_len;
-	int		res;
 
 	ft_printf("{red}[%s]{reset}\n", str);
 	char **all = ft_strsplit(ALL_OP, ' ');
@@ -64,7 +55,7 @@ int	 parse_op(char *str)
 	tab_len = ft_tablen(op_tb) ;
 	while (--tab_len + 1)
 	{
-		if (parenth(&op_tb[tab_len], -1) < 0 || (get_sep(op_tb[tab_len], all) >= 0
+		if (parenth(&op_tb[tab_len], -1, '\0') < 0 || (get_sep(op_tb[tab_len], all) >= 0
 			&& ((tab_len <= 0 || get_sep(op_tb[tab_len - 1], all) >= 0)
 			|| (!op_tb[tab_len + 1] || get_sep(op_tb[tab_len + 1], all) >= 0))))
 			exit(ft_printf("2 operators\n"));
@@ -79,9 +70,4 @@ int	 parse_op(char *str)
 		}
 	}
 	return (exec_op(op_tb));
-}
-
-int	main()
-{
-	ft_printf("%d\n", parse_op("1|2 2"));
 }

@@ -29,5 +29,6 @@ int		ft_xor(int a, int b)
 
 int		ft_bitneg(int a, int b)
 {
+	(void)b;
 	return(~a);
 }

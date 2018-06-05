@@ -37,6 +37,14 @@ SRC_FP += \
 		completion/ft_completion_type.c \
 		completion/ft_getdir.c
 
+SRC_FP +=\
+		variables/ft_export.c \
+		variables/ft_unset.c \
+		variables/ft_variable.c \
+		variables/ft_variable_create.c \
+		variables/ft_variable_misc.c \
+		variables/ft_variablepars.c
+
 SRC_FP += \
 		  env/ft_storeenv.c
 
@@ -75,6 +83,7 @@ SRC_FP += \
 		  misc/ft_opendir.c
 
 SRC_FP += \
+		  parser/ins_do_op.c \
 		  parser/interpreter.c \
 		  parser/lexer.c \
 		  parser/arg_replace.c \
@@ -123,6 +132,17 @@ SRC_FP += \
 		  write/ft_printstr.c \
 		  write/ft_select.c \
 		  write/ft_select_reset.c
+
+SRC_FP += \
+		 do_op/do_op.c \
+		 do_op/exe_op.c \
+		 do_op/ft_bitwise.c \
+		 do_op/ft_comp.c \
+		 do_op/ft_split_custom.c \
+		 do_op/logic_op.c \
+		 do_op/op.c \
+		 do_op/parse_op.c \
+		 do_op/skip_char.c
 
 #Colors
 _RED=\x1b[31m

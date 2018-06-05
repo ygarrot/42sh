@@ -316,6 +316,8 @@ int			write_env(char **env);
 ** substitute functions
 */
 
+int		bracket(char *str, char *brack);
+void sub_ar(t_shell *sh, char **arg, int i);
 void		get_sub(t_shell *sh);
 void		comm_substitute(t_shell *sh, char **str, int i);
 

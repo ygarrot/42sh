@@ -115,6 +115,7 @@ SRC += \
 	   str/ft_strlento.c \
 	   str/ft_strinstr.c \
 	   str/ft_strprefix.c \
+	   str/ft_str_isdigit.c \
 	   str/ft_strdupto.c \
 	   str/ft_strlento_rev.c
 
