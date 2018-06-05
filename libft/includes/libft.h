@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 15:23:29 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/05/25 10:11:56 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/05/27 15:40:21 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,6 @@ void			ft_strdel(char **as);
 void			ft_striter(char *s, void (*f)(char *));
 void			ft_striteri(char *s, void (*f)(unsigned int, char *));
 void			ft_strswap(char *str, char *str2);
-
 
 char			**ft_strtabdup(char **tabl);
 char			*ft_strdupto(char *str, char to);

@@ -6,56 +6,64 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/04 16:56:40 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/05/18 14:43:08 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/05/26 16:03:31 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/sh.h"
 
-void		ft_putendv_fd(char *str, int fd)
+int			ft_setenv_new(char ***env, char *str, char *value)
 {
-	if (!str || fd < 0)
-		return ;
-	ft_putstr_fd(str, fd);
-	write(fd, "\v", 1);
-}
+	size_t	i;
+	size_t	j;
+	int		k;
+	char	**new;
 
-static void	ft_setenvnext(char **env, char **arg, size_t j, int fd)
-{
-	if (*env)
-		env++;
-	ft_putstr_fd(arg[1], fd);
-	ft_putstr_fd("=", fd);
-	ft_putendv_fd(arg[2], fd);
-	while (*env && (ft_strncmp(arg[1], *env, j) ||
-				env[0][j] != '='))
-	{
-		ft_putendv_fd(*env, fd);
-		env++;
-	}
-	close(fd);
+	i = 0;
+	while (env[0][i])
+		i++;
+	if (!(new = (char**)malloc(sizeof(char*) * (i + 2))))
+		return (0);
+	i = 0;
+	k = 0;
+	j = ft_strlen(str);
+	while (env[0][i] && (ft_strncmp(env[0][i], str, j) || env[0][i][j] != '='))
+		new[k++] = env[0][i++];
+	new[i] = value;
+	i += (env[0][i] == 0 ? 0 : 1);
+	ft_strdel(&env[0][k]);
+	while (env[0][i])
+		new[k++ + 1] = env[0][i++];
+	new[k + 1] = 0;
+	free(*env);
+	*env = new;
+	return (0);
 }
 
 void		ft_setenv(char **arg, char ***env)
 {
-	int		i;
-	size_t	j;
-	int		fd;
+	char	*value;
 
-	if (!arg || !env || !*env || (i = 0))
+	env = ft_storeenv(0);
+	if (!arg || !env || !*env)
 		write(STDOUT_FILENO, "\n", 1);
 	else if (!*arg || !arg[1])
 		ft_putendl_fd("21sh: setenv VARNAME [VARVALUE]", 2);
 	else
 	{
-		if ((fd = open(ft_getenvfile(CODE_ENVGET), O_WRONLY | O_CREAT |
-						O_TRUNC)) < 0)
-			exit(EXIT_FAILURE);
-		j = ft_strlen(arg[1]);
-		while ((*env)[i] && (ft_strncmp(arg[1], (*env)[i], j) ||
-				(*env)[i][j] != '='))
-			ft_putendv_fd(env[0][i++], fd);
-		ft_setenvnext(&(env[0][i]), arg, j, fd);
+		if ((value = (char*)malloc(ft_strlen(arg[1]) + ft_strlen(arg[2]) + 2)))
+		{
+			value[0] = 0;
+			ft_strcat(value, arg[1]);
+			ft_strcat(value, "=");
+			if (arg[2])
+				ft_strcat(value, arg[2]);
+		}
+		if (!value || ft_setenv_new(env, arg[1], value) == -1)
+		{
+			ft_strdel(&value);
+			ft_errorlog("Failed to insert an element in the env");
+			ft_putstr_fd("Failed to insert an element in the env\n", 2);
+		}
 	}
-	exit(EXIT_SUCCESS);
 }

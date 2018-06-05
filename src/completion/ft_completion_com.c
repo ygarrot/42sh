@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 13:51:09 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/05/25 13:00:05 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/05/26 15:29:51 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ char	*ft_completion_com(char *left, int loc, int bl, int sep)
 
 	if (!left)
 		return (0);
-	if (!(path = ft_getenvfromfile("PATH")))
+	if (!(path = ft_strdup(ft_getenv_fromroot("PATH"))))
 		return (0);
-	i[0] = 5;
+	i[0] = 0;
 	right = 0;
 	while (loc > 0 && path[i[0]])
 	{
@@ -62,7 +62,7 @@ char	*ft_completion_com(char *left, int loc, int bl, int sep)
 		i[0] = i[1];
 	}
 	ft_strdel(&path);
-	path = loc == -1 ? ft_strdup(" ") : ft_straddsep(right, bl, sep);
+	path = (loc == -1 ? ft_strdup(" ") : ft_straddsep(right, bl, sep));
 	ft_strdel(&right);
 	return (path);
 }

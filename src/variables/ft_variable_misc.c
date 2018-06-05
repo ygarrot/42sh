@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_variable_misc.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/09 11:58:27 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/05/26 13:29:13 by ygarrot          ###   ########.fr       */
+/*   Created: 2018/05/29 11:48:51 by tcharrie          #+#    #+#             */
+/*   Updated: 2018/06/03 14:40:52 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/sh.h"
+#include "sh.h"
 
-void	ft_exit(t_shell *sh)
+int	ft_variablecmp(void *left, void *right)
 {
-	ft_terminal_reset(0);
-	erase_shell(sh);
-	ft_printf("exit\n");
-	exit(EXIT_SUCCESS);
+	if (!left || !right)
+		return (0);
+	return (ft_strcmp(((t_variable*)left)->name, ((t_variable*)right)->name));
 }

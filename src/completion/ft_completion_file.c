@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 16:42:56 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/05/25 15:05:02 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/05/27 14:06:31 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char		*ft_completion_getfilename(char *left, int loc, int bl, int sep)
 	left = ((*left == '~') ? (left + 1) : (left));
 	if (ft_isin('/', left))
 		left += ft_strlento_rev(left, ft_strlen(left), "/") + 1;
-	i =  ft_strlen(left);
+	i = ft_strlen(left);
 	right = 0;
 	while (loc > 0 && (file = readdir(dir)))
 	{

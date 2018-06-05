@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 13:41:24 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/05/18 11:54:19 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/05/29 11:33:59 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,20 @@ void	assign(t_shell *sh, char **arg, int i)
 	char	*todel;
 	int		len;
 
+	(void)sh;
 	if ((*arg)[i] == '$'
 			|| ((*arg)[i] == '~' && (!i || (*arg)[i - 1] == ' ')))
 	{
 		temp[0] = (*arg)[i] == '$' ? &(*arg)[i + 1] : "HOME";
 		len = ft_mcharchr(temp[0], " /*{\'\"");
-		len = len >= 0 ? len : ft_strlen(temp[0]);
+		len = len >= 0 ? (size_t)len : ft_strlen(temp[0]);
 		todel = ft_strndup(temp[0], len);
-		if (!(temp[1] = ft_getenv(sh->env, todel)))
+		if (!(temp[1] = ft_getenv_fromroot(todel)))
 			return ;
 		ft_memdel((void**)&todel);
-		todel = ft_strndup(*arg, i);
+		todel = (i > 0 ? ft_strndup(*arg, i) : ft_strdup(""));
 		temp[2] = *arg;
-		*arg = ft_implode(&temp[1][len + 1], todel
+		*arg = ft_implode(temp[1], todel
 				, &(*arg)[i + 1 + ((*arg)[i] == '$' ? len : 0)]);
 		ft_memdel((void**)&temp[2]);
 		ft_memdel((void**)&todel);
@@ -42,14 +43,14 @@ void	arg_replace(t_shell *sh, char **arg)
 	int		i;
 
 	i = -1;
-	if (!*arg)
+	if (!arg || !*arg)
 		return ;
 	while ((*arg)[++i])
 	{
-		comm_substitute(sh, arg, i);
 		i += skip_double(&(*arg)[i]);
+		comm_substitute(sh, arg, i);
 		assign(sh, arg, i);
-		if (!(*arg)[i])
+		if (!arg[0] || !arg[0][i])
 			return ;
 	}
 }
@@ -127,8 +128,8 @@ void	get_sub(t_shell *sh)
 	safe_dup(-1, 0, sh->sub.pipe);
 	if (dup2(sh->std[0], STDIN_FILENO) == -1
 		|| dup2(sh->std[1], STDOUT_FILENO) == -1)
-		{
-			ft_printf("STD dup error\n");
-			ft_exit(sh);
-		}
+	{
+		ft_printf("STD dup error\n");
+		ft_exit(sh);
+	}
 }

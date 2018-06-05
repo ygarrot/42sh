@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 10:45:56 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/05/08 12:21:35 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/05/26 16:26:28 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ int		ft_sigint_clear(t_line *line)
 	ft_strdel(&(line->line));
 	ft_strdel(&(line->eof));
 	tputs(tgetstr("cd", 0), 0, writechar);
-	ft_putchar('\n');
+	ft_printf("{whiteblack}\n");
 	return (SIGINT);
 }

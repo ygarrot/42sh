@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 19:03:40 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/03 15:27:43 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/03 16:44:05 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,19 @@ int			ft_recoverenv(char ***env);
 char		*ft_getenvfile(int code);
 int			ft_envwrite(char *file, char **env);
 void		ft_initenv(char ***env);
-void		ft_init_terminal_data(char **env);
+void		ft_init_terminal_data(void);
 int			ft_setattr(void);
 int			ft_terminal_reset(t_termios *term);
 void		ft_initsig(void);
 void		ft_sig_line(int sig);
+
+/*
+** Fonction d'environnement
+*/
+
+char		***ft_storeenv(char **env);
+char		*ft_getenv_fromroot(char *str);
+int			ft_recoverenv(char ***env);
 
 /*
 ** Fonction d'historique
@@ -72,6 +80,7 @@ void		ft_heredoc_purge(char *str, int size, t_parser *parser);
 int			ft_specialchar(t_line *line, char *str, int *val);
 int			ft_specialchar_a(t_line *line, char *str, int *val);
 int			ft_lentospecial(char *str);
+int			ft_lenchar_joker(char *str);
 
 /*
 ** Move on the screnn
@@ -123,6 +132,7 @@ int			ft_lennline(char *str, int line, int col);
 
 int			ft_realloc_line(t_line *line, int *val, int newsize);
 int			ft_insert_noalloc(char *src, char *str, int size);
+size_t		ft_strlen_vis(char *str);
 
 /*
 ** Fonction de suppression
@@ -146,13 +156,6 @@ int			ft_selected_moveright(t_line *line, int *val);
 int			ft_selected_cpy(t_line *line, int *val);
 int			ft_selected_paste(t_line *line, int *val);
 int			ft_selected_reset(t_line *line, int *val);
-
-/*
-** Variable
-*/
-
-int			ft_variablecmp(void *left, void *right);
-t_variable	ft_variable_create(char *name, void *data, int deep);
 
 /*
 ** Fonction de traitement de la ligne
@@ -184,6 +187,26 @@ char		*ft_straddsep(char *str, int bl, int sep);
 char		*ft_strpurgesep(char *str);
 
 DIR			*ft_opendirfree(char *str);
+
+/*
+** Variables
+*/
+
+t_btree		**ft_variable(void);
+int			ft_variableadd(char *name, void *data, int deep, int deported);
+t_variable	*ft_variableget(char *name);
+
+void		ft_variabledel(void *var);
+t_variable	*ft_variable_create(char *name, void *data, int deep, int deported);
+int			ft_variable_checkname(char *str);
+void		ft_variable_builtin(char *str);
+
+char		*ft_variablepars(char *str);
+char		*ft_variablepar_bracket(char *str);
+size_t		ft_variablelen(t_variable var);
+char		*ft_variablestr(t_variable var);
+
+int			ft_variablecmp(void *left, void *right);
 
 /*
 ** ...
@@ -252,8 +275,8 @@ int			ft_setenvvar(char **env, char *cur, char *var);
 int			ft_strlento(char *str, char c);
 char		**ft_strtbdup(char **tb);
 char		*ft_getenv(char **tb, char *str);
-
-char		*ft_getenvfromfile(char *str);
+void		ft_unset(char **arg, char ***env);
+void		ft_export(char **arg, char ***env);
 
 /*
 ** exec
@@ -281,6 +304,7 @@ char		*enclosed(char *str, char c);
 ** redirections
 */
 
+void		set_redi_path(t_redi *redi);
 int			exec_pipe(t_shell *sh, char *comm, char **argv);
 void		reset_std(t_shell *sh, t_com *com, t_redi *redi);
 
@@ -323,56 +347,4 @@ int			ft_hashcmp(void *content, void *content2);
 void		btree_erase(t_btree **root, void *erase(void **));
 void		erase_hash_tab(t_btree **hash_tb);
 void		*erasehash(void **item);
-
-/*
-** math functions
-*/
-int	 parse_op(char *str);
-char			**ft_custom_split(char *s, char **tb);
-int (**f_opget(void))(int, int);
-int		calc_op(char **op_tb);
-
-int		is_local(char *str);
-int		get_value(t_do_op *tmp);
-int		do_op(t_do_op *a, t_do_op *op, t_do_op *b);
-int		browse_last(t_do_op *list);
-int		exec_op(char **tb);
-int		bracket(char *str, char *brack);
-/*
-** bitwise
-*/
-
-int		ft_left_shift(int a, int b);
-int		ft_right_shift(int a, int b);
-int		ft_log_or(int a, int b);
-int		ft_log_and(int a, int b);
-int		ft_and(int a, int b);
-int		ft_or(int a, int b);
-int		ft_xor(int a, int b);
-int		ft_bitneg(int a, int b);
-
-/*
-** classic op
-*/
-
-int		ft_mult(int a, int b);
-int		ft_summ(int a, int b);
-int		ft_div(int a, int b);
-int		ft_sub(int a, int b);
-int		ft_mod(int a, int b);
-
-int		skip_char(char *str, char *to_skip);
-int		ft_occiter2(char *str, int (*f)(int));
-
-/*
-** comp op
-*/
-
-int	ft_comp_infe(int a, int b);
-int	ft_comp_supe(int a, int b);
-int	ft_comp_inf(int a, int b);
-int	ft_comp_sup(int a, int b);
-int	ft_comp_neg(int a, int b);
-int	ft_comp(int a, int b);
-
 #endif

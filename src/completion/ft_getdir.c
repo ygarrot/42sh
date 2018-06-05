@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 11:46:02 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/05/25 15:05:19 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/05/27 14:07:27 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,28 +29,24 @@ static char	*ft_getdir_home(char *str)
 
 	if (!str)
 		return (0);
-	if (!(home = ft_getenvfromfile("HOME")))
+	if (!(home = ft_getenv_fromroot("HOME")))
 		return (0);
-	if ((i = ft_strlen(home)) < 5)
-		ft_strdel(&home);
 	if (!home)
 		return (0);
+	i = ft_strlen(home);
 	res = (char*)ft_memalloc(ft_strlen(str) + i);
 	if (!res)
-		ft_strdel(&home);
-	if (!res)
 		return (0);
-	ft_strcat(res, &home[5]);
-	res[i - 5] = (((i == 5 || res[i - 6] != '/') && str[1] != '/') ? ('/') : 0);
+	ft_strcat(res, home);
+	res[i] = (((i == 0 || res[i - 1] != '/') && str[1] != '/') ? ('/') : 0);
 	if (ft_isin('/', &str[1]))
 		ft_strncat(res, &str[1], ft_strlento_rev(&str[1], ft_strlen(str), "/"));
 	i = ft_strlen(res);
 	res[i] = ((i == 0 || res[i - 1] != '/') ? ('/') : (0));
-	ft_strdel(&home);
 	return (res);
 }
 
-char	*ft_getdir(char *str)
+char		*ft_getdir(char *str)
 {
 	char	*directory;
 	char	*tmp;

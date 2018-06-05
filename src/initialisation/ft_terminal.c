@@ -6,19 +6,18 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 09:52:26 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/05/15 15:00:10 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/05/27 14:58:48 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/sh.h"
 
-void	ft_init_terminal_data(char **env)
+void	ft_init_terminal_data(void)
 {
 	char	*termtype;
 	int		success;
 	char	term_buffer[2048];
 
-	(void)env;
 	if (!(termtype = getenv("TERM")))
 		ft_fatal("No terminal type is defined in the environment");
 	success = tgetent(term_buffer, termtype);

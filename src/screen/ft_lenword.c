@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 16:05:24 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/05/21 11:15:26 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/05/27 14:14:40 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int			ft_lenword_l(char *str, int pos)
 	if (pos <= 0)
 		return (1);
 	mov = 0;
-	while(pos > 0 && ft_isin(str[pos], ENDWORDVIS))
+	while (pos > 0 && ft_isin(str[pos], ENDWORDVIS))
 	{
 		mov++;
 		pos -= ft_lenchar_l(str, pos);

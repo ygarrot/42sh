@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 15:43:55 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/03 16:48:29 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/03 16:55:03 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	set_assign(t_do_op *list)
 		{
 			list->prev->value = the_order(list);
 			tmp = ft_itoa(list->prev->value);
-			ft_variable_builtin(ft_implode('=', list->content, tmp));
+			ft_variable_builtin(ft_implode("=", list->content, tmp));
 			ft_memdel((void**)&tmp);
 		}
 		list = list->prev;

@@ -35,7 +35,7 @@ int		ft_selected_moveleft(t_line *line, int *val)
 	if (!(str = val[4] ? line->line : line->eof))
 		return (-1);
 	if (val[2]-- == 1)
-		return ((int)ft_selected(0, CODE_SET));
+		return (ft_selected(0, CODE_SET) ? 0 : 0);
 	if (str[val[0] - 1] == '\n')
 		return (1);
 	if (ft_move_left(line, val) == -1)
@@ -58,7 +58,7 @@ int		ft_selected_moveright(t_line *line, int *val)
 	if (!(str[val[0]]) || str[val[0]] == '\n')
 		return (1);
 	if (val[2]++ == -1)
-		return ((int)ft_selected(0, CODE_SET));
+		return (ft_selected(0, CODE_SET) ? 0 : 0);
 	ft_printf((val[2] > 0) ? ("{blackcyan}%.*s") : ("{whiteblack}%.*s"),
 			ft_lenchar_r(str, val[0]), &str[val[0]]);
 	val[0] += ft_lenchar_r(str, val[0]);

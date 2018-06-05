@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 12:04:19 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/02 13:04:02 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/02 11:03:49 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct	s_variable
 	char	*name;
 	char	*str;
 	char	**array;
+	int		deported;
 }				t_variable;
 
 typedef struct	s_direction
@@ -72,6 +73,7 @@ typedef struct	s_com
 	int				type;
 	t_tb			*tb;
 	t_redi			*redi;
+	bool			tmp;
 	struct s_com	*next;
 }				t_com;
 
@@ -81,6 +83,7 @@ typedef struct	s_parser
 	char			op[3];
 	char			type;
 	int				wait;
+	int				drop;
 	struct s_parser	*next;
 }				t_parser;
 
@@ -100,10 +103,9 @@ typedef struct	s_hash
 
 typedef struct	s_shell
 {
-	void		(*f_built[5])(char **av, char ***argv);
+	void		(*f_built[7])(char **av, char ***argv);
 	t_btree		**hash_tb;
 	int			std[3];
-	int			fd;
 	char		*here_doc;
 	char		**env;
 	t_com		*begin;
@@ -124,22 +126,6 @@ struct			s_glob
 	int				nb_paths;
 	t_paths			*paths;
 };
-
-/*typedef struct s_do_op
-{
-	int		(*f_built[20])(int a, int b);
-}				t_do_op;*/
-
-typedef struct s_do_op 
-{
-    struct s_do_op *prev;
-    struct s_do_op *next;
-    char *content;
-	bool	is_set;
-	int		value;
-	int		code;
-}		t_do_op;
-
 
 typedef struct	s_line
 {

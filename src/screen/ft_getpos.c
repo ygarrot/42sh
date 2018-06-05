@@ -38,11 +38,9 @@ static int	ft_getpos_a(int *x, int *y, char *buff, int re)
 int			ft_getpos(int *x, int *y)
 {
 	char	*buff;
-	int		lim;
 
 	if (!x || !y || !write(STDOUT_FILENO, "\33[6n", 4))
 		return (-1);
-	lim = 10;
 	if (!(buff = ft_readtostr("\33[", 'R', STDIN_FILENO, 100)))
 	{
 		ft_errorlog("Failed to get the cursor position on screen");

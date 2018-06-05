@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 11:21:22 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/05/21 15:03:49 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/05/27 14:12:22 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	ft_completion_type_isdot(char *str, int *val, int i, int max)
 	}
 	if (i >= max)
 		return (0);
-	if (ft_isin(str[i], "./"))
+	if (ft_isin(str[i], "./~"))
 		return (COMPLETION_FILE);
 	return (COMPLETION_COM);
 }
@@ -58,7 +58,7 @@ static int	ft_completion_type_nobq(char *str, int *val, int i, int j)
 {
 	if (i == j || j < 0 || i < 0)
 		return (0);
-if (i == 0)
+	if (i == 0)
 		return (ft_completion_type_isdot(str, val, j, val[0] - val[1]));
 	while (i > 0 && (ft_isin(str[i], " \n") || (ft_isin(str[i], "'\"") &&
 			str[i] == str[i - 1])))
@@ -67,11 +67,12 @@ if (i == 0)
 		return (0);
 	if (i > 0 && !ft_isin(str[i], "<>&|; \n"))
 		return ((ft_completion_type_isdot(str, val, j, val[0] - val[1]))
-		? (COMPLETION_FILE) : (0));
-	if (i == 0 && !ft_isin(str[i], "<>&|; \n"))
+				? (COMPLETION_FILE) : (0));
+	else if (i == 0 && !ft_isin(str[i], "<>&|; \n"))
 		return ((ft_completion_type_isdot(str, val, j, val[0] - val[1]))
-		? (COMPLETION_FILE) : (0));
-	return (ft_completion_type_isdot(str, val, j, val[0] - val[1]));
+				? (COMPLETION_FILE) : (0));
+	else
+		return (ft_completion_type_isdot(str, val, j, val[0] - val[1]));
 }
 
 int			ft_completion_type(t_line *line, int *val)

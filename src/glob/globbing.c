@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/26 16:50:42 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/05/06 13:26:08 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/05/26 15:35:43 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		brace(char **str, char **match)
 	int		temp;
 
 	i = 1;
-	if (**match != '{')
+	if (**match != '{' || ft_charchr('}', &(*match)[1]) < 0)
 		return (0);
 	len = ft_strlento_comm(*match, "}");
 	while (match[0][i - 1] != '}')

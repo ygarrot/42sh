@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 15:40:03 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/05/18 11:36:14 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/05/27 15:02:03 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,8 @@ int			get_hdoc(char *str, int i, t_parser *par)
 		{
 			while (str[i] == ' ')
 				i++;
-			todel = ft_strndup(&str[i],
-		(hdoc = search_op(&str[i], HD) >= 0 ||
-		(hdoc = ft_isin(str[i], NORM)) ? hdoc + 1 : ft_strlen(&str[i])));
+			todel = ft_strndup(&str[i], (hdoc = search_op(&str[i], HD) >= 0 ||
+		(hdoc = ft_isin(str[i], NORM)) ? hdoc + 1 : (int)ft_strlen(&str[i])));
 			par = push_front(par, ft_find_and_replace(todel, "\\", 1), 0);
 			ft_memdel((void**)&todel);
 		}
@@ -66,7 +65,7 @@ int			sizeof_comm(char *str, t_parser *par)
 	par->wait = par->wait >= 0 && par->wait < 3 ? 1 : 0;
 	if (str[i] && (str[i] == ';' || ft_strnstr(&str[i], ";;", 2)))
 		return (!ft_strnstr(&str[i], ";;", 2) ? i | 1 : -1);
-	return (i || !str[i] ? i + sep : -1);
+	return (i || !str[i] || str[i] == '\n' ? i + sep : -1);
 }
 
 t_parser	*count_parser(char *str)

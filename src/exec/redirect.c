@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 11:59:55 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/05/18 12:28:15 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/02 11:41:21 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		stream(t_shell *sh, t_redi *redi)
 						O_RDWR | O_CREAT | O_APPEND, S_IRWXU)) < 0)
 			return (-ft_printf("21sh: no such file: %s\n", redi->path));
 		ft_putstr_fd(sh->here_doc, redi->fd[1]);
-		sh->here_doc += ft_strlen(sh->here_doc);
+		sh->here_doc += ft_strlen(sh->here_doc) + 1;
 		close(redi->fd[1]);
 		redi->fd[1] = -1;
 	}
@@ -46,22 +46,20 @@ int		stream(t_shell *sh, t_redi *redi)
 		(!redi->type || redi->type == 5 ? O_CREAT : 0)
 		| (redi->type == 1 ? O_APPEND : 0);
 	if (redi->fd[1] < 0 && (redi->fd[1] = open(redi->path, flag, right)) < 0)
-		return (-ft_printf("yosh: no such file: %s\n", redi->path));
-	if (dup2(redi->fd[1], redi->fd[0]) == -1)
+		return (-ft_printf("21sh: no such file: %s\n", redi->path));
+	if (!sh->com->tmp && dup2(redi->fd[1], redi->fd[0]) == -1)
 		return (-ft_printf("Failed to dup2\n"));
+	if (sh->com->tmp)
+		close(redi->fd[1]);
 	return (1);
 }
 
 int		set_redi(t_shell *sh, t_redi *redi)
 {
 	redi->fd[1] = -1;
-	if (!redi->type)
-	{
-		mallcheck(redi->path = (char*)ft_memalloc(18 * (sizeof(char))));
-		ft_strcpy(redi->path, "/tmp/.sh_heredoc");
-		redi->path[16] = redi->fd[0] + '0';
-	}
-	if (redi->type == 2 || redi->type == 3)
+	if (sh->com->tmp && !redi->type)
+		return (1);
+	if (!sh->com->tmp && (redi->type == 2 || redi->type == 3))
 	{
 		if (!ft_strcmp(redi->path, "-"))
 			return (close(redi->fd[0]));
@@ -73,13 +71,27 @@ int		set_redi(t_shell *sh, t_redi *redi)
 
 int		exec_redi(t_shell *sh, t_redi *tmp)
 {
+	t_com	*co;
+	int		ret;
+
+	ret = 0;
+	co = sh->com;
 	while (tmp)
 	{
 		if (set_redi(sh, tmp) <= 0)
 			return (-1);
 		tmp = tmp->next;
 	}
-	return (0);
+	if (((sh->com->type & 4 && sh->com->tmp)
+	|| !(sh->com->type & 4)) && (sh->com->next && sh->com->next->type & 4))
+	{
+		sh->com = sh->com->next;
+		sh->com->tmp = 1;
+		ret = exec_redi(sh, sh->com->redi);
+		sh->com->tmp = 0;
+	}
+	sh->com = co;
+	return (ret);
 }
 
 int		exec_pipe(t_shell *sh, char *comm, char **argv)
@@ -101,6 +113,7 @@ int		exec_pipe(t_shell *sh, char *comm, char **argv)
 		if (safe_dup(pipe_fd[1], STDOUT_FILENO, pipe_fd))
 			exit(EXIT_FAILURE);
 		parse_exe(sh, comm, argv);
+		
 	}
 	else if (father < 0)
 		return (-ft_printf("sh : fork error : %d", father));

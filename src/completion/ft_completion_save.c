@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 11:25:55 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/05/25 14:56:50 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/05/27 14:07:11 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		ft_completion_count(int code)
 	return (0);
 }
 
-int			ft_completion_lastwrite(int code, int val)
+int		ft_completion_lastwrite(int code, int val)
 {
 	static int	save = 0;
 
@@ -38,7 +38,7 @@ int			ft_completion_lastwrite(int code, int val)
 	return (0);
 }
 
-int			ft_completion_savetype(int code, int val)
+int		ft_completion_savetype(int code, int val)
 {
 	static int	save = 0;
 
@@ -51,7 +51,7 @@ int			ft_completion_savetype(int code, int val)
 	return (0);
 }
 
-char		*ft_completion_saveleft(int code, char *left)
+char	*ft_completion_saveleft(int code, char *left)
 {
 	static char	*save = 0;
 
@@ -67,7 +67,7 @@ char		*ft_completion_saveleft(int code, char *left)
 	return (0);
 }
 
-int			ft_completion_reset(void)
+int		ft_completion_reset(void)
 {
 	ft_completion_count(CODE_RESET);
 	ft_completion_lastwrite(CODE_RESET, 0);

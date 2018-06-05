@@ -22,5 +22,5 @@ void	*ft_memset(void *b, int c, size_t len)
 		((unsigned char*)b)[i] = (unsigned char)c;
 		i++;
 	}
-	return (&b[0]);
+	return (b);
 }

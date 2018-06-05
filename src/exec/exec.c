@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 15:45:17 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/05/26 11:23:11 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/02 11:41:23 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,29 @@
 int		wait_exec(t_shell *sh, char **arg)
 {
 	char	*tmp;
+	int		ind;
 
 	if (!ft_strcmp(*arg, "exit"))
 		ft_exit(sh);
-	if (!ft_strcmp(*arg, "cd"))
+	if ((ind = ft_strisin_tab(arg[0], BUILT, 0)) >= 2)
 	{
 		if (exec_redi(sh, sh->com->redi) < 0)
 			return (-1);
-		ft_cd(arg, &sh->env);
+		if (sh->com->type & 4 || (sh->com->next && sh->com->next->type & 4))
+			return (exe(sh, *arg, arg));
+		sh->f_built[ind](arg, &sh->env);
 		return (1);
 	}
 	if (sh->hash_tb && (tmp = ft_get_hash(sh->hash_tb, *arg)))
 		return (exe(sh, tmp, arg));
-	if (ft_strisin_tab(arg[0], BUILT, 0) >= 0)
+	if ((ind = ft_strisin_tab(arg[0], BUILT, 0)) >= 0 && ind < 3)
 		return (exe(sh, *arg, arg));
 	if (!access(*arg, F_OK | X_OK))
 	{
 		ft_set_hash(sh->hash_tb, *arg, *arg);
 		return (exe(sh, *arg, arg));
 	}
-	else
-		return (search_exec(sh, *arg, arg));
-	return (1);
+	return (search_exec(sh, *arg, arg));
 }
 
 int		exe(t_shell *sh, char *comm, char **argv)
@@ -103,10 +104,8 @@ int		exec_cli(t_shell *sh, t_com *com)
 	{
 		if (!redi->type)
 		{
-			mallcheck(redi->path = (char*)ft_memalloc(18 * (sizeof(char))));
-			ft_strcpy(redi->path, "/tmp/.sh_heredoc");
-			redi->path[16] = redi->fd[0] + '0';
-			fd = open(redi->path, O_RDONLY | O_CREAT | O_TRUNC, S_IRWXU);
+			sh->here_doc += ft_strlen(sh->here_doc) + 1;
+			fd = open(redi->path, O_RDWR | O_CREAT | O_TRUNC, S_IRWXU);
 			if (fd < 0 || close(fd) < 0)
 				ft_printf("Erreur lors du nettoyage des here_doc\n");
 		}
@@ -122,14 +121,14 @@ int		exec_cli(t_shell *sh, t_com *com)
 int		sort_comm(t_shell *sh)
 {
 	char	fail[2];
-	t_com *tmp;
+	t_com	*tmp;
 
 	if (!sh || !sh->com || (!sh->begin && !(sh->begin = sh->com)))
 		return (1);
-	fail[1] = sh->com->next && sh->com->next->type & 4;
 	epur_tb(sh->com, sh->com->len);
 	while (!(tmp = NULL) && sh->com)
 	{
+		fail[1] = sh->com->next && sh->com->next->type & 4;
 		ft_recoverenv(&sh->env) == -1 ? ft_errorlog(ENVFAILED) : 0;
 		if (fail[1] && (tmp = sh->com))
 		{
