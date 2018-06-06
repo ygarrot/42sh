@@ -18,9 +18,9 @@ void sub_ar(t_shell *sh, char **arg, int i)
 	}
 	*todel = ft_strndup(*arg, i - 2 );
 	!*todel ? *todel = ft_strnew(1) : 0;
-	if (!(todel[1] = parse_op(&(*arg)[i + 1])))
+	if (!(todel[1] = parse_op(&(*arg)[i])))
 		todel[1] = ft_strnew(1);
-	mallcheck(*arg = ft_implode(todel[1], *todel, &(*arg)[ft_strlen(*arg) + 2]));
+	mallcheck(*arg = ft_implode(todel[1], *todel, &(*arg)[ft_strlen(*arg)]));
 	ft_memdel((void**)&(*todel));
 	ft_memdel((void**)&todel[1]);
 	ft_memdel((void**)&todel[2]);

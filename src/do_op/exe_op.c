@@ -26,7 +26,6 @@ t_do_op	*pre_op(t_do_op *list)
 
 	if (*list->content == '(')
 	{
-		ft_strcpy(list->content, &list->content[1]);
 		list->value = ft_atoi(parse_op(list->content));
 		list->is_set = 1;
 		return (list);
@@ -62,7 +61,7 @@ t_do_op	*if_function(t_do_op *list, int status)
 			(status == 14 && !ft_strcmp(list->content, "||")) ||
 			(status == 15 && !ft_strcmp(list->content, "?")))
 		list = pre_op(list);
-	return(list);
+	return (list);
 }
 
 int	the_order(t_do_op *begin)
@@ -72,15 +71,17 @@ int	the_order(t_do_op *begin)
 
 	i = -1;
 # define ASSIGN (char *[14]){"*=", "/=", "%=", "+=", "-=", "<<=", ">>=", "&=", "^=", "|=", "="}
-	while (begin && begin->next && ++i < 17)
+	while (begin && (begin->next || !begin->is_set) && ++i < 17)
 	{
-		list = begin;
-		while (list && list->next)
+		list = if_function(begin, i)->next;
+		while (list)
 		{
 			list = if_function(list, i);
-			list && list->next ? list = list->next : 0;
+			list ? list = list->next : 0;
 		}
 	}
+	!begin->is_set ? begin->value = ft_atoi(begin->content) : 0;
+	begin->is_set = 1;
 	return (begin ? begin->value : 0);
 }
 
@@ -94,13 +95,21 @@ int	set_assign(t_do_op *list)
 	{
 		if (get_sep(list->content, ASSIGN) >= 0)
 		{
-			list->prev->value = the_order(list);
-			tmp = ft_itoa(list->prev->value);
-			ft_variable_builtin(ft_implode("=", list->content, tmp));
+			list->prev->value = the_order(list->next);
+			list->next ? free_op(list->next) : 0;
+			list = list->prev;
+			tmp = ft_itoa(list->value);
+			tmp = ft_implode("=", list->content, tmp);
+			free_op(list->next);
+			//ft_printf("%s\n", tmp);
+			ft_variable_builtin(tmp);
+			list->is_set = 1;
 			ft_memdel((void**)&tmp);
 		}
-		list = list->prev;
+		list->prev ? list = list->prev : 0;
 	}
+	//if (!list->next)
+	//	ft_printf("%d\n", list->value);
 	return (the_order(list));
 }
 
@@ -118,7 +127,7 @@ char		*exec_op(char **tb)
 		tb[i + 1] ? list->next = (t_do_op*)ft_memalloc(sizeof(t_do_op)) : 0;
 		list->next ? list->next->prev = list : 0;
 		list->content = tb[i];
-		//	ft_printf("{red}%s %d{reset}\n", tb[i], list->code);
+		//ft_printf("{red}%s %d{reset}\n", list->content, list->code);
 		list = list->next;
 	}
 	ft_memdel((void**)&tb);

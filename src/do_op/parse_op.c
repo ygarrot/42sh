@@ -28,7 +28,7 @@ int		parenth(char **str, int i, char rep, bool recc)
 		{
 			while ((*str)[++i])
 			{
-				if ((*str)[i] == ')' && ((!recc ? (*str)[i] = rep : 0) || 1))
+				if ((*str)[i] == ')' && ((!rep && !recc ? (*str)[i] = rep : 0) || 1))
 				{
 					return (i);
 				}
@@ -46,20 +46,22 @@ char	*parse_op(char *str)
 	char	**op_tb;
 	int			tab_len;
 
-	ft_printf("{red}[%s]{reset}\n", str);
+	str[ft_strlen(str) - 1] = '\0';
+	ft_strcpy(str, &str[1]);
 	char **all = ft_strsplit(ALL_OP, ' ');
 	op_tb = ft_custom_split(str, all);
 	tab_len = ft_tablen(op_tb) ;
 	while (--tab_len + 1)
 	{
-		if (parenth(&op_tb[tab_len], -1, '\0', 0) < 0 || (get_sep(op_tb[tab_len], all) >= 0
+		if (parenth(&op_tb[tab_len], -1, 'a', 0) < 0 || (get_sep(op_tb[tab_len], all) >= 0
 			&& ((tab_len <= 0 || get_sep(op_tb[tab_len - 1], all) >= 0)
 			|| (!op_tb[tab_len + 1] || get_sep(op_tb[tab_len + 1], all) >= 0))))
 			exit(ft_printf("2 operators\n"));
 		if (get_sep(op_tb[tab_len], ASSIGN) >= 0 && op_tb[tab_len][0] != '=' && ft_str_isdigit(op_tb[tab_len - 1]))
 			exit(ft_printf("lvalue required\n"));
-		if (ft_mcharchr("*/%", op_tb[tab_len]) >= 0)
+		if (*op_tb[tab_len] != '(' && ft_mcharchr("*/%", op_tb[tab_len]) >= 0)
 		{
+		ft_printf("%s\n", op_tb[tab_len ]);
 			if (ft_str_isdigit(op_tb[tab_len - 1]) && !ft_atoi(op_tb[tab_len - 1 ]))
 				exit(ft_printf("Divide by 0\n"));
 			else if (!ft_str_isdigit(op_tb[tab_len - 1]) && ft_atoi(0))
