@@ -37,8 +37,9 @@ unsigned long	hash(char *str)
 int				ft_set_hash(t_btree **begin, char *key, char *value)
 {
 	char	**content;
-	t_btree *tmp;
+	char	**tmp;
 
+	tmp = NULL;
 	if (!begin || !key || !value)
 		return (-1);
 	if (!*begin || !(tmp = btree_search_item(*begin, &key, ft_hashcmp)))
@@ -50,10 +51,10 @@ int				ft_set_hash(t_btree **begin, char *key, char *value)
 		btree_insert_data(begin, content, ft_hashcmp, delhash);
 		return (1);
 	}
-	if (tmp->item)
+	if (tmp)
 	{
-		ft_memdel((void**)&((char**)tmp->item)[1]);
-		((char**)tmp->item)[1] = value;
+		ft_memdel((void**)&tmp[1]);
+		tmp[1] = ft_strdup(value);
 	}
 	return (1);
 }

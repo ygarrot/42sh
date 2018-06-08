@@ -16,7 +16,7 @@ void	print_alias(t_btree **root)
 		return ;
 	content = (*root)->item;
 	if (content)
-		ft_printf("%s=%s", *content, content[1]);
+		ft_printf("%s='%s'\n", *content, content[1]);
 	if ((*root)->left)
 		print_alias(&(*root)->left);
 	if ((*root)->right)
@@ -45,6 +45,6 @@ void ft_alias(char **arg, char ***env)
 		
 	}
 	else
-		if ((root = btree_search_item(*root, *arg, ft_hashcmp)))
+		if ((root = btree_search_item(*root, &arg[1], ft_hashcmp)))
 			ft_printf("%s\n", ((char**)(*root)->item)[1]);
 }
