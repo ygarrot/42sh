@@ -50,6 +50,11 @@ int				ft_set_hash(t_btree **begin, char *key, char *value)
 		btree_insert_data(begin, content, ft_hashcmp, delhash);
 		return (1);
 	}
+	if (tmp->item)
+	{
+		ft_memdel((void**)&((char**)tmp->item)[1]);
+		((char**)tmp->item)[1] = value;
+	}
 	return (1);
 }
 

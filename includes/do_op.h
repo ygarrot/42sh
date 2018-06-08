@@ -37,7 +37,6 @@ typedef struct s_do_op
 ** math functions
 */
 char	*parse_op(char *str);
-char			**ft_custom_split(char *s, char **tb);
 int (**f_opget(void))(int, int);
 int		calc_op(char **op_tb);
 

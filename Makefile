@@ -24,8 +24,8 @@ SRC_FP = \
 		  builtin/ft_exit.c \
 		  builtin/ft_setenv.c \
 		  builtin/ft_strtabdup.c \
-		  builtin/ft_unsetenv.c
-
+		  builtin/ft_unsetenv.c \
+		  builtin/ft_alias.c
 SRC_FP += \
 		completion/ft_completion.c \
 		completion/ft_completion_com.c \

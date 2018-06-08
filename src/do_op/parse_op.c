@@ -49,7 +49,7 @@ char	*parse_op(char *str)
 	str[ft_strlen(str) - 1] = '\0';
 	ft_strcpy(str, &str[1]);
 	char **all = ft_strsplit(ALL_OP, ' ');
-	op_tb = ft_custom_split(str, all);
+	op_tb = ft_custom_split(str, all, 0);
 	tab_len = ft_tablen(op_tb) ;
 	while (--tab_len + 1)
 	{

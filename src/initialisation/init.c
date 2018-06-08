@@ -25,8 +25,11 @@ void		f_point(t_shell *sh, char **argv)
 		ft_printf("std dup error\n");
 		ft_exit(sh);
 	}
-	sh->f_built[1] = &ft_echo;
-	sh->f_built[2] = &ft_cd;
-	sh->f_built[3] = &ft_setenv;
-	sh->f_built[4] = &ft_unsetenv;
+	sh->f_built[0] = &ft_alias;
+	sh->f_built[1] = &ft_cd;
+	sh->f_built[2] = &ft_setenv;
+	sh->f_built[3] = &ft_unsetenv;
+//	sh->f_built[4] = &ft_exit;
+//	sh->f_built[5] = &ft_env;
+	sh->f_built[6] = &ft_echo;
 }

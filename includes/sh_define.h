@@ -49,7 +49,7 @@
 # define M_SEP (char *[6]){"||", "&&", "|"}
 # define REDI (char *[7]){"<<", ">>", "<&",">&", "<", ">"}
 # define UNESC "0xabfnrtv\\"
-# define BUILT (char *[7]){"env", "echo", "cd", "setenv" ,"unsetenv", "exit"}
+# define BUILT (char *[10]){"alias", "cd", "setenv" ,"unsetenv", "exit", "env", "echo" }
 # define GLOB "[*?"
 # define ENDWORD " \n|;&<>"
 # define ENDWORDVIS " \n;|&<>`'\"\\"

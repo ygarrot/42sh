@@ -19,7 +19,7 @@ int		wait_exec(t_shell *sh, char **arg)
 
 	if (!ft_strcmp(*arg, "exit"))
 		ft_exit(sh);
-	if ((ind = ft_strisin_tab(arg[0], BUILT, 0)) >= 2)
+	if ((ind = ft_strisin_tab(arg[0], BUILT, 0)) <= 4 && ind >= 0)
 	{
 		if (exec_redi(sh, sh->com->redi) < 0)
 			return (-1);
@@ -28,10 +28,10 @@ int		wait_exec(t_shell *sh, char **arg)
 		sh->f_built[ind](arg, &sh->env);
 		return (1);
 	}
+	if ((ind = ft_strisin_tab(arg[0], BUILT, 0)) > 4)
+		return (exe(sh, *arg, arg));
 	if (sh->hash_tb && (tmp = ft_get_hash(sh->hash_tb, *arg)))
 		return (exe(sh, tmp, arg));
-	if ((ind = ft_strisin_tab(arg[0], BUILT, 0)) >= 0 && ind < 3)
-		return (exe(sh, *arg, arg));
 	if (!access(*arg, F_OK | X_OK))
 	{
 		ft_set_hash(sh->hash_tb, *arg, *arg);

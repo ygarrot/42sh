@@ -28,7 +28,7 @@ void	parse_exe(t_shell *sh, char *comm, char **arg)
 		ft_env(sh, arg, &sh->env);
 	else if ((index = ft_strisin_tab(arg[0], BUILT, 0)) >= 0)
 	{
-		if (index >= 2)
+		if (index <= 4)
 			exit(1);
 		sh->f_built[index](arg, &sh->env);
 	}

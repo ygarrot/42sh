@@ -56,20 +56,22 @@ int		ft_newline_active(char *str)
 int		ft_read_newline(t_line *line, int *val, t_parser *pars)
 {
 	t_parser	*tmp;
+	char		*str;
 
 	ft_printchar(line, "\n", val);
 	if (val[4])
 	{
 		if (!ft_newline_active(&(line->line)[val[1]]))
 			return (0);
-		if (!(tmp = count_parser(&(line->line)[val[5]])))
+		str = ft_strdup(&(line->line)[val[5]]);
+		if (!(tmp = count_parser(&str)))
 			return (-1);
+		ft_memdel((void**)&str);
 		line->parser_nb++;
 		ft_parserpushback(line->parser, tmp);
 		if (!line->parser)
 			line->parser = tmp;
-		if (tmp->comm)
-			val[4] = 0;
+		(tmp->comm) ? val[4] = 0 : 0;
 		if (tmp->comm)
 			val[0] = val[3];
 		if (tmp->comm || tmp->wait)

@@ -19,6 +19,30 @@
 ** Gere les erreurs de parsing, ne gere (surement) pas toutes les erreurs
 */
 
+void	add_aliases(char **str)
+{
+	char **all_op; 
+	char **tb;
+	void	*tmp;
+	int		i;
+	t_btree		**root;
+
+	root = alias_tb();
+	all_op = (char *[14]){"||", "&&", "|", "&", ";", ">>",
+	"<<", ">&", "<&" , "\n", " ","<",">"};
+	i = -1;
+	tb = ft_custom_split(*str, all_op, 1);
+	while (tb[++i])
+	{
+		if ((tmp = btree_search_item(*root, &tb[i], ft_hashcmp)))
+		{
+			ft_memdel((void**)&tb[i]);
+			tb[i] = ((char**)tmp)[1];
+		}
+	}
+	*str = ft_str_tabjoin((const char**)tb);
+}
+
 int			get_hdoc(char *str, int i, t_parser *par)
 {
 	int		hdoc;
@@ -33,14 +57,14 @@ int			get_hdoc(char *str, int i, t_parser *par)
 			while (str[i] == ' ')
 				i++;
 			todel = ft_strndup(&str[i], (hdoc = search_op(&str[i], HD) >= 0 ||
-		(hdoc = ft_isin(str[i], NORM)) ? hdoc + 1 : (int)ft_strlen(&str[i])));
+						(hdoc = ft_isin(str[i], NORM)) ? hdoc + 1 : (int)ft_strlen(&str[i])));
 			par = push_front(par, ft_find_and_replace(todel, "\\", 1), 0);
 			ft_memdel((void**)&todel);
 		}
 		while (str[i] == ' ')
 			i++;
 		if (((red == 2 || red == 3) && str[i] != '-' && !ft_isdigit(str[i]))
-	|| ((is_sep(&str[i], par, SEP) || is_sep(&str[i], par, REDI))))
+				|| ((is_sep(&str[i], par, SEP) || is_sep(&str[i], par, REDI))))
 			return (-1);
 		return (i);
 	}
@@ -68,13 +92,16 @@ int			sizeof_comm(char *str, t_parser *par)
 	return (i || !str[i] || str[i] == '\n' ? i + sep : -1);
 }
 
-t_parser	*count_parser(char *str)
+t_parser	*count_parser(char **ptr)
 {
 	int			i;
 	t_parser	*par;
 	int			sep;
+	char		*str;
 
 	i = 0;
+	add_aliases(ptr);
+	str = *ptr;
 	mallcheck(par = (t_parser*)ft_memalloc(sizeof(t_parser)));
 	while (str[i] && str[i] != '\n')
 	{

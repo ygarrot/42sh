@@ -77,7 +77,7 @@ int			hard_split(t_shell *sh, t_line *line)
 	if (!str)
 		return (1);
 	sh->here_doc = line->eof;
-	if (!(par = count_parser(str)))
+	if (!(par = count_parser(&str)))
 		return (-1);
 	free_parser(par);
 	mallcheck(par = (t_parser*)ft_memalloc(sizeof(t_parser)));

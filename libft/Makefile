@@ -117,6 +117,7 @@ SRC += \
 	   str/ft_strprefix.c \
 	   str/ft_str_isdigit.c \
 	   str/ft_strdupto.c \
+	   str/ft_str_tabjoin.c \
 	   str/ft_strlento_rev.c
 
 SRC += \

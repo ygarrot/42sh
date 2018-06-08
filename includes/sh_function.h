@@ -246,7 +246,7 @@ int			skip_comm(char *str);
 */
 
 int			sizeof_comm(char *str, t_parser *par);
-t_parser	*count_parser(char *str);
+t_parser	*count_parser(char **str);
 
 int			hard_split(t_shell *sh, t_line *line);
 t_parser	*easy_split(t_parser *c, char *str, char isamp);
@@ -316,6 +316,7 @@ int			write_env(char **env);
 ** substitute functions
 */
 
+char			**ft_custom_split(char *s, char **tb,int op);
 int		bracket(char *str, char *brack);
 void sub_ar(t_shell *sh, char **arg, int i);
 void		get_sub(t_shell *sh);
@@ -341,6 +342,8 @@ t_paths		*recc(char *str, char **regex);
 ** hash_functions
 */
 
+t_btree		**alias_tb(void);
+void ft_alias(char **arg, char ***env);
 void		ft_free_hash(t_btree **tb, size_t size);
 char		*ft_get_hash(t_btree **hash_tb, char *key);
 int			ft_set_hash(t_btree **begin, char *key, char *value);
