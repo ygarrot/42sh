@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 19:03:40 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/03 16:44:05 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/09 16:53:01 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -342,8 +342,12 @@ t_paths		*recc(char *str, char **regex);
 ** hash_functions
 */
 
+void	ft_unalias(char **arg, char ***env);
 t_btree		**alias_tb(void);
 void ft_alias(char **arg, char ***env);
+void	alias_file(t_shell *sh);
+
+
 void		ft_free_hash(t_btree **tb, size_t size);
 char		*ft_get_hash(t_btree **hash_tb, char *key);
 int			ft_set_hash(t_btree **begin, char *key, char *value);

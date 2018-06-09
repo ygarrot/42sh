@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 16:51:31 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/02 11:40:10 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/09 16:49:01 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,9 @@ void	parse_exe(t_shell *sh, char *comm, char **arg)
 	if (!ft_strcmp(comm, "env"))
 		ft_env(sh, arg, &sh->env);
 	else if ((index = ft_strisin_tab(arg[0], BUILT, 0)) >= 0)
-	{
-		if (index <= 4)
-			exit(1);
+		exit(1);
+	else if ((index = ft_strisin_tab(arg[0], FBUILT, 0)) >= 0)
 		sh->f_built[index](arg, &sh->env);
-	}
 	else if (execve(comm, arg, sh->env))
 		exit(error_exec(arg, 0));
 }

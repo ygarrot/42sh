@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 12:06:05 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/03 17:04:26 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/09 17:23:02 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ int		parenth(char **str, int i, char rep, bool recc)
 		{
 			while ((*str)[++i])
 			{
-				if ((*str)[i] == ')' && ((!rep && !recc ? (*str)[i] = rep : 0) || 1))
-				{
+				if ((*str)[i] == ')' && ((!recc ? (*str)[i] = rep : 0) || 1))
 					return (i);
-				}
 				if ((*str)[i] == '(' && (i = parenth(str, i - 1, rep, 1)) < 0)
 					return (-ft_printf("Parenthesis error\n"));
 			}

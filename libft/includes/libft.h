@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 15:23:29 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/05/27 15:40:21 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/09 12:09:53 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ int				ft_divideby(int nb, int div);
 int				ft_insert(char **str, char *in, size_t to, size_t size);
 int				ft_addtofd(char *str, int fd);
 void			ft_strrev(char *str);
-void			ft_replace(char *str, char c, char n);
+void			ft_replace(char *str,char *n);
 int				ft_strinstr(char *str, char *pattern);
 int				ft_strprefix(char *pref, char *str);
 void			ft_intswap(int *i, int *j);

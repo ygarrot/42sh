@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_unalias.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/19 14:02:03 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/09 15:44:51 by ygarrot          ###   ########.fr       */
+/*   Created: 2018/06/09 16:37:28 by ygarrot           #+#    #+#             */
+/*   Updated: 2018/06/09 17:11:24 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "../../includes/sh.h"
 
-#include "sh.h"
-
-int		main(int ac, char **av, char **env)
+void	ft_unalias(char **arg, char ***env)
 {
-	t_shell sh;
-	t_line	line;
+	void	*tmp;
+	t_btree **root;
+	int		len;
 
-	(void)ac;
-	(void)av;
-	f_point(&sh, av);
-	ft_initialisation(env, &sh);
-	alias_file(&sh);
-	while (1)
+	(void)env;
+	root = alias_tb();
+	if (!arg)
 	{
-		line = ft_getentry();
-		while (line.line == 0)
-			line = ft_getentry();
-		hard_split(&sh, &line);
-		ft_delline(&line);
+		ft_printf("alias: An error occured\n");
+		return ;
 	}
-	erase_shell(&sh);
+	if (!ft_strcmp(arg[1], "-a"))
+		btree_erase(root, erasehash);
+	if ((root = btree_search_item(*root, &arg[1], ft_hashcmp)))
+		ft_printf("%s\n", ((char**)(*root)->item)[1]);
+	(void)tmp;(void)len;
 }

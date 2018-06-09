@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2018/05/29 11:21:17 by tcharrie         ###   ########.fr        #
+#    Updated: 2018/06/09 16:53:34 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,9 @@ SRC_FP = \
 		  builtin/ft_setenv.c \
 		  builtin/ft_strtabdup.c \
 		  builtin/ft_unsetenv.c \
+		  builtin/ft_unalias.c \
 		  builtin/ft_alias.c
+
 SRC_FP += \
 		completion/ft_completion.c \
 		completion/ft_completion_com.c \

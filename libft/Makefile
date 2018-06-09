@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 12:06:15 by ygarrot           #+#    #+#              #
-#    Updated: 2018/06/03 14:38:44 by tcharrie         ###   ########.fr        #
+#    Updated: 2018/06/09 12:11:41 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -118,8 +118,8 @@ SRC += \
 	   str/ft_str_isdigit.c \
 	   str/ft_strdupto.c \
 	   str/ft_str_tabjoin.c \
+	   str/ft_replace.c \
 	   str/ft_strlento_rev.c
-
 SRC += \
 	   get_next_line/get_next_line.c \
 	   get_next_line/get_filetochar.c

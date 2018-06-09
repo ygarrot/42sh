@@ -1,4 +1,0 @@
-Utiliser VARNAME=VALUE avec VARNAME dans l'env la modifie aussi dans l'env
-export VARNAME; unset VARNAME						La supprime aussi de l'env
-export VARNAME; unsetenv VARNAME					Ne la supprime QUE de l'env
-export VARNAME; setenv VARNAME VALUE; unset VARNAME	La supprime de l'env

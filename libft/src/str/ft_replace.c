@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_replace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/19 14:02:03 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/09 15:44:51 by ygarrot          ###   ########.fr       */
+/*   Created: 2018/06/09 12:03:22 by ygarrot           #+#    #+#             */
+/*   Updated: 2018/06/09 12:18:02 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh.h"
+#include "../../includes/libft.h"
 
-int		main(int ac, char **av, char **env)
+void	ft_replace(char *str, char *rep)
 {
-	t_shell sh;
-	t_line	line;
+	int	i;
 
-	(void)ac;
-	(void)av;
-	f_point(&sh, av);
-	ft_initialisation(env, &sh);
-	alias_file(&sh);
-	while (1)
-	{
-		line = ft_getentry();
-		while (line.line == 0)
-			line = ft_getentry();
-		hard_split(&sh, &line);
-		ft_delline(&line);
-	}
-	erase_shell(&sh);
+	i = -1;
+	if (!str || !rep)
+		return ;
+	while (str[++i])
+		if (str[i] == *rep)
+		{
+			if (!rep[1])
+				ft_strcpy(&str[i], &str[i + 1]);
+			else
+				str[i] = rep[1];
+		}
 }

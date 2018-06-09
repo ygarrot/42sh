@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   alias_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/19 14:02:03 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/09 15:44:51 by ygarrot          ###   ########.fr       */
+/*   Created: 2018/06/09 15:45:52 by ygarrot           #+#    #+#             */
+/*   Updated: 2018/06/09 15:47:38 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh.h"
+#include "../../includes/sh.h"
 
-int		main(int ac, char **av, char **env)
+int	alias_cmp(void *s1, void *s2, int lvl)
 {
-	t_shell sh;
-	t_line	line;
+	if (!s1 || !s2)
+		return (0);
+	return (ft_strcmp(*((char**)s1), *((char**)s2)));
 
-	(void)ac;
-	(void)av;
-	f_point(&sh, av);
-	ft_initialisation(env, &sh);
-	alias_file(&sh);
-	while (1)
-	{
-		line = ft_getentry();
-		while (line.line == 0)
-			line = ft_getentry();
-		hard_split(&sh, &line);
-		ft_delline(&line);
-	}
-	erase_shell(&sh);
 }

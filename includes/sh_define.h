@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 12:08:50 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/05/29 12:58:26 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/09 17:16:29 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,16 @@
 # define CODE_GET 2
 # define CODE_PUSH 3
 
-# define BUILTIN "echo\0cd\0setenv\0unsetenv\0env\0exit\0"
 # define ESC "\a\b\f\n\r\t\v\\"
 # define QUOTES "`\"\'"
-# define HD (char *[14]){"||", "&&", "|", "&", ";", ">>", "<<", ">&", "<&" }
+# define HD (char *[14]){"||", "&&", "|", "&", ";", ">>", "<<", ">&", "<&", " "}
 # define NORM "<> "
 # define SEP (char *[7]){"||", "&&", "|", "&", ";", "\n"}
 # define M_SEP (char *[6]){"||", "&&", "|"}
 # define REDI (char *[7]){"<<", ">>", "<&",">&", "<", ">"}
 # define UNESC "0xabfnrtv\\"
-# define BUILT (char *[10]){"alias", "cd", "setenv" ,"unsetenv", "exit", "env", "echo" }
+# define FBUILT (char *[10]){"echo", "env"}
+# define BUILT (char *[10]){"cd", "setenv" ,"unsetenv", "alias", "unalias"}
 # define GLOB "[*?"
 # define ENDWORD " \n|;&<>"
 # define ENDWORDVIS " \n;|&<>`'\"\\"

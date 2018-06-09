@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 13:14:26 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/05/27 15:42:31 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/09 17:12:47 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,10 @@ void		f_point(t_shell *sh, char **argv)
 		ft_printf("std dup error\n");
 		ft_exit(sh);
 	}
-	sh->f_built[0] = &ft_alias;
-	sh->f_built[1] = &ft_cd;
-	sh->f_built[2] = &ft_setenv;
-	sh->f_built[3] = &ft_unsetenv;
-//	sh->f_built[4] = &ft_exit;
-//	sh->f_built[5] = &ft_env;
-	sh->f_built[6] = &ft_echo;
+	sh->built[0] = &ft_cd;
+	sh->built[1] = &ft_setenv;
+	sh->built[2] = &ft_unsetenv;
+	sh->built[3] = &ft_alias;
+	sh->built[4] = &ft_unalias;
+	sh->f_built[0] = &ft_echo;
 }

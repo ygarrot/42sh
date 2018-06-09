@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 15:40:03 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/05/27 15:02:03 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/09 16:37:00 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,18 @@ void	add_aliases(char **str)
 {
 	char **all_op; 
 	char **tb;
-	void	*tmp;
-	int		i;
+	char	**tmp;
 	t_btree		**root;
 
 	root = alias_tb();
 	all_op = (char *[14]){"||", "&&", "|", "&", ";", ">>",
 	"<<", ">&", "<&" , "\n", " ","<",">"};
-	i = -1;
 	tb = ft_custom_split(*str, all_op, 1);
-	while (tb[++i])
+	
+	if ((tmp = btree_search_item(*root, &tb[0], ft_hashcmp)))
 	{
-		if ((tmp = btree_search_item(*root, &tb[i], ft_hashcmp)))
-		{
-			ft_memdel((void**)&tb[i]);
-			tb[i] = ((char**)tmp)[1];
-		}
+		ft_memdel((void**)&tb[0]);
+		tb[0] = tmp[1];
 	}
 	*str = ft_str_tabjoin((const char**)tb);
 }
