@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2018/06/10 13:10:30 by ygarrot          ###   ########.fr        #
+#    Updated: 2018/06/10 16:59:24 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -139,6 +139,7 @@ SRC_FP += \
 
 SRC_FP += \
 		 do_op/do_op.c \
+		 do_op/increment.c \
 		 do_op/exe_op.c \
 		 do_op/ft_bitwise.c \
 		 do_op/ft_comp.c \

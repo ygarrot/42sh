@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ins_do_op.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/10 14:59:58 by ygarrot           #+#    #+#             */
+/*   Updated: 2018/06/10 15:24:01 by ygarrot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/sh.h"
 
 void sub_ar(t_shell *sh, char **arg, int i)
@@ -24,4 +36,12 @@ void sub_ar(t_shell *sh, char **arg, int i)
 	ft_memdel((void**)&(*todel));
 	ft_memdel((void**)&todel[1]);
 	ft_memdel((void**)&todel[2]);
+}
+
+void	replace_local(char **str)
+{
+	if (!ft_strlento_comm(*str, "="))
+		return ;
+	ft_variable_builtin(*str);
+	ft_memdel((void**)&(*str));
 }

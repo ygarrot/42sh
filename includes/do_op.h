@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 16:51:54 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/10 13:06:59 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/10 17:45:08 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,17 @@ typedef struct s_do_op
 {
     struct s_do_op *prev;
     struct s_do_op *next;
-    char *content;
+    char	*content;
 	bool	is_set;
+	int		is_inc;
+	int		sign;
 	int		value;
 	int		code;
 }		t_do_op;
 
 
 # define OPE (char *[16]){"<<", ">>", "||", "&&","**",  "|", "&", "^", "~", "+", "-", "/", "*", "%"}
-# define OP_CREMENT (char *[3]){"--", "++"}
+# define CREMENT (char *[3]){"--", "++"}
 
 # define SHIFT (char *[3]){ "<<", ">>"}
 # define COMP (char *[7]){"<=", ">=", "<", ">", "==", "!="}
@@ -36,6 +38,9 @@ typedef struct s_do_op
 /*
 ** math functions
 */
+int		unaire(t_do_op **a);
+void	increment(t_do_op *a, int i);
+void	set_op_variable(char *key, int value);
 char	**all_op(int index);
 void	del_ternary(t_do_op *c);
 void	free_op(t_do_op *tmp);

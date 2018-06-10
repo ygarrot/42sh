@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 18:43:10 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/05/10 16:14:19 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/10 15:16:43 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		ft_strlento_comm(char *str, char *to_find)
 
 	i = 0;
 	if (!str || !to_find)
-		return (-1);
+		return (0);
 	while (str[i])
 	{
 		i += skip_comm(&str[i]);

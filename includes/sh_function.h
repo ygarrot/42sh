@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 19:03:40 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/10 12:30:15 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/10 15:19:41 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -352,6 +352,7 @@ int			write_env(char **env);
 ** substitute functions
 */
 
+void	replace_local(char **str);
 char			**ft_custom_split(char *s, char **tb,int op);
 int		bracket(char *str, char *brack);
 void sub_ar(t_shell *sh, char **arg, int i);

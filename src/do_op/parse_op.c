@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 12:06:05 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/10 13:43:35 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/10 17:12:58 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,31 +66,48 @@ int	check_ternaries(char **tb)
 	return (i);
 }
 
+
+int	check_all(char **tb)
+{
+	int		i;
+	char		**all;
+
+	i = -1;
+	all = all_op(0);
+	while (tb[++i])
+	{
+		if (parenth(&tb[i], -1, 'a', 0) < 0)
+			return (0);
+		if (get_sep(tb[i], CREMENT) < 0 && get_sep(tb[i], all) >= 0
+			&& ((i <= 0 || get_sep(tb[i - 1], all) >= 0)
+			|| (!tb[i + 1] || get_sep(tb[i + 1], all) >= 0)))
+			return (0 & ft_printf("2 operators\n"));
+		if (get_sep(tb[i], all_op(1)) >= 0
+				&& tb[i][0] != '=' && ((i - 1) < 0 || ft_str_isdigit(tb[i - 1])))
+			return (0 & ft_printf("lvalue required\n"));
+	}
+	return (1);
+}
+
+
 char	*parse_op(char *str)
 {
-	char	**op_tb;
-	int			tab_len;
-	char		**all;
+	char	**tb;
+	int			i;
 
 	str[ft_strlen(str) - 1] = '\0';
 	ft_strcpy(str, &str[1]);
-	all = all_op(0);
-	op_tb = ft_custom_split(str, all, 0);
-	tab_len = ft_tablen(op_tb) ;
-	while (--tab_len + 1)
+	tb = ft_custom_split(str, all_op(0), 0);
+	if (!tb || !check_all(tb))
+		return (NULL);
+	i = -1;
+	while (++i)
 	{
-		if (parenth(&op_tb[tab_len], -1, 'a', 0) < 0 || (get_sep(op_tb[tab_len], all) >= 0
-			&& ((tab_len <= 0 || get_sep(op_tb[tab_len - 1], all) >= 0)
-			|| (!op_tb[tab_len + 1] || get_sep(op_tb[tab_len + 1], all) >= 0))))
-			exit(ft_printf("2 operators\n"));
-		if (get_sep(op_tb[tab_len], all_op(1)) >= 0 
-				&& op_tb[tab_len][0] != '=' && ((tab_len - 1) < 0 || ft_str_isdigit(op_tb[tab_len - 1])))
-			exit(ft_printf("lvalue required\n"));
-		//ft_printf("%s\n", op_tb[tab_len]);
-		if (*op_tb[tab_len] != '(' && ft_mcharchr("/%", op_tb[tab_len]) >= 0)
+		//ft_printf("%s\n", tb[i]);
+		if (*tb[i] != '(' && ft_mcharchr("/%", tb[i]) >= 0)
 		{
-			if ((ft_str_isdigit(op_tb[tab_len + 1])
-	&& !ft_atoi(op_tb[tab_len + 1])) || (!ft_str_isdigit(op_tb[tab_len - 1])
+			if ((ft_str_isdigit(tb[i + 1])
+	&& !ft_atoi(tb[i + 1])) || (!ft_str_isdigit(tb[i - 1])
 	&& ft_atoi(0)))
 			{
 				ft_printf("Divide by 0\n") ;
@@ -98,5 +115,5 @@ char	*parse_op(char *str)
 			}
 		}
 	}
-	return (exec_op(op_tb));
+	return (exec_op(tb));
 }

@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 11:08:36 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/10 13:42:02 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/10 17:25:52 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	del_ternary(t_do_op *c)
 	while (c && c->is_set)
 	{
 		tmp = c;
-			ft_printf("%s\n", tmp->content);
 		while (*tmp->content == '?')
 		{
 			c = c->next->next->next->next;
@@ -73,14 +72,16 @@ int		get_value(t_do_op *tmp)
 	if (!tmp)
 		return (0);
 	if (tmp->is_set)
-		return (tmp->value);
+		return (tmp->value * (tmp->sign | 1));
 	tmp->is_set = 1;
 	if (ft_str_isdigit(tmp->content))
 		return (ft_atoi(tmp->content));
 	s = ft_variablepars(tmp->content);
 	i = ft_atoi(s);
 	ft_memdel((void**)&s);
-	return (i);
+	if (tmp->is_inc)
+		set_op_variable(tmp->content, i + tmp->is_inc);
+	return (i * (tmp->sign | 1));
 }
 
 int		do_op(t_do_op *a, t_do_op *op, t_do_op *b)
@@ -89,7 +90,6 @@ int		do_op(t_do_op *a, t_do_op *op, t_do_op *b)
 
 	if (!f_op)
 		f_op = f_opget();
-
 	if (!ft_strcmp(op->content, "?"))
 		return (ft_ternary(a, b));
 	a->value = get_value(a);

@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 15:43:55 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/10 13:41:40 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/10 18:05:41 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,33 +20,35 @@ void	free_op(t_do_op *tmp)
 	ft_memdel((void**)&tmp);
 }
 
-t_do_op	*pre_op(t_do_op *list)
+void	pre_op(t_do_op **list)
 {
 	t_do_op *tmp;
-
-	if (*list->content == '(')
+	
+	if (*(*list)->content == '(')
 	{
-		list->value = ft_atoi(parse_op(list->content));
-		list->is_set = 1;
-		return (list);
+		(*list)->value = ft_atoi(parse_op((*list)->content));
+		(*list)->is_set = 1;
+		return ;
 	}
-	tmp = list->next->next;
-	list->prev->value = do_op(list->prev, list, list->next);
-	list = list->prev;
-	free_op(list->next->next);
-	free_op(list->next);
-	list->is_set = 1;
-	list->next = tmp;
+	if (unaire(list))
+		return ;
+	tmp = (*list)->next->next;
+	(*list)->prev->value = do_op((*list)->prev, *list, (*list)->next);
+	(*list) = (*list)->prev;
+	free_op((*list)->next->next);
+	free_op((*list)->next);
+	(*list)->is_set = 1;
+	(*list)->next = tmp;
 	//ft_printf("[%d]\n", list->value);
-	return (list);
 }
 
-t_do_op	*if_function(t_do_op *list, int status)
+void	if_function(t_do_op **beg, int status)
 {
-	if ((status == 0 && (*list->content == '('  
-					|| get_sep(list->content, OP_CREMENT) >= 0))||
+	t_do_op *list = *beg;
+	if ((status == 0 && (*list->content == '('
+					|| get_sep(list->content, CREMENT) >= 0))||
 			(status == 1 && (!ft_strcmp(list->content, "--") || !ft_strcmp(list->content, "++"))) ||
-			/*(status == 2 && (!ft_strcmp(list->content, "-") || !ft_strcmp(list->content, "+"))) ||*/
+			(status == 2 && (!ft_strcmp(list->content, "-") || !ft_strcmp(list->content, "+"))) ||
 			(status == 3 && ft_isin(*list->content, "~!")) ||
 			(status == 4 && !ft_strcmp(list->content, "**")) ||
 			(status == 5 && ft_isin(*list->content, "*/%")) ||
@@ -60,8 +62,7 @@ t_do_op	*if_function(t_do_op *list, int status)
 			(status == 13  && !ft_strcmp(list->content, "&&")) ||
 			(status == 14 && !ft_strcmp(list->content, "||")) ||
 			(status == 15 && !ft_strcmp(list->content, "?")))
-		list = pre_op(list);
-	return (list);
+		pre_op(beg);
 }
 
 int	the_order(t_do_op *begin)
@@ -70,23 +71,27 @@ int	the_order(t_do_op *begin)
 	t_do_op *list;
 
 	i = -1;
-	while (begin && (begin->next || !begin->is_set) && ++i < 17)
+	while (begin && begin->next && ++i < 17)
 	{
-		list = if_function(begin, i)->next;
+		list = begin;
 		while (list)
 		{
-			list = if_function(list, i);
+			if_function(&list, i);
+			list && !list->prev ? begin = list : 0;
 			list ? list = list->next : 0;
 		}
 	}
-	!begin->is_set ? begin->value = get_value(begin) : 0;
-	begin->is_set = 1;
+	if (begin)
+	{
+		!begin->is_set ? begin->value = get_value(begin) : 0;
+		begin->is_set = 1;
+	}
 	return (begin ? begin->value : 0);
 }
 
 int	set_assign(t_do_op *list)
 {
-	char *tmp;
+//	char *tmp;
 
 	while (list->next)
 		list = list->next;
@@ -97,12 +102,9 @@ int	set_assign(t_do_op *list)
 			list->prev->value = the_order(list->next);
 			list->next ? free_op(list->next) : 0;
 			list = list->prev;
-			tmp = ft_itoa(list->value);
-			tmp = ft_implode("=", list->content, tmp);
+			set_op_variable(list->content, list->value);
 			free_op(list->next);
-			ft_variable_builtin(tmp);
 			list->is_set = 1;
-			ft_memdel((void**)&tmp);
 		}
 		list->prev ? list = list->prev : 0;
 	}
