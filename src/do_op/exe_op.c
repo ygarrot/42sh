@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 15:43:55 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/10 12:14:55 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/10 12:47:32 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int	set_assign(t_do_op *list)
 			free_op(list->next);
 			//ft_printf("%s\n", tmp);
 			ft_variable_builtin(tmp);
+			ft_printf("%s\n", ft_variablepars(tmp));
 			list->is_set = 1;
 			ft_memdel((void**)&tmp);
 		}

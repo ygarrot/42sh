@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 12:06:05 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/10 10:46:35 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/10 12:54:41 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,22 @@ int		parenth(char **str, int i, char rep, bool recc)
 			return (-1);
 		}
 	}
+	return (i);
+}
+
+int	check_ternaries(char **tb)
+{
+	int	i;
+	
+	i = 0;
+	if (get_sep(tb[i++], all) >= 0)
+		return (i + 1);
+	if (tb[i++ + 1] == '?')
+		if (!check_ternaries(tb[i + 1]))
+			return (-1);
+		
+	if (tb[i++] != ':' || !tb[i] || get_sep(tb[i++], all) >= 0 )
+		return (-1)
 	return (i);
 }
 
