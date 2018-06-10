@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 12:06:05 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/09 17:23:02 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/10 10:46:35 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,16 @@ char	*parse_op(char *str)
 			exit(ft_printf("2 operators\n"));
 		if (get_sep(op_tb[tab_len], ASSIGN) >= 0 && op_tb[tab_len][0] != '=' && ft_str_isdigit(op_tb[tab_len - 1]))
 			exit(ft_printf("lvalue required\n"));
-		if (*op_tb[tab_len] != '(' && ft_mcharchr("*/%", op_tb[tab_len]) >= 0)
+		//ft_printf("%s\n", op_tb[tab_len]);
+		if (*op_tb[tab_len] != '(' && ft_mcharchr("/%", op_tb[tab_len]) >= 0)
 		{
-		ft_printf("%s\n", op_tb[tab_len ]);
-			if (ft_str_isdigit(op_tb[tab_len - 1]) && !ft_atoi(op_tb[tab_len - 1 ]))
-				exit(ft_printf("Divide by 0\n"));
-			else if (!ft_str_isdigit(op_tb[tab_len - 1]) && ft_atoi(0))
-				exit(ft_printf("Divide by 0\n"));
+			if ((ft_str_isdigit(op_tb[tab_len + 1])
+	&& !ft_atoi(op_tb[tab_len + 1])) || (!ft_str_isdigit(op_tb[tab_len - 1])
+	&& ft_atoi(0)))
+			{
+				ft_printf("Divide by 0\n") ;
+				return (NULL);
+			}
 		}
 	}
 	return (exec_op(op_tb));

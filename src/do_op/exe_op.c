@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 15:43:55 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/03 16:55:03 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/10 12:14:55 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ char		*exec_op(char **tb)
 		tb[i + 1] ? list->next = (t_do_op*)ft_memalloc(sizeof(t_do_op)) : 0;
 		list->next ? list->next->prev = list : 0;
 		list->content = tb[i];
-		//ft_printf("{red}%s %d{reset}\n", list->content, list->code);
+//		ft_printf("{red}%s %d{reset}\n", list->content, list->code);
 		list = list->next;
 	}
 	ft_memdel((void**)&tb);

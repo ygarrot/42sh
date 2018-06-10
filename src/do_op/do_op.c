@@ -6,11 +6,37 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 11:08:36 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/03 17:04:25 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/10 12:18:56 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/sh.h"
+
+void	del_ternary(t_do_op *c)
+{
+	t_do_op *tmp;
+	t_do_op *to_del;
+	
+	while (c && c->is_set)
+	{
+		tmp = c;
+			ft_printf("%s\n", tmp->content);
+		while (*tmp->content == '?')
+		{
+			c = c->next->next->next->next;
+			while (tmp != c)
+			{
+				to_del = tmp;
+				tmp = tmp->next;
+				free_op(to_del);
+			}
+		}
+		tmp = c->next->next;
+		free_op(c->next);
+		free_op(c);
+		c = tmp;
+	}
+}
 
 int (**f_opget(void))(int, int)
 {
@@ -63,11 +89,14 @@ int		do_op(t_do_op *a, t_do_op *op, t_do_op *b)
 
 	if (!f_op)
 		f_op = f_opget();
+
+	if (!ft_strcmp(op->content, "?"))
+		return (ft_ternary(a, b));
 	a->value = get_value(a);
 	b->value = get_value(b);
 	op->code = get_sep(op->content, OPE) ;
 	op->code < 0 ? op->code = get_sep(op->content, COMP) : 0;
-	//ft_printf("%d %d %d\n", a->value, op->value, b->value);
+	//ft_printf("%d %d %d\n", a->value, op->code, b->value);
 	//ft_printf("%s %s %s\n", a->content, op->content, b->content);
 	return (f_op[op->code](a ? a->value : 0, b ? b->value : 0));
 }

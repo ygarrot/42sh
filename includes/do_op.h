@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 16:51:54 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/03 16:52:54 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/10 12:11:31 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ typedef struct s_do_op
 /*
 ** math functions
 */
+void	del_ternary(t_do_op *c);
+void	free_op(t_do_op *tmp);
 char	*parse_op(char *str);
 int (**f_opget(void))(int, int);
 int		calc_op(char **op_tb);
@@ -76,6 +78,7 @@ int		ft_occiter2(char *str, int (*f)(int));
 ** comp op
 */
 
+int		ft_ternary(t_do_op *a, t_do_op *b);
 int	ft_comp_infe(int a, int b);
 int	ft_comp_supe(int a, int b);
 int	ft_comp_inf(int a, int b);
