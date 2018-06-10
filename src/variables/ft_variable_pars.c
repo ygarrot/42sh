@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:42:13 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/06 13:48:54 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/10 12:51:32 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ char	*ft_variablepars_bracket(char *str)
 	char		*tmp;
 	int			pos;
 
-	if (!str || *str != '$' || str[1] != '{')
+	if (!str || *str != '{')
 		return (0);
-	i = 2;
+	i = 1;
 	while (str[i] && !ft_isin(str[i], VAR_LIM))
 		i += ft_lenchar_r(str, i);
 	pos = str[i];
@@ -80,9 +80,9 @@ char	*ft_variablepars(char *str)
 	char		c;
 	char		*tmp;
 
-	if (!str || *str != '$')
+	if (!str || (ft_isin(*str, VAR_LIM) && *str != '{'))
 		return (0);
-	if (str[1] == '{')
+	if (*str == '{')
 		return (ft_variablepars_bracket(str));
 	i = 1;
 	while (str[i] && !ft_isin(str[i], VAR_LIM))
@@ -93,7 +93,7 @@ char	*ft_variablepars(char *str)
 	str[i] = c;
 	if (!var)
 	{
-		tmp = ft_getenv_fromroot(&str[1]);
+		tmp = ft_getenv_fromroot(str);
 		if (!tmp)
 			return ((char*)ft_memalloc(1));
 		return (ft_strdup(tmp));
