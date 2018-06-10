@@ -30,14 +30,12 @@ static void	ft_export_(char **arg, char ***env)
 			ft_variableadd(ft_strdup(arg[1]), ft_strdup(str), 1, 1);
 	}
 	else
-		str = ft_variablestr(*var);
+		str = (var->deep == 1) ? var->str : 0;
 	setenv = (char*[4]){"setenv", arg[1], str, 0};
-	ft_setenv(setenv, env);
-	if (var)
-	{
+	if (!var || var->deep == 1)
+		ft_setenv(setenv, env);
+	if (var && var->deep == 1)
 		var->deported = 1;
-		ft_strdel(&str);
-	}
 }
 
 void		ft_export(char **arg, char ***env)
@@ -49,5 +47,12 @@ void		ft_export(char **arg, char ***env)
 		ft_putstr_fd("export VARNAME\n", 2);
 		return ;
 	}
-	ft_export_(arg, env);
+	if (ft_variable_checkname(arg[1]) == 0)
+	{
+		ft_putstr_fd("21sh : export '", 2);
+		ft_putstr_fd(arg[1], 2);
+		ft_putstr_fd("' : not a valid identifier\n", 2);
+	}
+	else
+		ft_export_(arg, env);
 }
