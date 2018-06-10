@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 16:51:54 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/10 12:11:31 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/10 13:06:59 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_do_op
 /*
 ** math functions
 */
+char	**all_op(int index);
 void	del_ternary(t_do_op *c);
 void	free_op(t_do_op *tmp);
 char	*parse_op(char *str);
