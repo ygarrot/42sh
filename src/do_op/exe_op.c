@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 15:43:55 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/10 12:47:32 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/10 13:41:40 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int	the_order(t_do_op *begin)
 	t_do_op *list;
 
 	i = -1;
-# define ASSIGN (char *[14]){"*=", "/=", "%=", "+=", "-=", "<<=", ">>=", "&=", "^=", "|=", "="}
 	while (begin && (begin->next || !begin->is_set) && ++i < 17)
 	{
 		list = if_function(begin, i)->next;
@@ -80,7 +79,7 @@ int	the_order(t_do_op *begin)
 			list ? list = list->next : 0;
 		}
 	}
-	!begin->is_set ? begin->value = ft_atoi(begin->content) : 0;
+	!begin->is_set ? begin->value = get_value(begin) : 0;
 	begin->is_set = 1;
 	return (begin ? begin->value : 0);
 }
@@ -93,7 +92,7 @@ int	set_assign(t_do_op *list)
 		list = list->next;
 	while (list->prev)
 	{
-		if (get_sep(list->content, ASSIGN) >= 0)
+		if (get_sep(list->content, all_op(1)) >= 0)
 		{
 			list->prev->value = the_order(list->next);
 			list->next ? free_op(list->next) : 0;
@@ -101,16 +100,12 @@ int	set_assign(t_do_op *list)
 			tmp = ft_itoa(list->value);
 			tmp = ft_implode("=", list->content, tmp);
 			free_op(list->next);
-			//ft_printf("%s\n", tmp);
 			ft_variable_builtin(tmp);
-			ft_printf("%s\n", ft_variablepars(tmp));
 			list->is_set = 1;
 			ft_memdel((void**)&tmp);
 		}
 		list->prev ? list = list->prev : 0;
 	}
-	//if (!list->next)
-	//	ft_printf("%d\n", list->value);
 	return (the_order(list));
 }
 
