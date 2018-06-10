@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 12:06:15 by ygarrot           #+#    #+#              #
-#    Updated: 2018/06/10 11:07:08 by tcharrie         ###   ########.fr        #
+#    Updated: 2018/06/10 12:40:57 by tcharrie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -126,11 +126,23 @@ SRC += \
 
 SRC += \
 	   list/ft_lstadd.c \
+	   list/ft_lstat.c \
 	   list/ft_lstdel.c \
 	   list/ft_lstdelone.c \
+	   list/ft_lstfree.c \
+	   list/ft_lstfusion.c \
 	   list/ft_lstiter.c \
 	   list/ft_lstmap.c \
-	   list/ft_lstnew.c 
+	   list/ft_lstnew.c \
+	   list/ft_lstnewc.c \
+	   list/ft_lstpushback.c \
+	   list/ft_lstpushfront.c \
+	   list/ft_lstpushsort.c \
+	   list/ft_lstremoveif.c \
+	   list/ft_lstreverse.c \
+	   list/ft_lstsize.c \
+	   list/ft_lstsort.c \
+	   list/ft_lstvoid.c
 
 SRC += \
 	   tab/ft_free_dblechar_tab.c \

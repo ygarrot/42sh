@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 12:04:19 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/10 11:39:09 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/10 12:33:19 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,15 @@ typedef struct	s_variable
 	int		deep;
 	char	*name;
 	char	*str;
-	char	**array;
+	t_list	*array;
 	int		deported;
 }				t_variable;
+
+typedef struct	s_variable_array
+{
+	char	*str;
+	int		index;
+}				t_variable_array;
 
 typedef struct	s_direction
 {

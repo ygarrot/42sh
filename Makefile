@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2018/06/10 11:07:00 by tcharrie         ###   ########.fr        #
+#    Updated: 2018/06/10 12:34:10 by tcharrie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,9 @@ SRC_FP = \
 		  builtin/ft_strtabdup.c \
 		  builtin/ft_unsetenv.c \
 		  builtin/ft_unalias.c \
-		  builtin/ft_alias.c
+		  builtin/ft_alias.c \
+		  builtin/ft_export.c \
+		  builtin/ft_unset.c
 
 SRC_FP += \
 		completion/ft_completion.c \
@@ -40,12 +42,12 @@ SRC_FP += \
 		completion/ft_getdir.c
 
 SRC_FP +=\
-		variables/ft_export.c \
-		variables/ft_unset.c \
 		variables/ft_variable.c \
 		variables/ft_variable_create.c \
 		variables/ft_variable_misc.c \
-		variables/ft_variablepars.c
+		variables/ft_variable_pars.c \
+		variables/ft_variable_add.c \
+		variables/ft_variable_builtin.c
 
 SRC_FP += \
 		  env/ft_storeenv.c
