@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 19:03:40 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/09 16:53:01 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/10 11:42:56 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,9 +204,45 @@ void		ft_variable_builtin(char *str);
 char		*ft_variablepars(char *str);
 char		*ft_variablepar_bracket(char *str);
 size_t		ft_variablelen(t_variable var);
-char		*ft_variablestr(t_variable var);
+char		*ft_variablestr(t_variable var, int pos);
 
 int			ft_variablecmp(void *left, void *right);
+int			ft_variable_arraycmp(void *left, void *right);
+int			ft_variable_isdeported(char *name);
+
+/*
+** Builtin read
+*/
+
+void		ft_read_initstruct(t_read *data);
+t_read		ft_read_parser(char **arg);
+int			ft_read_parser_a(t_read *parser, char *str);
+int			ft_read_parser_d(t_read *parser, char *str);
+int			ft_read_parser_e(t_read *parser);
+int			ft_read_parser_i(t_read *parser, char *str);
+int			ft_read_parser_n(t_read *parser, char *str);
+int			ft_read_parser_nn(t_read *parser, char *str);
+int			ft_read_parser_p(t_read *parser, char *str);
+int			ft_read_parser_r(t_read *parser);
+int			ft_read_parser_s(t_read *parser);
+int			ft_read_parser_t(t_read *parser, char *str);
+int			ft_read_parser_u(t_read *parser, char *str);
+int			ft_read_checkfd(t_read *parser, char *fd, int i);
+
+int			ft_read_usage(t_read *parser);
+int			ft_read_timeerror(char *str, t_read *parser);
+
+int			ft_read_timer(t_read *data);
+void		ft_read_timer_sig(int sig);
+int			ft_read_timer_sig_interrup(int sig);
+
+int			ft_read_initterminal(t_read *parser);
+int			ft_read_terminal_reset(t_termios *term, int fd);
+char		*ft_read_recover(t_read *parser);
+int			ft_read_assign(t_read *parser, char *str);
+void		ft_read_resetterminal(void);
+
+char		**ft_read_split(t_read *parser, char *str);
 
 /*
 ** ...

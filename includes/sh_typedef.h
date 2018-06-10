@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 12:04:19 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/09 16:48:18 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/10 11:39:09 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,26 @@ typedef struct termios	t_termios;
 typedef struct dirent	t_dirent;
 typedef struct s_glob	t_glob;
 typedef struct stat	t_stat;
+typedef struct timespec		t_timespec;
+typedef struct sigevent		t_sigevent;
+typedef struct itimerval	t_timer;
+
+typedef struct	s_read
+{
+	char		delim;
+	char		**variables;
+	int			deep;
+	char		*readline;
+	int			readline_active;
+	size_t		nchars;
+	size_t		nchars_exact;
+	char		*prompt;
+	int			bl_active;
+	int			echo;
+	t_timespec	timer;
+	int			fd;
+	int			error;
+}				t_read;
 
 typedef struct	s_variable
 {
