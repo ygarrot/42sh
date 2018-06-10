@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 11:47:33 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/05/27 14:50:10 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/10 11:06:28 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int		ft_specialchar(t_line *line, char *str, int *val)
 	}
 	else
 		return (ft_specialchar_a(line, str, val));
-	ft_errorlog(ft_itoa(i));
 	return (i);
 }
 
