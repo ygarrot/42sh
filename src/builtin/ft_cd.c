@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/04 14:42:28 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/05/27 14:21:53 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/10 11:24:40 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	ft_cdaux(char **a, char ***env, char **prev)
 
 	getcwd(tmp, 256);
 	if (chdir(a[1]) == -1)
-		ft_printf("minishell: cd: Can't access %s\n", a[1]);
+		ft_printf("21sh: cd: Can't access %s\n", a[1]);
 	else
 	{
 		ft_strdel(prev);
@@ -46,16 +46,22 @@ static void	ft_cdaux(char **a, char ***env, char **prev)
 static void	ft_cdback(char *a, char ***env, char **prev)
 {
 	char	*tmp;
+	int		i;
 
 	tmp = NULL;
 	if (a)
-		ft_printf("minishell: cd: Too many arguments (1 expected)\n");
+		ft_printf("21sh: cd: Too many arguments (1 expected)\n");
+	if (a || !prev)
+		return ;
+	if (!*prev)
+		*prev = ft_strdup(ft_getenv_fromroot("OLDPWD"));
 	tmp = getcwd(tmp, 1);
-	if (chdir(*prev) == -1)
-		ft_printf("minishell: cd: Can't access %s\n", *prev);
+	i = chdir(*prev);
+	ft_strdel(i == -1 ? &tmp : prev);
+	if (i == -1)
+		ft_printf("21sh: cd: Can't access %s\n", *prev);
 	else
 	{
-		ft_strdel(prev);
 		*prev = tmp;
 		if (*prev)
 			ft_cdvar(*prev, env);
