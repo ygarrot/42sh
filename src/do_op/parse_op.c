@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 12:06:05 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/10 18:11:19 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/10 18:24:58 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	check_all(char **tb)
 	all = all_op(0);
 	while (tb[++i])
 	{
-		if (parenth(&tb[i], -1, 'a', 0) < 0)
+		if (parenth(&tb[i], -1, '\0', 0) < 0)
 			return (0);
 		if (get_sep(tb[i], CREMENT) < 0 && get_sep(tb[i], all) >= 0
 			&& ((i <= 0 || get_sep(tb[i - 1], all) >= 0)
@@ -103,7 +103,6 @@ char	*parse_op(char *str)
 	i = -1;
 	while (++i)
 	{
-		//ft_printf("%s\n", tb[i]);
 		if (*tb[i] != '(' && ft_mcharchr("/%", tb[i]) >= 0)
 		{
 			if ((ft_str_isdigit(tb[i + 1])

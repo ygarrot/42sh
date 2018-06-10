@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 15:43:55 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/10 18:11:17 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/10 18:22:36 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	pre_op(t_do_op **list)
 	free_op((*list)->next);
 	(*list)->is_set = 1;
 	(*list)->next = tmp;
-	//ft_printf("[%d]\n", list->value);
 }
 
 void	if_function(t_do_op **beg, int status)
@@ -68,6 +67,7 @@ void	if_function(t_do_op **beg, int status)
 int	the_order(t_do_op *begin)
 {
 	int i;
+	int	ret;
 	t_do_op *list;
 
 	i = -1;
@@ -86,7 +86,9 @@ int	the_order(t_do_op *begin)
 		!begin->is_set ? begin->value = get_value(begin) : 0;
 		begin->is_set = 1;
 	}
-	return (begin ? begin->value : 0);
+	ret = begin ? begin->value : 0;
+	free_do_op(begin);
+	return (ret);
 }
 
 int	set_assign(t_do_op *list)
@@ -125,7 +127,6 @@ char		*exec_op(char **tb)
 		tb[i + 1] ? list->next = (t_do_op*)ft_memalloc(sizeof(t_do_op)) : 0;
 		list->next ? list->next->prev = list : 0;
 		list->content = tb[i];
-//		ft_printf("{red}%s %d{reset}\n", list->content, list->code);
 		list = list->next;
 	}
 	ft_memdel((void**)&tb);

@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 16:51:54 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/10 18:11:21 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/10 18:21:35 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,13 @@ int		ft_occiter2(char *str, int (*f)(int));
 ** comp op
 */
 
+void	free_do_op(t_do_op *beg);
 int		ft_ternary(t_do_op *a, t_do_op *b);
-int	ft_comp_infe(int a, int b);
-int	ft_comp_supe(int a, int b);
-int	ft_comp_inf(int a, int b);
-int	ft_comp_sup(int a, int b);
-int	ft_comp_neg(int a, int b);
-int	ft_comp(int a, int b);
+int		ft_comp_infe(int a, int b);
+int		ft_comp_supe(int a, int b);
+int		ft_comp_inf(int a, int b);
+int		ft_comp_sup(int a, int b);
+int		ft_comp_neg(int a, int b);
+int		ft_comp(int a, int b);
 
 #endif

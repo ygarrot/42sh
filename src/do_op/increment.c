@@ -6,11 +6,20 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 15:35:20 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/10 18:11:17 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/10 18:22:15 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/sh.h"
+
+void	free_do_op(t_do_op *beg)
+{
+	if (beg && beg->next)
+		free_op(beg->next);
+	ft_memdel((void**)&beg->content);
+	ft_memdel((void**)&beg);
+
+}
 
 void	set_op_variable(char *key, int value)
 {
@@ -55,7 +64,6 @@ void	increment(t_do_op *a, int i)
 	r = ((!a->next || a->next->code >= 0)  ? a->prev : a->next);
 	if (!r || (r == a->prev && (r->is_inc = i)))
 		return ;
-	ft_printf("ici\n");
 	s = ft_variablepars(r->content);
 	set_op_variable(r->content, ft_atoi(s) + i);
 	ft_memdel((void**)&s);

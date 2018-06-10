@@ -71,6 +71,6 @@ void ft_alias(char **arg, char ***env)
 		ft_memdel((void**)&tmp);
 	}
 	else
-		if ((root = btree_search_item(*root, &arg[1], ft_hashcmp)))
-			ft_printf("%s\n", ((char**)(*root)->item)[1]);
+		if ((tmp = btree_search_item(*root, &arg[1], ft_hashcmp)))
+			ft_printf("%s\n", ((char**)tmp)[1]);
 }
