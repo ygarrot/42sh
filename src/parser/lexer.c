@@ -48,21 +48,21 @@ int			get_hdoc(char *str, int i, t_parser *par)
 	if ((hdoc = is_sep(&str[i], par, REDI)))
 	{
 		red = get_sep(&str[i], REDI);
-		if ((i += hdoc) && !red)
-		{
-			while (str[i] == ' ')
-				i++;
-			todel = ft_strndup(&str[i], (hdoc = search_op(&str[i], HD) >= 0 ||
-						(hdoc = ft_isin(str[i], NORM)) ? hdoc + 1 : (int)ft_strlen(&str[i])));
-			par = push_front(par, ft_find_and_replace(todel, "\\", 1), 0);
-			ft_memdel((void**)&todel);
-		}
+		i += hdoc;
 		while (str[i] == ' ')
 			i++;
 		if (((red == 2 || red == 3) && str[i] != '-' && !ft_isdigit(str[i]))
-				|| ((is_sep(&str[i], par, SEP) || is_sep(&str[i], par, REDI))))
+			|| ((is_sep(&str[i], par, SEP) || is_sep(&str[i], par, REDI))))
 			return (-1);
-		return (i);
+		if (!red)
+		{
+			hdoc = ft_strlento_comm(&str[i], ENDWORDVIS) - 1;
+			todel = ft_strndup(&str[i], hdoc < 0 ? ft_strlen(&str[i]) : hdoc);
+			par = push_front(par, ft_find_and_replace(todel, "\\", 1), 0);
+			i+=hdoc;
+			ft_memdel((void**)&todel);
+		}
+			return (i);
 	}
 	return (i + 1);
 }

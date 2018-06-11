@@ -21,7 +21,7 @@ int		ft_strisin_tab(char *tofind, char **tab, int option)
 		return (-1);
 	if (!option)
 	{
-		while (tab[i] && !ft_strisin(tofind, tab[i]))
+		while (tab[i] && ft_strcmp(tofind, tab[i]))
 			i++;
 		return (tab[i] ? i : -1);
 	}

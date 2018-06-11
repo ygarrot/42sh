@@ -84,7 +84,7 @@ int		ft_occiter2(char *str, int (*f)(int));
 ** comp op
 */
 
-void	free_do_op(t_do_op *beg);
+void	free_do_op(t_do_op **beg);
 int		ft_ternary(t_do_op *a, t_do_op *b);
 int		ft_comp_infe(int a, int b);
 int		ft_comp_supe(int a, int b);

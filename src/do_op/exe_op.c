@@ -14,6 +14,8 @@
 
 void	free_op(t_do_op *tmp)
 {
+	if (!tmp)
+		return ;
 	tmp->next ? tmp->next->prev = tmp->prev : 0;
 	tmp->prev ? tmp->prev->next = tmp->next : 0;
 	ft_memdel((void**)&tmp->content);
@@ -43,7 +45,10 @@ void	pre_op(t_do_op **list)
 
 void	if_function(t_do_op **beg, int status)
 {
-	t_do_op *list = *beg;
+	t_do_op *list;
+	
+	if (!(list = *beg))
+		return ;
 	if ((status == 0 && (*list->content == '('
 					|| get_sep(list->content, CREMENT) >= 0))||
 			(status == 1 && (!ft_strcmp(list->content, "--") || !ft_strcmp(list->content, "++"))) ||
@@ -64,29 +69,26 @@ void	if_function(t_do_op **beg, int status)
 		pre_op(beg);
 }
 
-int	the_order(t_do_op *begin)
+int	the_order(t_do_op **begin)
 {
 	int i;
 	int	ret;
 	t_do_op *list;
 
 	i = -1;
-	while (begin && begin->next && ++i < 17)
+	while (*begin && (*begin)->next && ++i < 17)
 	{
-		list = begin;
+		list = *begin;
 		while (list)
 		{
 			if_function(&list, i);
-			list && !list->prev ? begin = list : 0;
+			list && !list->prev ? *begin = list : 0;
 			list ? list = list->next : 0;
 		}
 	}
-	if (begin)
-	{
-		!begin->is_set ? begin->value = get_value(begin) : 0;
-		begin->is_set = 1;
-	}
-	ret = begin ? begin->value : 0;
+	if (*begin)
+		!(*begin)->is_set ? (*begin)->value = get_value(*begin) : 0;
+	ret = *begin ? (*begin)->value : 0;
 	free_do_op(begin);
 	return (ret);
 }
@@ -101,16 +103,14 @@ int	set_assign(t_do_op *list)
 	{
 		if (get_sep(list->content, all_op(1)) >= 0)
 		{
-			list->prev->value = the_order(list->next);
-			list->next ? free_op(list->next) : 0;
+			list->prev->value = the_order(&list->next);
 			list = list->prev;
 			set_op_variable(list->content, list->value);
-			free_op(list->next);
 			list->is_set = 1;
 		}
 		list->prev ? list = list->prev : 0;
 	}
-	return (the_order(list));
+	return (the_order(&list));
 }
 
 char		*exec_op(char **tb)

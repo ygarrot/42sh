@@ -12,12 +12,14 @@
 
 #include "../../includes/sh.h"
 
-void	free_do_op(t_do_op *beg)
+void	free_do_op(t_do_op **beg)
 {
-	if (beg && beg->next)
-		free_op(beg->next);
-	ft_memdel((void**)&beg->content);
-	ft_memdel((void**)&beg);
+	if (!*beg)
+		return ;
+	if ((*beg)->next)
+		free_do_op(&(*beg)->next);
+	ft_memdel((void**)&(*beg)->content);
+	ft_memdel((void**)&(*beg));
 
 }
 

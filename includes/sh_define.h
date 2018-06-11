@@ -43,7 +43,7 @@
 # define ESC "\a\b\f\n\r\t\v\\"
 # define QUOTES "`\"\'"
 # define HD (char *[14]){"||", "&&", "|", "&", ";", ">>", "<<", ">&", "<&", " "}
-# define NORM "<> "
+# define NORM (char *[14]){" ", "<", ">"}
 # define SEP (char *[7]){"||", "&&", "|", "&", ";", "\n"}
 # define M_SEP (char *[6]){"||", "&&", "|"}
 # define REDI (char *[7]){"<<", ">>", "<&",">&", "<", ">"}
