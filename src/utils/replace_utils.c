@@ -30,3 +30,16 @@ int		skip_double(char *str)
 		i += str[i + 1] ? 2 : 1;
 	return (i);
 }
+
+int		local_env(char **tmp, char *todel)
+{
+	int ret;
+
+	ret = 0;
+	if ((*tmp = ft_getenv_fromroot(todel)))
+		ret = 1;
+	if (!ret && (*tmp = ft_variablepars(todel)))
+		ret = 2;
+	ft_memdel((void**)&todel);
+	return (ret);
+}

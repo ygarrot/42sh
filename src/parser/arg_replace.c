@@ -12,13 +12,13 @@
 
 #include "../../includes/sh.h"
 
-void	assign(t_shell *sh, char **arg, int i)
+void	assign(char **arg, int i)
 {
 	char	*temp[3];
 	char	*todel;
 	int		len;
+	int		del;
 
-	(void)sh;
 	if ((*arg)[i] == '$'
 			|| ((*arg)[i] == '~' && (!i || (*arg)[i - 1] == ' ')))
 	{
@@ -26,9 +26,7 @@ void	assign(t_shell *sh, char **arg, int i)
 		len = ft_mcharchr(temp[0], " /*{\'\"");
 		len = len >= 0 ? (size_t)len : ft_strlen(temp[0]);
 		todel = ft_strndup(temp[0], len);
-		temp[1] = ft_getenv_fromroot(todel);
-		ft_memdel((void**)&todel);
-		if (!temp[1])
+		if (!(del = local_env(&temp[1], todel)))
 			return ;
 		todel = (i > 0 ? ft_strndup(*arg, i) : ft_strdup(""));
 		temp[2] = *arg;
@@ -36,6 +34,7 @@ void	assign(t_shell *sh, char **arg, int i)
 				, &(*arg)[i + 1 + ((*arg)[i] == '$' ? len : 0)]);
 		ft_memdel((void**)&temp[2]);
 		ft_memdel((void**)&todel);
+		del == 2 ? ft_memdel((void**)&todel) : 0;
 	}
 }
 
@@ -51,7 +50,7 @@ void	arg_replace(t_shell *sh, char **arg)
 		i += skip_double(&(*arg)[i]);
 		sub_ar(sh, arg, i);
 		comm_substitute(sh, arg, i);
-		assign(sh, arg, i);
+		assign(arg, i);
 		if (!arg[0] || !arg[0][i])
 			return ;
 	}

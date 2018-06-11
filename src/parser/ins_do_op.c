@@ -38,10 +38,11 @@ void sub_ar(t_shell *sh, char **arg, int i)
 	ft_memdel((void**)&todel[2]);
 }
 
-void	replace_local(char **str)
+void	replace_local(char **str, int i)
 {
 	if (!ft_strlento_comm(*str, "="))
 		return ;
-	ft_variable_builtin(*str);
+	if (!(*str)[i + 1])
+		ft_variable_builtin(*str);
 	ft_memdel((void**)&(*str));
 }

@@ -17,6 +17,8 @@ void	add_comm(t_com *com, char *str)
 	t_tb	*to_add;
 	t_tb	*temp;
 
+	if (!com || !str)
+		return;
 	mallcheck(to_add = (t_tb*)ft_memalloc(sizeof(t_tb)));
 	if (!(to_add->glob = ft_glob(str, 0)))
 		to_add->str = str;
@@ -92,10 +94,8 @@ void	norm(t_shell *sh, t_parser *tmp, t_com *com)
 		if ((com->cli[i] = ft_find_and_replace(free, "\\", 1))
 			&& *com->cli[i])
 		{
-			if (!i && !com->cli[i + 1])
-				replace_local(&com->cli[i]);
-			if (com->cli[i])
-				add_comm(com, com->cli[i]);
+			replace_local(&com->cli[i], i);
+			add_comm(com, com->cli[i]);
 		}
 		ft_memdel((void**)&free);
 	}
