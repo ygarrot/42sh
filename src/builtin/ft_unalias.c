@@ -37,5 +37,5 @@ void	ft_unalias(char **arg, char ***env)
 	if (!ft_strcmp(arg[1], "-a"))
 		btree_erase(root, erasehash);
 	else
-		btree_remove_data(root, arg, ft_hashcmp, erase_alias);
+		btree_remove_data(root, &arg[1], ft_hashcmp, erase_alias);
 }

@@ -24,8 +24,10 @@ void	free_op(t_do_op *tmp)
 
 int		pre_op(t_do_op **list)
 {
-	t_do_op *tmp;
+	t_do_op	*tmp;
+	int		tp;
 
+	
 	if (!list)
 		return (error_do_op("error do_op\n"));
 	if (*(*list)->content == '(')
@@ -34,14 +36,15 @@ int		pre_op(t_do_op **list)
 		(*list)->is_set = 1;
 		return (0);
 	}
+	tp = (ft_isin(*(*list)->content, "~!") && !(*list)->content[1]);
 	if (unaire(list))
 		return (0);
 	if (!(*list)->next)
 		return (error_do_op("error do_op\n"));
-	tmp = (*list)->next->next;
+	tmp = tp ? (*list)->next : (*list)->next->next;
 	(*list)->prev->value = do_op((*list)->prev, *list, (*list)->next);
 	(*list) = (*list)->prev;
-	free_op((*list)->next->next);
+	tp ? free_op((*list)->next->next) : 0;
 	free_op((*list)->next);
 	(*list)->is_set = 1;
 	(*list)->next = tmp;
@@ -86,7 +89,6 @@ int	*the_order(t_do_op **begin)
 	while (*begin && (*begin)->next && ++i < 17)
 	{
 		list = *begin;
-			ft_printf("the_order\n");
 		while (list)
 		{
 			if (if_function(&list, i) < 0)
