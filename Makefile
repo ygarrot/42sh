@@ -108,6 +108,7 @@ SRC_FP += \
 		  screen/ft_readtopattern.c
 
 SRC_FP += \
+		  signal/error_op.c \
 		  signal/error_handling.c \
 		  signal/ft_sigint.c
 

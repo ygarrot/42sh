@@ -12,6 +12,15 @@
 
 #include "../../includes/sh.h"
 
+t_do_op **begin_op(t_do_op **beg)
+{
+	static t_do_op *ret = 0;
+
+	if (!ret)
+		ret = *beg;
+	return (&ret);
+}
+
 void	free_do_op(t_do_op **beg)
 {
 	if (!*beg)
@@ -46,7 +55,7 @@ int		unaire(t_do_op **b)
 	{
 		if (a->next->code != -1 && ft_strcmp(a->next->content, "-") 
 	&& ft_strcmp(a->next->content, "+"))
-		return (0);
+			return (0);
 		a->next->sign = (a->sign | 1) * (*a->content == '+' ? 1 : -1);
 		return (unaire(&(*b)->next));
 	}

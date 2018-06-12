@@ -38,6 +38,10 @@ typedef struct s_do_op
 /*
 ** math functions
 */
+
+int	error_do_op(char *str);
+t_do_op **begin_op(t_do_op **beg);
+int		error_do_op(char *str);
 int		unaire(t_do_op **a);
 void	increment(t_do_op *a, int i);
 void	set_op_variable(char *key, int value);

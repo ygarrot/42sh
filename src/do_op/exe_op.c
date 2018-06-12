@@ -22,18 +22,22 @@ void	free_op(t_do_op *tmp)
 	ft_memdel((void**)&tmp);
 }
 
-void	pre_op(t_do_op **list)
+int		pre_op(t_do_op **list)
 {
 	t_do_op *tmp;
 	
+	if (!list)
+		return (-1);
 	if (*(*list)->content == '(')
 	{
 		(*list)->value = ft_atoi(parse_op((*list)->content));
 		(*list)->is_set = 1;
-		return ;
+		return (0);
 	}
 	if (unaire(list))
-		return ;
+		return (0);
+	if (!(*list)->next || !(*list)->next->next)
+		return (error_do_op("error do_op\n"));
 	tmp = (*list)->next->next;
 	(*list)->prev->value = do_op((*list)->prev, *list, (*list)->next);
 	(*list) = (*list)->prev;
@@ -41,6 +45,7 @@ void	pre_op(t_do_op **list)
 	free_op((*list)->next);
 	(*list)->is_set = 1;
 	(*list)->next = tmp;
+	return (0);
 }
 
 void	if_function(t_do_op **beg, int status)
@@ -95,8 +100,6 @@ int	the_order(t_do_op **begin)
 
 int	set_assign(t_do_op *list)
 {
-//	char *tmp;
-
 	while (list->next)
 		list = list->next;
 	while (list->prev)
@@ -119,6 +122,8 @@ char		*exec_op(char **tb)
 	t_do_op		*begin;
 	int			i;
 
+	if (!tb)
+		return (NULL);
 	i = -1;
 	list = (t_do_op*)ft_memalloc(sizeof(t_do_op));
 	begin = list;
@@ -129,6 +134,7 @@ char		*exec_op(char **tb)
 		list->content = tb[i];
 		list = list->next;
 	}
+	begin_op(&begin);
 	ft_memdel((void**)&tb);
 	return (ft_itoa(set_assign(begin)));
 }
