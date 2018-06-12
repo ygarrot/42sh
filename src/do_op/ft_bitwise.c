@@ -39,9 +39,18 @@ int		ft_ternary(t_do_op *a, t_do_op *b)
 	t_do_op *c;
 	int	ret;
 
+	ret = 4;
 	c = b->next;
+	if (!a || !b || !c)
+		return (error_do_op("error do_op\n"));
 	while (c && *c->content != ':')
+	{
+		while (--ret > 0)
+			if (!(c = c->next))
+					return (error_do_op("error do_op\n"));
+				
 		c = c->next->next->next->next;
+	}
 	c = c->next;
 	a->value = get_value(a);
 	b->value = get_value(b);

@@ -16,7 +16,9 @@ void	del_ternary(t_do_op *c)
 {
 	t_do_op *tmp;
 	t_do_op *to_del;
-	
+
+	if (!c && error_do_op("error do_op : del_ternary\n"))
+		return ;
 	while (c && c->is_set)
 	{
 		tmp = c;
@@ -70,7 +72,7 @@ int		get_value(t_do_op *tmp)
 	int i;
 
 	if (!tmp)
-		return (0);
+		return (error_do_op("error do_op\n"));
 	if (tmp->is_set)
 		return (tmp->value * (tmp->sign | 1));
 	tmp->is_set = 1;
@@ -90,13 +92,14 @@ int		do_op(t_do_op *a, t_do_op *op, t_do_op *b)
 
 	if (!f_op)
 		f_op = f_opget();
+	
+	//if (!a || !op || !b)
+	//	return (error_do_op("error do_op\n"));
 	if (!ft_strcmp(op->content, "?"))
 		return (ft_ternary(a, b));
 	a->value = get_value(a);
 	b->value = get_value(b);
 	op->code = get_sep(op->content, OPE) ;
 	op->code < 0 ? op->code = get_sep(op->content, COMP) : 0;
-	//ft_printf("%d %d %d\n", a->value, op->code, b->value);
-	//ft_printf("%s %s %s\n", a->content, op->content, b->content);
 	return (f_op[op->code](a ? a->value : 0, b ? b->value : 0));
 }

@@ -13,6 +13,7 @@
 #ifndef DO_OP_H
 # define DO_OP_H
 
+
 typedef struct s_do_op 
 {
     struct s_do_op *prev;

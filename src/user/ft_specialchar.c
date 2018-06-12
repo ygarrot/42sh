@@ -105,9 +105,11 @@ int		ft_lentospecial(char *str)
 		j = 0;
 		while (specialchar[j])
 		{
-			if (!ft_strprefix(specialchar[j], &str[i]) ||
+		if (specialchar[j][0] == str[i] && (ft_strlen(&str[i]) <
+-	ft_strlen(specialchar[j]) || !ft_strprefix(specialchar[j], &str[i])))
+		/*if (!ft_strprefix(specialchar[j], &str[i]) ||
 		(!ft_strncmp(specialchar[j], &str[i], ft_strlen(specialchar[j])) &&
-				ft_strlen(specialchar[j]) > ft_strlen(&str[i])))
+				ft_strlen(specialchar[j]) > ft_strlen(&str[i])))*/
 				return (i ? i - 1 : 0);
 			j++;
 		}

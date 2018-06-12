@@ -25,9 +25,9 @@ void	free_op(t_do_op *tmp)
 int		pre_op(t_do_op **list)
 {
 	t_do_op *tmp;
-	
+
 	if (!list)
-		return (-1);
+		return (error_do_op("error do_op\n"));
 	if (*(*list)->content == '(')
 	{
 		(*list)->value = ft_atoi(parse_op((*list)->content));
@@ -36,7 +36,7 @@ int		pre_op(t_do_op **list)
 	}
 	if (unaire(list))
 		return (0);
-	if (!(*list)->next || !(*list)->next->next)
+	if (!(*list)->next)
 		return (error_do_op("error do_op\n"));
 	tmp = (*list)->next->next;
 	(*list)->prev->value = do_op((*list)->prev, *list, (*list)->next);
@@ -48,12 +48,12 @@ int		pre_op(t_do_op **list)
 	return (0);
 }
 
-void	if_function(t_do_op **beg, int status)
+int		if_function(t_do_op **beg, int status)
 {
 	t_do_op *list;
 	
 	if (!(list = *beg))
-		return ;
+		return (error_do_op("error do_op\n"));
 	if ((status == 0 && (*list->content == '('
 					|| get_sep(list->content, CREMENT) >= 0))||
 			(status == 1 && (!ft_strcmp(list->content, "--") || !ft_strcmp(list->content, "++"))) ||
@@ -71,22 +71,26 @@ void	if_function(t_do_op **beg, int status)
 			(status == 13  && !ft_strcmp(list->content, "&&")) ||
 			(status == 14 && !ft_strcmp(list->content, "||")) ||
 			(status == 15 && !ft_strcmp(list->content, "?")))
-		pre_op(beg);
+		if (pre_op(beg) < 0)
+			return (error_do_op("error do_op\n"));
+	return (1);
 }
 
-int	the_order(t_do_op **begin)
+int	*the_order(t_do_op **begin)
 {
-	int i;
-	int	ret;
-	t_do_op *list;
+	int		i;
+	static int		ret;
+	t_do_op	*list;
 
 	i = -1;
 	while (*begin && (*begin)->next && ++i < 17)
 	{
 		list = *begin;
+			ft_printf("the_order\n");
 		while (list)
 		{
-			if_function(&list, i);
+			if (if_function(&list, i) < 0)
+				return (NULL);
 			list && !list->prev ? *begin = list : 0;
 			list ? list = list->next : 0;
 		}
@@ -95,25 +99,33 @@ int	the_order(t_do_op **begin)
 		!(*begin)->is_set ? (*begin)->value = get_value(*begin) : 0;
 	ret = *begin ? (*begin)->value : 0;
 	free_do_op(begin);
-	return (ret);
+	return (&ret);
 }
 
-int	set_assign(t_do_op *list)
+char *set_assign(t_do_op *list)
 {
+	int		*ret;
+
+	if (!list && error_do_op("error do_op\n"))
+		return (NULL);
 	while (list->next)
 		list = list->next;
 	while (list->prev)
 	{
 		if (get_sep(list->content, all_op(1)) >= 0)
 		{
-			list->prev->value = the_order(&list->next);
+			if (!(ret = the_order(&list->next)))
+				return (NULL);
+			list->prev->value = *ret;
 			list = list->prev;
 			set_op_variable(list->content, list->value);
 			list->is_set = 1;
 		}
 		list->prev ? list = list->prev : 0;
 	}
-	return (the_order(&list));
+	if (!(ret = the_order(&list)))
+		return (NULL);
+	return (ft_itoa(*ret));
 }
 
 char		*exec_op(char **tb)
@@ -136,5 +148,5 @@ char		*exec_op(char **tb)
 	}
 	begin_op(&begin);
 	ft_memdel((void**)&tb);
-	return (ft_itoa(set_assign(begin)));
+	return (set_assign(begin));
 }

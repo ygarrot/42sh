@@ -16,7 +16,7 @@ t_do_op **begin_op(t_do_op **beg)
 {
 	static t_do_op *ret = 0;
 
-	if (!ret)
+	if (!ret && beg)
 		ret = *beg;
 	return (&ret);
 }
@@ -29,7 +29,6 @@ void	free_do_op(t_do_op **beg)
 		free_do_op(&(*beg)->next);
 	ft_memdel((void**)&(*beg)->content);
 	ft_memdel((void**)&(*beg));
-
 }
 
 void	set_op_variable(char *key, int value)
@@ -48,7 +47,8 @@ int		unaire(t_do_op **b)
 	t_do_op *todel;
 	t_do_op *a;
 
-	a = *b;
+	if (!(a = *b))
+		return (error_do_op("error do_op\n"));
 	if (!ft_strcmp(a->content, "++") || !ft_strcmp(a->content, "--"))
 		increment(a, !ft_strcmp(a->content, "++") ? 1 : -1);
 	else if (!ft_strcmp(a->content, "-") || !ft_strcmp(a->content, "+"))
@@ -75,7 +75,8 @@ void	increment(t_do_op *a, int i)
 	r = ((!a->next || a->next->code >= 0)  ? a->prev : a->next);
 	if (!r || (r == a->prev && (r->is_inc = i)))
 		return ;
-	s = ft_variablepars(r->content);
+	if (!(s = ft_variablepars(r->content)))
+		return ;
 	set_op_variable(r->content, ft_atoi(s) + i);
 	ft_memdel((void**)&s);
 }

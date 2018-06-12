@@ -11,11 +11,21 @@
 /* ************************************************************************** */
 #include "../../includes/sh.h"
 
+void	erase_alias(void *item)
+{
+	char	**t;
+
+	t = (char**)item;
+	if (!t)
+		return ;
+	ft_memdel((void**)&t[0]);
+	ft_memdel((void**)&t[1]);
+	ft_memdel((void**)&t);
+}
+
 void	ft_unalias(char **arg, char ***env)
 {
-	void	*tmp;
 	t_btree **root;
-	int		len;
 
 	(void)env;
 	root = alias_tb();
@@ -26,7 +36,6 @@ void	ft_unalias(char **arg, char ***env)
 	}
 	if (!ft_strcmp(arg[1], "-a"))
 		btree_erase(root, erasehash);
-	if ((root = btree_search_item(*root, &arg[1], ft_hashcmp)))
-		ft_printf("%s\n", ((char**)(*root)->item)[1]);
-	(void)tmp;(void)len;
+	else
+		btree_remove_data(root, arg, ft_hashcmp, erase_alias);
 }

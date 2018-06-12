@@ -50,8 +50,27 @@ char	**all_op(int index)
 	}
 	return (!index ? tb : assign);
 }
+/*
+int	check_classic(char **tb, int *i)
+{
+	
+	if (get_sep(tb[*i], all_op(0)) < 0)
+		if (get_sep(tb[++*i], all_op(0)) < 0)
+			return (-ft_printf("operator expected\n"));
+	else
+	{
+		if (tb[*i] == '?')
+			if (check_ternaries(tb, i))
+				return (-1);
 
-int	check_ternaries(char **tb)
+		if (get_sep(tb[++*i], all_op(0)) < 0 && get_sep(tb[++*i], CREMENT))
+			if ()
+		return (-1)
+			
+	}
+}
+
+int	check_ternaries(char **tb, int *i)
 {
 	int	i;
 	
@@ -65,7 +84,7 @@ int	check_ternaries(char **tb)
 		return (-1);
 	return (i);
 }
-
+*/
 int	check_all(char **tb)
 {
 	int		i;
