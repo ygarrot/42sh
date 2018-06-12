@@ -50,8 +50,7 @@ char	**all_op(int index)
 	}
 	return (!index ? tb : assign);
 }
-/*
-int	check_classic(char **tb, int *i)
+/*int	check_classic(char **tb, int *i)
 {
 	
 	if (get_sep(tb[*i], all_op(0)) < 0)

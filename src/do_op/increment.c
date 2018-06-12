@@ -18,12 +18,12 @@ t_do_op **begin_op(t_do_op **beg)
 
 	if (!ret && beg)
 		ret = *beg;
-	return (&ret);
+	return (ret ? &ret : NULL);
 }
 
 void	free_do_op(t_do_op **beg)
 {
-	if (!*beg)
+	if (!beg || !*beg)
 		return ;
 	if ((*beg)->next)
 		free_do_op(&(*beg)->next);

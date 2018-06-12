@@ -86,20 +86,25 @@ int		get_value(t_do_op *tmp)
 	return (i * (tmp->sign | 1));
 }
 
-int		do_op(t_do_op *a, t_do_op *op, t_do_op *b)
+int		*do_op(t_do_op *a, t_do_op *op, t_do_op *b)
 {
 	static int		(**f_op)(int, int) = 0;
-
+	static int result = 0;
 	if (!f_op)
 		f_op = f_opget();
 	
 	//if (!a || !op || !b)
-	//	return (error_do_op("error do_op\n"));
-	if (!ft_strcmp(op->content, "?"))
-		return (ft_ternary(a, b));
+	if (!ft_strcmp(op->content, "?") && (ft_ternary(a, b, &result) || 1))
+		return (&result);
 	a->value = get_value(a);
 	b->value = get_value(b);
 	op->code = get_sep(op->content, OPE) ;
 	op->code < 0 ? op->code = get_sep(op->content, COMP) : 0;
-	return (f_op[op->code](a ? a->value : 0, b ? b->value : 0));
+	if (ft_isin(*op->content, "%/") && !b->value)
+	{
+		error_do_op("error do_op\n");
+		return (0);
+	}
+	result = f_op[op->code](a ? a->value : 0, b ? b->value : 0);
+	return (&result);
 }

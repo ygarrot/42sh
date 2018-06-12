@@ -42,7 +42,6 @@ typedef struct s_do_op
 
 int	error_do_op(char *str);
 t_do_op **begin_op(t_do_op **beg);
-int		error_do_op(char *str);
 int		unaire(t_do_op **a);
 void	increment(t_do_op *a, int i);
 void	set_op_variable(char *key, int value);
@@ -55,7 +54,7 @@ int		calc_op(char **op_tb);
 
 int		is_local(char *str);
 int		get_value(t_do_op *tmp);
-int		do_op(t_do_op *a, t_do_op *op, t_do_op *b);
+int		*do_op(t_do_op *a, t_do_op *op, t_do_op *b);
 int		browse_last(t_do_op *list);
 char		*exec_op(char **tb);
 int		parenth(char **str, int i, char rep, bool recc);
@@ -90,7 +89,7 @@ int		ft_occiter2(char *str, int (*f)(int));
 */
 
 void	free_do_op(t_do_op **beg);
-int		ft_ternary(t_do_op *a, t_do_op *b);
+int		ft_ternary(t_do_op *a, t_do_op *b, int *result);
 int		ft_comp_infe(int a, int b);
 int		ft_comp_supe(int a, int b);
 int		ft_comp_inf(int a, int b);

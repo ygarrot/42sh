@@ -26,10 +26,10 @@ int		pre_op(t_do_op **list)
 {
 	t_do_op	*tmp;
 	int		tp;
+	int		*err;
 
-	
 	if (!list)
-		return (error_do_op("error do_op\n"));
+		return (error_do_op("error do_op no op pre_op\n"));
 	if (*(*list)->content == '(')
 	{
 		(*list)->value = ft_atoi(parse_op((*list)->content));
@@ -40,9 +40,11 @@ int		pre_op(t_do_op **list)
 	if (unaire(list))
 		return (0);
 	if (!(*list)->next)
-		return (error_do_op("error do_op\n"));
+		return (error_do_op("error do_op pre_op next\n"));
 	tmp = tp ? (*list)->next : (*list)->next->next;
-	(*list)->prev->value = do_op((*list)->prev, *list, (*list)->next);
+	if (!(err = do_op((*list)->prev, *list, (*list)->next)))
+		return (-1);
+	(*list)->prev->value = *err; 
 	(*list) = (*list)->prev;
 	tp ? free_op((*list)->next->next) : 0;
 	free_op((*list)->next);
@@ -56,7 +58,7 @@ int		if_function(t_do_op **beg, int status)
 	t_do_op *list;
 	
 	if (!(list = *beg))
-		return (error_do_op("error do_op\n"));
+		return (error_do_op("error do_op if_function\n"));
 	if ((status == 0 && (*list->content == '('
 					|| get_sep(list->content, CREMENT) >= 0))||
 			(status == 1 && (!ft_strcmp(list->content, "--") || !ft_strcmp(list->content, "++"))) ||
@@ -75,7 +77,7 @@ int		if_function(t_do_op **beg, int status)
 			(status == 14 && !ft_strcmp(list->content, "||")) ||
 			(status == 15 && !ft_strcmp(list->content, "?")))
 		if (pre_op(beg) < 0)
-			return (error_do_op("error do_op\n"));
+			return (-1);
 	return (1);
 }
 
@@ -108,7 +110,7 @@ char *set_assign(t_do_op *list)
 {
 	int		*ret;
 
-	if (!list && error_do_op("error do_op\n"))
+	if (!list && error_do_op("error do_op set_assign\n"))
 		return (NULL);
 	while (list->next)
 		list = list->next;
