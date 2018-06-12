@@ -40,9 +40,13 @@ void sub_ar(t_shell *sh, char **arg, int i)
 
 void	replace_local(char **str, int i)
 {
-	if (!ft_strlento_comm(*str, "="))
+	if (i > 0 || !*str || str[1])
 		return ;
-	if (!(*str)[i + 1])
+	if (**str == '(')
+		parse_op(*str);
+	else if (ft_strlento_comm(*str, "="))
 		ft_variable_builtin(*str);
+	else
+		return ;
 	ft_memdel((void**)&(*str));
 }

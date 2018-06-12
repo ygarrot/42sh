@@ -66,7 +66,6 @@ int	check_ternaries(char **tb)
 	return (i);
 }
 
-
 int	check_all(char **tb)
 {
 	int		i;
