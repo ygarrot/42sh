@@ -6,11 +6,11 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 15:45:17 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/09 17:26:30 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/13 12:51:21 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/sh.h"
+#include "sh.h"
 
 int		wait_exec(t_shell *sh, char **arg)
 {
@@ -18,7 +18,7 @@ int		wait_exec(t_shell *sh, char **arg)
 	int		ind;
 
 	if (!ft_strcmp(*arg, "exit"))
-		ft_exit(sh);
+		ft_exit(sh, EXIT_SUCCESS);
 	if ((ind = ft_strisin_tab(arg[0], BUILT, 0)) >= 0)
 	{
 		if (exec_redi(sh, sh->com->redi) < 0)

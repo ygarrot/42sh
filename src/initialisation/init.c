@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 13:14:26 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/09 17:26:30 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/13 12:51:05 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		f_point(t_shell *sh, char **argv)
 		|| (sh->std[2] = dup(STDERR_FILENO)) < 0)
 	{
 		ft_printf("std dup error\n");
-		ft_exit(sh);
+		ft_exit(sh, EXIT_FAILURE);
 	}
 	sh->built[0] = &ft_cd;
 	sh->built[1] = &ft_setenv;

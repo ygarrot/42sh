@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 19:03:40 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/10 18:11:21 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/13 13:04:52 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void		ft_delparser(t_parser **pars);
 */
 
 void		ft_initialisation (char **env, t_shell *sh);
+int			ft_terminal_set(t_termios *term);
 int			ft_recoverenv(char ***env);
 char		*ft_getenvfile(int code);
 int			ft_envwrite(char *file, char **env);
@@ -306,7 +307,7 @@ void		ft_setenv(char **arg, char ***env);
 void		ft_setenvno(char **arg, char ***env);
 void		ft_unsetenv(char **arg, char ***env);
 void		ft_env(t_shell *sh, char **arg, char ***env);
-void		ft_exit(t_shell *sh);
+void		ft_exit(t_shell *sh, int val);
 int			ft_setenvvar(char **env, char *cur, char *var);
 int			ft_strlento(char *str, char c);
 char		**ft_strtbdup(char **tb);

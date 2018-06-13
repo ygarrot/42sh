@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 13:41:24 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/10 18:11:23 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/13 13:05:17 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,6 @@ void	get_sub(t_shell *sh)
 		|| dup2(sh->std[1], STDOUT_FILENO) == -1)
 	{
 		ft_printf("STD dup error\n");
-		ft_exit(sh);
+		ft_exit(sh, EXIT_FAILURE);
 	}
 }
