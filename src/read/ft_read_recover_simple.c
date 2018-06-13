@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 13:08:28 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/13 11:43:08 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/13 12:36:18 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,26 @@
 
 static int	ft_read_simple_end(char *str, t_read p, int pos)
 {
-	if (p->nchars_exact > 0)
-		return (ft_strlen_vis(str) >= nchars_exact);
-	if (p->nchars > 0)
-		return (0);
+	size_t	size;
 
+	size = ft_strlen(str);
+	if (p.nchars_exact > 0 && size > p.nchars_exact)
+		ft_addtofd(&str[size + 1], p.fd);
+	if (p.nchars_exact > 0)
+		return (size >= p.nchars_exact);
+	if (p.nchars > 0 && size > p.nchars)
+		ft_addtofd(&str[size + 1], p.fd);
+	if (p.nchars > 0 && size >= p.nchars)
+		return (1);
+	if (size == 0)
+		return (0);
+	size = 0;
+	while (str[size])
+	{
+		if (ft_strprefix(p.delim, &str[size]))
+			return (1);
+		size++;
+	}
 	return (0);
 }
 
@@ -67,25 +82,19 @@ char		*ft_read_recover_simple(t_read *parser)
 		buff[re] = 0;
 		pos += re;
 		re = 0;
-		while (buff[re] && (buff[re] != parser->delim || bl))
-		{
-			re++;
-			bl = (buff[re] == '\\' && !bl && parser->bl_active);
-		}
-		str = ft_read_recover_simple_join(str, buff, re);
+		str = ft_read_recover_simple_join(str, buff, ft_strlen(buff));
 	}
-}
-
-return (str);
+	return (str);
 }
 
 int	main(int ac, char **av)
 {
 	t_read	p;
+	char	*str;
 
 	ft_read_initstruct(&p);
-	p->variables = (char*[5]){"first", "second", "third", "fourth", 0};
-
-
+	p.delim = "O";
+	str = ft_read_recover_simple(&p);
+	printf("\n{%s}\n", str);
 	return (0);
 }
