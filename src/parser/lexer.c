@@ -37,6 +37,7 @@ void	add_aliases(char **str)
 		tb[0] = tmp[1];
 	}
 	*str = ft_str_tabjoin((const char**)tb);
+	ft_free_dblechar_tab(tb);
 }
 
 int			get_hdoc(char *str, int i, t_parser *par)

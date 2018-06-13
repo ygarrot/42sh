@@ -43,8 +43,12 @@ void	epur_tb(t_com *com, int len)
 
 void	erase_shell(t_shell *sh)
 {
+	t_btree **root;
+	
 	if (!sh)
 		return ;
+	root = alias_tb();
 	free_comm(sh);
 	erase_hash_tab(sh->hash_tb);
+	btree_erase(root, erasehash);
 }

@@ -131,6 +131,7 @@ typedef struct	s_shell
 {
 	void		(*f_built[7])(char **av, char ***argv);
 	void		(*built[7])(char **av, char ***argv);
+	int			status;
 	t_btree		**hash_tb;
 	int			std[3];
 	char		*here_doc;
