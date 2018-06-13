@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 11:48:59 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/05/27 14:15:31 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/13 13:05:40 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int		ft_read_eot(t_line *line, int *val, t_parser *parser)
 	if ((val[4] ? line->line : line->eof)[val[0]])
 		return (ft_delete(line, val) == -1 ? -1 : 0);
 	if (val[0] == val[1] && val[4])
-		ft_exit(0);
+		ft_exit(0, EXIT_SUCCESS);
 	else if (val[0] == val[5] && val[4] == 0)
 	{
 		if (!parser)
