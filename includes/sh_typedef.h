@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 12:04:19 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/10 12:33:19 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/13 11:46:46 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct itimerval	t_timer;
 
 typedef struct	s_read
 {
-	char		delim;
+	char		*delim;
 	char		**variables;
 	int			deep;
 	char		*readline;

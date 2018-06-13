@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:38:20 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/06 12:38:21 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/13 11:48:32 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,14 @@ int	ft_read_parser_d(t_read *parser, char *str)
 		return (ft_read_usage(parser));
 	if (!parser)
 		return (2);
-	parser->delim = *str;
+	ft_strdel(&parser->delim);
+	parser->delim = ft_strndup(str, ft_lenchar_r(str, 0));
+	if (!parser->delim)
+	{
+		parser->error = 1;
+		ft_putstr_fd("21sh: read: An internal error occured\n", STDERR_FILENO);
+		return (-1);
+	}
 	return (2);
 }
 

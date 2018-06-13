@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:38:46 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/06 12:38:47 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/13 11:46:36 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ void	ft_read_initstruct(t_read *data)
 {
 	if (!data)
 		return ;
-	data->delim = '\n';
+	data->delim = ft_strdup("\n");
 	data->variables = 0;
 	data->deep = 1;
 	data->readline = 0;
 	data->readline_active = 0;
 	data->nchars = 0;
+	data->nchars_exact = 0;
 	data->prompt = 0;
 	data->bl_active = 1;
 	data->echo = 1;
