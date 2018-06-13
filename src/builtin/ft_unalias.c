@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unalias.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/09 16:37:28 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/09 17:26:29 by ygarrot          ###   ########.fr       */
+/*   Created: 2018/06/13 11:13:48 by tcharrie          #+#    #+#             */
+/*   Updated: 2018/06/13 11:13:49 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../includes/sh.h"
 
 void	erase_alias(void *item)
