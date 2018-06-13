@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/21 14:52:44 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/05/26 12:57:42 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/13 14:25:07 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int		ft_printchar(t_line *line, char *str, int *val)
 	tmp = (val[4] ? line->line : line->eof);
 	if (!str || !line || !val)
 		return (-1);
+	if (*str != '\n' && !ft_isprint(*str) && (*str & '\x80') == 0)
+		return (1);
 	val[9] = ft_lenchar_r(str, 0);
 	if (str[0] == '\n' && ft_move_toend(line, val) == -1)
 		return (-1);
