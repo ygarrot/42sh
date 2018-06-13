@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 14:02:03 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/13 13:02:45 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/13 13:17:09 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int		main(int ac, char **av, char **env)
 		line = ft_getentry();
 		while (line.line == 0)
 		{
-			line = ft_getentry();
 			ft_delline(&line);
+			line = ft_getentry();
 		}
 		if (ft_terminal_reset(0) == -1)
 			ft_fatal("Failed to reset terminal setting");

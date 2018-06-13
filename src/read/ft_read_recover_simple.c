@@ -6,13 +6,13 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 13:08:28 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/13 12:36:18 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/13 13:25:19 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-static int	ft_read_simple_end(char *str, t_read p, int pos)
+static int	ft_read_end(char *str, t_read p, int pos)
 {
 	size_t	size;
 

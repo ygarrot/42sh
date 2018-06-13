@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 12:22:27 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/05/18 13:52:15 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/13 14:26:32 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,43 @@ int		ft_printstr(t_line *line, char *str, int *val)
 	return (tmp[val[0]] ? ft_printinsert(line, val) : 1);
 }
 
+void	ft_printnchar_getbuff(char *buff, char *str, int n)
+{
+	int	i;
+	int	j;
+
+	buff[0] = 0;
+	i = 0;
+	j = 0;
+	while (n > 0)
+	{
+		if (str[j] == '\n' || ft_isprint(str[j]) || (str[j] & '\x80') == '\x80')
+			ft_strncat(&buff[i], &str[j], ft_lenchar_r(str, j));
+		j += ft_lenchar_r(str, j);
+		n--;
+	}
+}
+
 int		ft_printnchar(t_line *line, char *str, int *val, int n)
 {
 	int		ret;
 	char	*tmp;
 	char	buf[BUFFSIZE + 1];
 
+	if (!str)
+		return (0);
 	n = ft_min(n, ft_abs((int)ft_strlen(str)));
 	if (n <= 0)
 		return (0);
 	if (n <= BUFFSIZE)
 	{
 		buf[0] = 0;
-		ft_strcat(buf, str);
+		ft_printnchar_getbuff(buf, str, n);
 		return (ft_printstr(line, buf, val));
 	}
 	if (!(tmp = ft_memalloc(n + 1)))
 		return (-1);
-	ft_strncat(tmp, str, n);
+	ft_printnchar_getbuff(buf, str, n);
 	ret = ft_printstr(line, tmp, val);
 	ft_strdel(&tmp);
 	return (ret);
