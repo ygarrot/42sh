@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:38:00 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/13 12:47:14 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/13 15:31:56 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ int	ft_read_initterminal(t_read *parser)
 		return (-1);
 	}
 	ft_read_terminal_reset(&term, parser->fd);
-	term.c_lflag &= ~(ICANON | ECHO);
+	if (parser->readlne_active || !parser->echo)
+		term.c_lflag &= ~(ICANON | ECHO);
+	else
+		term.c_lflag &= ~(ICANON);
 	term.c_cc[VTIME] = 0;
 	term.c_cc[VMIN] = 1;
 	if (tcsetattr(parser->fd, 0, &term) == -1)
