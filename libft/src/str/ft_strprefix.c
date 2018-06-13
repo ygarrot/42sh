@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/12 12:14:51 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/13 12:20:20 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/13 13:09:02 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ int		ft_strprefix(char *pref, char *str)
 		i++;
 	if (pref[i])
 		return (0);
-	return (1);
+	return (i);
 }
