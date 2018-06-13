@@ -43,6 +43,7 @@ int		wait_exec(t_shell *sh, char **arg)
 int		exe(t_shell *sh, char *comm, char **argv)
 {
 	pid_t father;
+	int		status;
 
 	if ((sh->com->next && sh->com->next->type & 4)
 	|| (sh->sub.is_sub && (!sh->com->next || sh->com->next->type != 4)))
@@ -58,11 +59,11 @@ int		exe(t_shell *sh, char *comm, char **argv)
 	if (sh->com->type & 4)
 		safe_dup(-1, 0, sh->com->pipe);
 	if (father > 0)
-		while (wait(0) != -1)
+		while (wait(&status) != -1)
 			;
 	else
 		return (-ft_printf("sh : fork error : %d", father));
-	return (1);
+	return (-WEXITSTATUS(status));
 }
 
 int		search_exec(t_shell *sh, char *comm, char **argv)
