@@ -38,23 +38,42 @@ void sub_ar(t_shell *sh, char **arg, int i)
 	ft_memdel((void**)&todel[2]);
 }
 
-void	replace_local(char **str, int i)
+void	sub_shell(t_shell *sh, char *str)
 {
-	char *todel;
+	pid_t	father;
+	char	*todel;
+	t_line	tmp;
 
-	todel = NULL;
+	if (!ft_strncmp(str, "((", 2))
+	{
+		todel = parse_op(str);
+		ft_memdel((void**)&todel);
+		return ;
+	}
+	if (!bracket(++str, "()"))
+		return ;
+	sh->sub.is_sub = 2;
+	str[ft_strlen(str) - 1] = '\0';
+	tmp.line = str;
+	if (!(father = fork()))
+		hard_split(sh, &tmp);
+	else if (father > 0)
+		while (wait(0) != -1)
+			;
+}
+
+void	replace_local(t_shell *sh, char **str, int i)
+{
 	if (i > 0 || !str || !*str)
 		return ;
 	if (**str == '(')
-		todel = parse_op(*str);
+		sub_shell(sh, *str);
 	else if (ft_strlento_comm(*str, "="))
 	{
-		
 		if (!str[1])
 			ft_variable_builtin(*str);
 	}
 	else
 		return ;
 	ft_memdel((void**)&(*str));
-	ft_memdel((void**)&todel);
 }

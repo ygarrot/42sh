@@ -115,7 +115,7 @@ typedef struct	s_parser
 
 typedef struct	s_substitute
 {
-	bool	is_sub;
+	int		is_sub;
 	int		pipe[2];
 	size_t	size;
 	t_list	*begin;

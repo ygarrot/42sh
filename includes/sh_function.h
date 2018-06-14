@@ -355,7 +355,7 @@ int			write_env(char **env);
 
 void replace_in(t_shell *sh, t_com *com);
 int		local_env(char **tmp, char *todel);
-void	replace_local(char **str, int i);
+void	replace_local(t_shell *sh, char **str, int i);
 char			**ft_custom_split(char *s, char **tb,int op);
 int		bracket(char *str, char *brack);
 void sub_ar(t_shell *sh, char **arg, int i);

@@ -45,7 +45,7 @@ int		exe(t_shell *sh, char *comm, char **argv)
 	pid_t father;
 
 	if ((sh->com->next && sh->com->next->type & 4)
-	|| (sh->sub.is_sub && (!sh->com->next || sh->com->next->type != 4)))
+	|| (sh->sub.is_sub  == 1 && (!sh->com->next || sh->com->next->type != 4)))
 		return (exec_pipe(sh, comm, argv));
 	father = fork();
 	if (!father)
@@ -140,11 +140,12 @@ int		sort_comm(t_shell *sh)
 		}
 		else
 			*fail = exec_cli(sh, sh->com);
-		!fail[1] && *fail > 0 && sh->sub.is_sub ? get_sub(sh) : 0;
+		!fail[1] && *fail > 0 && sh->sub.is_sub == 1 ? get_sub(sh) : 0;
 		if (((!tmp && sh->com) || (sh->com = tmp)) && sh->com->type & 4)
 			return (*fail);
 		shift_com(sh, *fail);
 	}
 	free_comm(sh);
+	sh->sub.is_sub == 2 ? exit(EXIT_SUCCESS) : 0;
 	return (0);
 }
