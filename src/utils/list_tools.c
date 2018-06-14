@@ -45,10 +45,11 @@ void		shift_com(t_shell *sh, int fail)
 	if (!sh->com)
 		return ;
 	sh->com = sh->com->next;
-	sh->com && !(sh->com->type & 4) ? epur_tb(sh->com, sh->com->len) : 0;
-	while (sh->com && (sh->com->type && !(sh->com->type & (fail >= 0 ? 2 : 1))))
+	sh->com && !(sh->com->type & 4) ? replace_in(sh, sh->com) : 0;
+	while (sh->com && (!sh->com->cli 
+	|| (sh->com->type && !(sh->com->type & (fail >= 0 ? 2 : 1)))))
 	{
-		!(sh->com->type & 4) ? epur_tb(sh->com, sh->com->len) : 0;
+		!(sh->com->type & 4) ? replace_in(sh, sh->com) : 0;
 		if (sh->com->type & 32)
 		{
 			sh->com = sh->com->next;

@@ -98,6 +98,8 @@ int		exec_cli(t_shell *sh, t_com *com)
 	int		fail;
 	int		fd;
 
+	if (!com->cli)
+		return (1);
 	fail = wait_exec(sh, com->cli);
 	redi = com->redi;
 	while (redi)
@@ -125,7 +127,7 @@ int		sort_comm(t_shell *sh)
 
 	if (!sh || !sh->com || (!sh->begin && !(sh->begin = sh->com)))
 		return (1);
-	epur_tb(sh->com, sh->com->len);
+	replace_in(sh, sh->com);
 	while (!(tmp = NULL) && sh->com)
 	{
 		fail[1] = sh->com->next && sh->com->next->type & 4;

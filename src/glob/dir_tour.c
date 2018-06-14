@@ -17,7 +17,8 @@ t_paths		*path_is_valid(char *path, char *name, t_dirent *dir, char **regex)
 	struct stat	st;
 	t_paths		*tmp;
 
-	if ((*dir->d_name == '.' && **regex != '.') || !ft_match(name, *regex))
+	if (!regex || !*regex || (*dir->d_name == '.' && **regex != '.')
+	|| !ft_match(name, *regex))
 		return (NULL);
 	name ? path = ft_strjoin(path, name) : 0;
 	if (stat(path, &st) == -1 && lstat(path, &st) == -1)

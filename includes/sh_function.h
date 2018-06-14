@@ -322,7 +322,7 @@ void		ft_export(char **arg, char ***env);
 int			redi(t_shell *sh, t_redi *redi);
 int			wait_exec(t_shell *sh, char **cli);
 int			sort_comm(t_shell *sh);
-void		epur_tb(t_com *inte, int len);
+void		epur_tb(t_com *com, int len);
 
 int			exe(t_shell *sh, char *comm, char **argv);
 int			search_exec(t_shell *sh, char *comm, char **argv);
@@ -353,6 +353,7 @@ int			write_env(char **env);
 ** substitute functions
 */
 
+void replace_in(t_shell *sh, t_com *com);
 int		local_env(char **tmp, char *todel);
 void	replace_local(char **str, int i);
 char			**ft_custom_split(char *s, char **tb,int op);

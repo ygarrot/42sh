@@ -28,9 +28,8 @@ void	add_aliases(char **str)
 
 	root = alias_tb();
 	all_op = (char *[14]){"||", "&&", "|", "&", ";", ">>",
-	"<<", ">&", "<&" , "\n", " ","<",">"};
+	"<<", ">&", "<&" , "\n", " ","<",">", 0};
 	tb = ft_custom_split(*str, all_op, 1);
-	
 	if ((tmp = btree_search_item(*root, &tb[0], ft_hashcmp)))
 	{
 		ft_memdel((void**)&tb[0]);

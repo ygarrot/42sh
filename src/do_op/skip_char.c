@@ -34,7 +34,7 @@ int		bracket(char *str, char *brack)
 		return (0);
 	if (str[i] == *brack)
 		if ((tmp = ft_charchr(brack[1], &str[i])))
-			return (i + tmp);
+			return (tmp < 0 ? 0 : i + tmp);
 	return (0);
 }
 

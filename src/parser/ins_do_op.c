@@ -43,12 +43,15 @@ void	replace_local(char **str, int i)
 	char *todel;
 
 	todel = NULL;
-	if (i > 0 || !*str || str[1])
+	if (i > 0 || !str || !*str)
 		return ;
 	if (**str == '(')
 		todel = parse_op(*str);
 	else if (ft_strlento_comm(*str, "="))
-		ft_variable_builtin(*str);
+	{
+		if (str[1])
+			ft_variable_builtin(*str);
+	}
 	else
 		return ;
 	ft_memdel((void**)&(*str));

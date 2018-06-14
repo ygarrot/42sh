@@ -95,10 +95,10 @@ typedef struct	s_com
 {
 	char			**cli;
 	int				pipe[2];
-	int				len;
 	int				type;
 	t_tb			*tb;
 	t_redi			*redi;
+	int				len;
 	bool			tmp;
 	struct s_com	*next;
 }				t_com;

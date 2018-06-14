@@ -20,13 +20,8 @@ void	add_comm(t_com *com, char *str)
 	if (!com || !str)
 		return;
 	mallcheck(to_add = (t_tb*)ft_memalloc(sizeof(t_tb)));
-	if (!(to_add->glob = ft_glob(str, 0)))
-		to_add->str = str;
-	else
-		ft_memdel((void**)&str);
-	com->len += to_add->str ? 1 : to_add->glob->nb_paths;
-	temp = com->tb;
-	if (!temp)
+	to_add->str = str;
+	if (!(temp = com->tb))
 	{
 		com->tb = to_add;
 		return ;
@@ -78,26 +73,27 @@ char	*get_redi(char *str, t_com *com)
 void	norm(t_shell *sh, t_parser *tmp, t_com *com)
 {
 	int		i;
-	char	*free;
+//	char	*free;
 
 	if (tmp->next)
 		mallcheck(com->next = (t_com*)ft_memalloc(sizeof(t_com)));
 	if (!tmp->comm)
 		return ;
-	arg_replace(sh, &tmp->comm);
+//	arg_replace(sh, &tmp->comm);
+	(void)sh;
 	get_redi(tmp->comm, com);
 	mallcheck(com->cli = ft_strsplit_comm(tmp->comm, " "));
 	i = -1;
 	while (com->cli[++i])
 	{
-		free = com->cli[i];
-		if ((com->cli[i] = ft_find_and_replace(free, "\\", 1))
-			&& *com->cli[i])
+//		free = com->cli[i];
+		if (/*(com->cli[i] = ft_find_and_replace(free, "\\", 1))
+			*/com->cli[i] && *com->cli[i])
 		{
-			replace_local(&com->cli[i], i);
+//			replace_local(&com->cli[i], i);
 			add_comm(com, com->cli[i]);
 		}
-		ft_memdel((void**)&free);
+//		ft_memdel((void**)&free);
 	}
 }
 

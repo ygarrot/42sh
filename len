@@ -1,0 +1,70 @@
+src/exec/exec.c:		if (exec_redi(sh, sh->com->redi) < 0)
+src/exec/exec.c:		if (sh->com->type & 4 || (sh->com->next && sh->com->next->type & 4))
+src/exec/exec.c:	if ((sh->com->next && sh->com->next->type & 4)
+src/exec/exec.c:	|| (sh->sub.is_sub && (!sh->com->next || sh->com->next->type != 4)))
+src/exec/exec.c:		if (sh->com->type & 4 &&
+src/exec/exec.c:				safe_dup(sh->com->pipe[0], STDIN_FILENO, sh->com->pipe))
+src/exec/exec.c:	if (sh->com->type & 4)
+src/exec/exec.c:		safe_dup(-1, 0, sh->com->pipe);
+src/exec/exec.c:	fail = wait_exec(sh, com->cli);
+src/exec/exec.c:	redi = com->redi;
+src/exec/exec.c:	epur_tb(sh->com, sh->com->len);
+src/exec/exec.c:		fail[1] = sh->com->next && sh->com->next->type & 4;
+src/exec/exec.c:			sh->com = sh->com->next;
+src/exec/exec.c:		if (((!tmp && sh->com) || (sh->com = tmp)) && sh->com->type & 4)
+src/exec/redirect.c:	if (!sh->com->tmp && dup2(redi->fd[1], redi->fd[0]) == -1)
+src/exec/redirect.c:	if (sh->com->tmp)
+src/exec/redirect.c:	if (sh->com->tmp && !redi->type)
+src/exec/redirect.c:	if (!sh->com->tmp && (redi->type == 2 || redi->type == 3))
+src/exec/redirect.c:	if (((sh->com->type & 4 && sh->com->tmp)
+src/exec/redirect.c:	|| !(sh->com->type & 4)) && (sh->com->next && sh->com->next->type & 4))
+src/exec/redirect.c:		sh->com = sh->com->next;
+src/exec/redirect.c:		sh->com->tmp = 1;
+src/exec/redirect.c:		ret = exec_redi(sh, sh->com->redi);
+src/exec/redirect.c:		sh->com->tmp = 0;
+src/exec/redirect.c:	tmp = sh->com->next;
+src/exec/redirect.c:		if (sh->com->type & 4 &&
+src/exec/redirect.c:				safe_dup(sh->com->pipe[0], STDIN_FILENO, sh->com->pipe))
+src/exec/redirect.c:	if (sh->com->type & 4)
+src/exec/redirect.c:		safe_dup(-1, 0, sh->com->pipe);
+src/exec/replace_in.c:	list = com->tb;
+src/misc/erase.c:	if (!(list = com->tb))
+src/misc/erase.c:	ft_memdel((void**)&com->cli);
+src/misc/erase.c:	mallcheck(com->cli = (char**)ft_memalloc((len + 1) * sizeof(char*)));
+src/misc/erase.c:			com->cli[++i] = list->str;
+src/misc/erase.c:				com->cli[++i] = tmp->path;
+src/parser/interpreter.c:	com->len += to_add->str ? 1 : to_add->glob->nb_paths;
+src/parser/interpreter.c:	temp = com->tb;
+src/parser/interpreter.c:		com->tb = to_add;
+src/parser/interpreter.c:	if (!com->redi)
+src/parser/interpreter.c:		com->redi = toadd;
+src/parser/interpreter.c:	while (com->redi->next)
+src/parser/interpreter.c:		com->redi = com->redi->next;
+src/parser/interpreter.c:	com->redi->next = toadd;
+src/parser/interpreter.c:		mallcheck(com->next = (t_com*)ft_memalloc(sizeof(t_com)));
+src/parser/interpreter.c:	mallcheck(com->cli = ft_strsplit_comm(tmp->comm, " "));
+src/parser/interpreter.c:	while (com->cli[++i])
+src/parser/interpreter.c:		free = com->cli[i];
+src/parser/interpreter.c:		if ((com->cli[i] = ft_find_and_replace(free, "\\", 1))
+src/parser/interpreter.c:			&& *com->cli[i])
+src/parser/interpreter.c:			replace_local(&com->cli[i], i);
+src/parser/interpreter.c:			add_comm(com, com->cli[i]);
+src/parser/interpreter.c:		com->type = tmp->type;
+src/parser/interpreter.c:		com = com->next;
+src/signal/error_handling.c:	if (exec_redi(sh, sh->com->redi) < 0)
+src/utils/exec_utils.c:	if (ft_strisin_tab(*com->cli, FBUILT, 0) >= 0
+src/utils/exec_utils.c:			|| (sh->com->next && sh->com->next->type & 4))
+src/utils/exec_utils.c:		ft_printf("21sh: close error on %s\n", com->redi->path);
+src/utils/list_tools.c:	if (com && !com->comm)
+src/utils/list_tools.c:		com->comm = trim;
+src/utils/list_tools.c:		com->type = type;
+src/utils/list_tools.c:	while (com->next)
+src/utils/list_tools.c:		com = com->next;
+src/utils/list_tools.c:	com->next = ret;
+src/utils/list_tools.c:	sh->com = sh->com->next;
+src/utils/list_tools.c:	sh->com && !(sh->com->type & 4) ? epur_tb(sh->com, sh->com->len) : 0;
+src/utils/list_tools.c:	while (sh->com && (sh->com->type && !(sh->com->type & (fail >= 0 ? 2 : 1))))
+src/utils/list_tools.c:		!(sh->com->type & 4) ? epur_tb(sh->com, sh->com->len) : 0;
+src/utils/list_tools.c:		if (sh->com->type & 32)
+src/utils/list_tools.c:			sh->com = sh->com->next;
+src/utils/list_tools.c:		sh->com = sh->com->next;

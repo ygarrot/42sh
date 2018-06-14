@@ -12,7 +12,7 @@
 
 NAME = 21sh
 
-FLAGS =  -Wall -Werror -Wextra #-g3 -fsanitize=address,undefined
+FLAGS =  -Wall -Werror -Wextra -g3 -fsanitize=address,undefined
 
 SRC_FOLDER = src/
 
@@ -54,6 +54,7 @@ SRC_FP += \
 
 SRC_FP += \
 		  exec/exec.c \
+		  exec/replace_in.c \
 		  exec/redirect.c
 
 SRC_FP += \
