@@ -33,7 +33,7 @@ void replace_in(t_shell *sh, t_com *com)
 	int		i;
 	char *free;
 
-	i  = 0;
+	i = 0;
 	free = NULL;
 	list = com->tb;
 	while (list)

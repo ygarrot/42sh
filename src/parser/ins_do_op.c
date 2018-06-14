@@ -49,7 +49,8 @@ void	replace_local(char **str, int i)
 		todel = parse_op(*str);
 	else if (ft_strlento_comm(*str, "="))
 	{
-		if (str[1])
+		
+		if (!str[1])
 			ft_variable_builtin(*str);
 	}
 	else
