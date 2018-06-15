@@ -8,9 +8,10 @@ void	alias_file(t_shell *sh)
 
 	*line = getenv("HOME");
 	*line = ft_strjoin(*line, "/.42shrc");
-	if ((tb[0] = open(*line, O_RDWR)) < 0)
-		return ;
+	tb[0] = open(*line, O_RDWR);
 	ft_memdel((void**)&(*line));
+	if (tb[0] < 0)
+		return ;
 	mallcheck(*line = ft_memalloc(BUFF_SIZE * sizeof(char)));
 	line[2] = ft_strnew(1);
 	while ((tb[1] = read(*tb, *line, BUFF_SIZE)) >= 0)
