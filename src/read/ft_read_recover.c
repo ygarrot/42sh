@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 12:18:57 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/15 15:41:23 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/15 15:51:54 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ int		ft_read_recover_init(t_read *parser, int *val, size_t size,
 		ft_strcat(line->line, parser->prompt);
 	if (parser->readline)
 		ft_strcat(line->line, parser->readline);
+	if (parser->echo)
+		ft_putstr_fd(line->line, parser->fd);
 	val[1] = ft_strlen(parser->prompt);
 	val[5] = val[1];
 	val[0] = val[1] + ft_strlen(parser->readline);
