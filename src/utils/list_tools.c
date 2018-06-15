@@ -51,7 +51,7 @@ void		shift_com(t_shell *sh, int fail)
 	{
 		!(sh->com->type & 4) ? replace_in(sh, sh->com) : 0;
 		sh->com = sh->com->next;
-		if (sh->com->type & 32)
+		if (sh->com && sh->com->type & 32)
 			return ;
 	}
 }

@@ -20,11 +20,11 @@ void	epur_tb(t_com *com, int len)
 	t_tb	*list;
 
 	i = -1;
-	if (!len || !(list = com->tb))
+	if (len <= 0 || !(list = com->tb))
 		return ;
 	ft_memdel((void**)&com->cli);
 	mallcheck(com->cli = (char**)ft_memalloc((len + 1) * sizeof(char*)));
-	while (list && !(com->len = 0))
+	while (list && (com->len = -1))
 	{
 		if (list->str)
 			com->cli[++i] = list->str;

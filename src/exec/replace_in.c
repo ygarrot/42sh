@@ -35,7 +35,8 @@ void replace_in(t_shell *sh, t_com *com)
 
 	i = 0;
 	free = NULL;
-	list = com->tb;
+	if (!(list = com->tb) || com->len < 0)
+		return ;
 	while (list)
 	{
 		free = list->str;
@@ -46,7 +47,6 @@ void replace_in(t_shell *sh, t_com *com)
 		if (!add_glob(com, &list, list->str))
 			list ? list = list->next : 0;
 	}
-	list = com->tb;
 	if (!com->len)
 		ft_memdel((void**)&com->cli);
 	else

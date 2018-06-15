@@ -146,6 +146,5 @@ int		sort_comm(t_shell *sh)
 		shift_com(sh, *fail);
 	}
 	free_comm(sh);
-	sh->sub.is_sub == 2 ? exit(EXIT_SUCCESS) : 0;
 	return (0);
 }

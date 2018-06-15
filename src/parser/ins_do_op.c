@@ -58,8 +58,7 @@ void	sub_shell(t_shell *sh, char *str)
 	if (!(father = fork()))
 		hard_split(sh, &tmp);
 	else if (father > 0)
-		while (wait(0) != -1)
-			;
+		wait(0);
 }
 
 void	replace_local(t_shell *sh, char **str, int i)
