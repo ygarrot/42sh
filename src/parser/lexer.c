@@ -35,6 +35,7 @@ void	add_aliases(char **str)
 		ft_memdel((void**)&tb[0]);
 		tb[0] = ft_strdup(tmp[1]);
 	}
+	//ft_memdel((void**)&(*str));
 	*str = ft_str_tabjoin((const char**)tb);
 	ft_free_dblechar_tab(tb);
 }

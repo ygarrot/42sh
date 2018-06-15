@@ -131,11 +131,13 @@ int	check_all(char **tb)
 char	*parse_op(char *str)
 {
 	char	**tb;
+	char	*ret;
 
 	str[ft_strlen(str) - 1] = '\0';
 	ft_strcpy(str, &str[1]);
 	tb = ft_custom_split(str, all_op(0), 0);
 	if (!tb || !check_all(tb))
 		return (NULL);
-	return (exec_op(tb));
+	ret = exec_op(tb);
+	return (ret);
 }
