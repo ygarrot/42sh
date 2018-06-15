@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:37:21 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/15 14:10:46 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/15 15:37:05 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_read_builtin(char **arg, char ***env)
 	str = ft_read_recover(&parser);
 	if (ft_read_assign(&parser, str) == -1)
 		parser.error = 1;
-	ft_read_terminal_reset();
+	ft_read_terminal_reset(0, parser.fd);
 }
 
 char	*ft_read_delim(void)

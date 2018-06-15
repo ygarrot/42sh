@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 12:18:57 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/15 14:16:55 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/15 15:41:23 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_read_recover_pars(t_line *line, int *val, char *buff, t_read *p)
 
 	if (!p || !line || !val || !buff || !*buff || !line->line)
 		return ;
-	len = parser->readline_active ? ft_lentospecial(buff) : (int)ft_strlen(buff);
+	len = p->readline_active ? ft_lentospecial(buff) : (int)ft_strlen(buff);
 	if (p->readline_active && 0 == len)
 	{
 		len = ft_read_recover_execute(line, val, buff, p->echo);
@@ -95,7 +95,7 @@ char	*ft_read_recover(t_read *parser)
 		return (0);
 	ft_bzero((void*)buff, sizeof(buff));
 	ft_bzero((void*)tmp, sizeof(tmp));
-	while (line.line && !ft_read_recover_end(line.line, *p))
+	while (line.line && !ft_read_recover_end(line.line, *parser))
 	{
 		val[9] = read(parser->fd, buff, BUFFSIZE);
 		if (val[9] < 0)
@@ -106,5 +106,5 @@ char	*ft_read_recover(t_read *parser)
 		ft_strcat(tmp, buff);
 		ft_read_recover_pars(&line, val, tmp, parser);
 	}
-	return (str);
+	return (line.line);
 }

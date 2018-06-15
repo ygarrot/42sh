@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 14:03:52 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/15 14:21:31 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/15 15:38:01 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,5 @@ void	ft_read_move_tohome(t_line *line, int *val)
 {
 	if (val)
 		val[0] = val[5];
+	(void)line;
 }

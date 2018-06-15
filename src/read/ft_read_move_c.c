@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 14:37:28 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/15 15:28:58 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/15 15:39:35 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	ft_read_move_up(t_line *line, int *val)
 void	ft_read_move_down(t_line *line, int *val)
 {
 	int	i;
-	int	j;
 	int	k;
 
 	if (!line || !line->line || !val)
@@ -74,7 +73,7 @@ void	ft_read_move_down(t_line *line, int *val)
 		val[0]++;
 	if (!line->line[val[0]])
 		return ;
-	j = 0;
+	k = 0;
 	while (line->line[val[0]] && line->line[val[0]] != '\n' && k < i)
 	{
 		k++;

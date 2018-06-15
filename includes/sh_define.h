@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 12:08:50 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/09 17:26:30 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/15 15:43:56 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@
 # define SPECIALCHAR "`\"'\\!$&|?<>* \n"
 
 # define KEY_LEFT "\33[D"
-# define KEY_LEFT_SHITED "\33[1;2D"
+# define KEY_LEFT_SHIFTED "\33[1;2D"
 # define KEY_RIGHT "\33[C"
 # define KEY_RIGHT_SHIFTED "\33[1;2C"
 # define KEY_UP "\33[A"
 # define KEY_UP_SHITED "\33[1;2A"
 # define KEY_DOWN "\33[B"
-# define KEY_DOWN_SHITED "\33[1;2B"
+# define KEY_DOWN_SHIFTED "\33[1;2B"
 # define KEY_SELECT_LEFT "\33\133\61\73\66\104"
 # define KEY_SELECT_RIGHT "\33\133\61\73\66\103"
 # define KEY_SELECT_CPY tgetstr("F6", 0)

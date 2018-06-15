@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 11:47:33 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/13 11:12:12 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/15 15:46:29 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		ft_specialchar_b(t_line *line, char *str, int *val)
 	i = 0;
 	if ((i = ft_strprefix(KEY_RIGHT, str)))
 		ft_move_right(line, val);
-	else if ((i = ft_strprefix(KEY_LEFT_SHITED, str)))
+	else if ((i = ft_strprefix(KEY_LEFT_SHIFTED, str)))
 		ft_move_wordl(line, val);
 	else if ((i = ft_strprefix(KEY_RIGHT_SHIFTED, str)))
 		ft_move_wordr(line, val);
@@ -73,7 +73,7 @@ int		ft_specialchar_a(t_line *line, char *str, int *val)
 		ft_completion(line, val);
 	else if ((i = ft_strprefix(KEY_UP_SHITED, str)))
 		ft_move_up(line, val);
-	else if ((i = ft_strprefix(KEY_DOWN_SHITED, str)))
+	else if ((i = ft_strprefix(KEY_DOWN_SHIFTED, str)))
 		ft_move_down(line, val);
 	else if ((i = ft_strprefix(KEY_END, str)))
 		ft_move_toend(line, val);
@@ -94,8 +94,8 @@ int		ft_lentospecial(char *str)
 	int		j;
 	char	**specialchar;
 
-	specialchar = (char*[22]){KEY_LEFT, KEY_LEFT_SHITED, KEY_RIGHT,
-	KEY_RIGHT_SHIFTED, KEY_UP, KEY_UP_SHITED, KEY_DOWN, KEY_DOWN_SHITED,
+	specialchar = (char*[22]){KEY_LEFT, KEY_LEFT_SHIFTED, KEY_RIGHT,
+	KEY_RIGHT_SHIFTED, KEY_UP, KEY_UP_SHITED, KEY_DOWN, KEY_DOWN_SHIFTED,
 	KEY_SELECT_LEFT, KEY_SELECT_RIGHT, KEY_SELECT_CPY, KEY_SELECT_PASTE,
 	KEY_END, KEY_END_SHIFTED, KEY_HOME, KEY_HOME_SHIFTED, KEY_DELETE,
 	KEY_ERASE, NEWLINE, KEY_COMPLETION, "\4", 0};
@@ -123,8 +123,8 @@ int		ft_lenchar_joker(char *str)
 
 	if (!str)
 		return (0);
-	specialchar = (char*[22]){KEY_LEFT, KEY_LEFT_SHITED, KEY_RIGHT,
-	KEY_RIGHT_SHIFTED, KEY_UP, KEY_UP_SHITED, KEY_DOWN, KEY_DOWN_SHITED,
+	specialchar = (char*[22]){KEY_LEFT, KEY_LEFT_SHIFTED, KEY_RIGHT,
+	KEY_RIGHT_SHIFTED, KEY_UP, KEY_UP_SHITED, KEY_DOWN, KEY_DOWN_SHIFTED,
 	KEY_SELECT_LEFT, KEY_SELECT_RIGHT, KEY_SELECT_CPY, KEY_SELECT_PASTE,
 	KEY_END, KEY_END_SHIFTED, KEY_HOME, KEY_HOME_SHIFTED, KEY_DELETE,
 	KEY_ERASE, NEWLINE, KEY_COMPLETION, "\4", 0};

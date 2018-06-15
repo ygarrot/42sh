@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 14:21:53 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/15 14:37:18 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/15 15:39:16 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_read_move_tolinel(t_line *line, int *val)
 		val[0]--;
 }
 
-void	ft_move_toend(t_line *line, int *val)
+void	ft_read_move_toend(t_line *line, int *val)
 {
 	if (!line || !line->line || !val)
 		return ;
@@ -29,7 +29,7 @@ void	ft_move_toend(t_line *line, int *val)
 
 void	ft_read_move_toliner(t_line *line, int *val)
 {
-	if (!line || !line->lien || !val)
+	if (!line || !line->line || !val)
 		return ;
 	while (line->line[val[0]] && line->line[val[0]] != '\n')
 		val[0]++;

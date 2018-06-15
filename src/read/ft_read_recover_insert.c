@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 11:25:39 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/15 14:19:25 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/15 15:43:48 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		ft_read_recover_execute(t_line *line, int *val, char *buff, int echo)
 		echo ? ft_move_right(line, val) : ft_read_move_right(line, val);
 	else if ((i = ft_strprefix(KEY_RIGHT_SHIFTED, buff)))
 		echo ? ft_move_wordr(line, val) : ft_read_move_wordr(line, val);
-	else if ((i = ft_strprefix(KEY_HOME, str)))
+	else if ((i = ft_strprefix(KEY_HOME, buff)))
 		echo ? ft_move_tohome(line, val) : ft_read_move_tohome(line, val);
 	else
 		return (ft_read_recover_execute_a(line, val, buff, echo));
@@ -73,12 +73,12 @@ int		ft_read_recover_execute_a(t_line *line, int *val, char *buff, int echo)
 		echo ? ft_erase(line, val) : ft_read_erase(line, val);
 	else if ((i = ft_strprefix(KEY_DELETE, buff)))
 		echo ? ft_delete(line, val) : ft_read_delete(line, val);
-	else if ((i = ft_strprefix(KEY_UP(line, val))))
-		echo ? ft_movetohist(line, val, 1) : ft_read_movetohist(line, val, 1);
+	else if ((i = ft_strprefix(KEY_UP, buff)))
+		echo ? ft_move_tohist(line, val, 1) : ft_read_movetohist(line, val, 1);
 	else if ((i = ft_strprefix(KEY_UP_SHITED, buff)))
 		echo ? ft_move_up(line, val) : ft_read_move_up(line, val);
 	else if ((i = ft_strprefix(KEY_DOWN, buff)))
-		echo ? ft_movetohist(line, val, -1) : ft_read_movetohist(line, val, -1);
+		echo ? ft_move_tohist(line, val, -1) : ft_read_movetohist(line, val, -1);
 	else if ((i = ft_strprefix(KEY_DOWN_SHIFTED, buff)))
 		echo ? ft_move_down(line, val) : ft_read_move_down(line, val);
 	else if ((i = ft_strprefix(NEWLINE, buff)))

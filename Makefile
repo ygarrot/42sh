@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2018/06/13 11:16:17 by tcharrie         ###   ########.fr        #
+#    Updated: 2018/06/15 15:36:09 by tcharrie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,6 +93,24 @@ SRC_FP += \
 		  parser/lexer.c \
 		  parser/arg_replace.c \
 		  parser/parser.c
+
+SRC_FP += \
+		  read/ft_read.c \
+		  read/ft_read_assign.c \
+		  read/ft_read_error.c \
+		  read/ft_read_init.c \
+		  read/ft_read_initterminal.c \
+		  read/ft_read_move.c \
+		  read/ft_read_move_b.c \
+		  read/ft_read_move_c.c \
+		  read/ft_read_parser.c \
+		  read/ft_read_parser_assign.c \
+		  read/ft_read_parser_assignn.c \
+		  read/ft_read_parser_assignnn.c \
+		  read/ft_read_recover.c \
+		  read/ft_read_recover_insert.c \
+		  read/ft_read_split.c \
+		  read/ft_read_timer.c \
 
 SRC_FP += \
 		  screen/ft_getpos.c \

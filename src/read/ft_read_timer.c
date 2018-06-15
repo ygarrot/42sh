@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:38:33 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/08 15:39:18 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/15 15:45:43 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	ft_read_timer_sig(int sig)
 int		ft_read_timer(t_read *data)
 {
 	t_timer		timer_set;
-	int			timer_id;
 
 	if (!data || data->error || (!data->timer.tv_sec && !data->timer.tv_nsec))
 		return (0);
