@@ -27,7 +27,7 @@ int			skip_co(char *str)
 	i = 0;
 	if (!str || !*str)
 		return (0);
-	while (ft_isin(str[i], QUOTES) && (q = str[i++]))
+	while (ft_isin(str[i], "\'\"") && (q = str[i++]))
 	{
 		if (ft_charchr(q, &str[i]) < 0)
 			return (0);
@@ -53,7 +53,7 @@ static char	*replace(char *str, char *rep, int op, int len)
 	mallcheck((ret = ft_strnew(len)));
 	while (str[i] && !(q = 0))
 	{
-		while (op & 1 && ft_isin(str[i], QUOTES)
+		while (op & 1 && ft_isin(str[i], "\'\"")
 			&& (ft_charchr(str[i], &str[i + 1]) >= 0) && (q = str[i]))
 		{
 			while (str[++i] && str[i] != q &&
@@ -78,9 +78,9 @@ char		*ft_find_and_replace(char *str, char *rep, int op)
 
 	i = 0;
 	temp = 0;
-	len = ft_strlen(str);
 	if (!str)
 		return (NULL);
+	len = ft_strlen(str);
 	while (str[i])
 	{
 		while (str[i] == '\\' && len--)

@@ -20,6 +20,7 @@ typedef struct s_do_op
     struct s_do_op *next;
     char	*content;
 	bool	is_set;
+	bool	is_spec;
 	int		is_inc;
 	int		sign;
 	int		value;

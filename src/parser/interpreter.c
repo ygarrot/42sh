@@ -73,27 +73,19 @@ char	*get_redi(char *str, t_com *com)
 void	norm(t_shell *sh, t_parser *tmp, t_com *com)
 {
 	int		i;
-//	char	*free;
 
 	if (tmp->next)
 		mallcheck(com->next = (t_com*)ft_memalloc(sizeof(t_com)));
 	if (!tmp->comm)
 		return ;
-//	arg_replace(sh, &tmp->comm);
 	(void)sh;
 	get_redi(tmp->comm, com);
 	mallcheck(com->cli = ft_strsplit_comm(tmp->comm, " "));
 	i = -1;
 	while (com->cli[++i])
 	{
-//		free = com->cli[i];
-		if (/*(com->cli[i] = ft_find_and_replace(free, "\\", 1))
-			*/com->cli[i] && *com->cli[i])
-		{
-//			replace_local(&com->cli[i], i);
+		if (com->cli[i] && *com->cli[i])
 			add_comm(com, com->cli[i]);
-		}
-//		ft_memdel((void**)&free);
 	}
 }
 

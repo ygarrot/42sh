@@ -353,6 +353,7 @@ int			write_env(char **env);
 ** substitute functions
 */
 
+void	add_comm(t_com *com, char *str);
 void replace_in(t_shell *sh, t_com *com);
 int		local_env(char **tmp, char *todel);
 void	replace_local(t_shell *sh, char **str, int i);
