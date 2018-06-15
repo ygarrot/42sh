@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/04 16:56:40 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/05/26 16:03:31 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/15 16:35:23 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void		ft_setenv(char **arg, char ***env)
 {
 	char	*value;
 
-	env = ft_storeenv(0);
+	env = ft_storeenv(0, ft_subshell_get());
 	if (!arg || !env || !*env)
 		write(STDOUT_FILENO, "\n", 1);
 	else if (!*arg || !arg[1])

@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:41:24 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/06 13:28:05 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/15 16:36:55 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void		ft_variable_builtin(char *str)
 	{
 		deported = 1;
 		setenv = (char*[4]){"setenv", str, &str[i + 1], 0};
-		if ((env = ft_storeenv(0)))
+		if ((env = ft_storeenv(0, ft_subshell_get())))
 			ft_setenv(setenv, env);
 	}
 	ft_variableadd(ft_strdup(str), (void*)ft_strdup(&str[i + 1]), 1, deported);
