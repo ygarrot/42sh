@@ -1,26 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh_include.h                                       :+:      :+:    :+:   */
+/*   ft_subshell.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/06 12:06:28 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/15 15:45:26 by tcharrie         ###   ########.fr       */
+/*   Created: 2018/06/15 16:11:38 by tcharrie          #+#    #+#             */
+/*   Updated: 2018/06/15 16:15:17 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SH_INCLUDE_H
-# define SH_INCLUDE_H
+#include "sh.h"
 
-# include "../libft/includes/libft.h"
-# include "ft_printf.h"
-# include "do_op.h"
-# include <term.h>
-# include <sys/stat.h>
-# include <sys/wait.h>
-# include <sys/time.h>
-# include <signal.h>
-# include <dirent.h>
+int		*ft_subshell(void)
+{
+	static int	i = 0;
 
-#endif
+	return (&i);
+}
+
+int		ft_subshell_get(void)
+{
+	int	*i;
+
+	i = ft_subshell();
+	if (i)
+		return (*i);
+	return (0);
+}
+
+void	ft_subshell_set(int val)
+{
+	int	*i;
+
+	i = ft_subshell();
+	if (i)
+		*i = val;
+}
