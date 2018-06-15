@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 16:11:38 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/15 16:15:17 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/15 17:32:01 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,18 @@ int		ft_subshell_get(void)
 
 void	ft_subshell_set(int val)
 {
-	int	*i;
+	int		*i;
+	char	***env;
 
 	i = ft_subshell();
 	if (i)
+	{
+		if (*i < val)
+		{
+			env = ft_storeenv(0, *i);
+			if (env && *env)
+				ft_storeenv(ft_strtbdup(*env), val);
+		}
 		*i = val;
+	}
 }
