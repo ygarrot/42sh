@@ -12,11 +12,7 @@
 
 NAME = 21sh
 
-<<<<<<< HEAD
 FLAGS =  -Wall -Werror -Wextra -g3 #-fsanitize=address,undefined
-=======
-FLAGS =  -Wall -Werror -Wextra# -g3 -fsanitize=address,undefined
->>>>>>> b303f484f52f78945667f816384823c2d2e87f2c
 
 SRC_FOLDER = src/
 

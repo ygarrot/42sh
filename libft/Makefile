@@ -14,11 +14,7 @@
 NAME = libft.a
 
 CC = gcc
-<<<<<<< HEAD
 CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address,undefined
-=======
-CFLAGS = -Wall -Wextra -Werror #-g3 -fsanitize=address,undefined
->>>>>>> b303f484f52f78945667f816384823c2d2e87f2c
 
 SRCDIR = src
 OBJDIR = obj

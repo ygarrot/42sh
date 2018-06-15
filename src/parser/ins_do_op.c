@@ -57,7 +57,9 @@ void	sub_shell(t_shell *sh, char *str)
 	sh->sub.is_sub = 2;
 	str[ft_strlen(str) - 1] = '\0';
 	tmp.line = str;
+	ft_subshell_set(ft_subshell_get() + 1);
 	hard_split(sh, &tmp);
+	ft_subshell_set(ft_subshell_get() - 1);
 	sh->env = env;
 }
 
