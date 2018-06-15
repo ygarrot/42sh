@@ -72,7 +72,7 @@ void	increment(t_do_op *a, int i)
 	t_do_op *r;
 	char *s;
 
-	r = ((!a->next || a->next->code >= 0)  ? a->prev : a->next);
+	r = ((!a->next || check_op(a->next->content))  ? a->prev : a->next);
 	if (!r || (r == a->prev && (r->is_inc = i)))
 		return ;
 	if (!(s = ft_variablepars(r->content)))

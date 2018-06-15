@@ -52,12 +52,14 @@ char	*parse_op(char *str);
 int (**f_opget(void))(int, int);
 int		calc_op(char **op_tb);
 
+int		check_op(char *str);
 int		is_local(char *str);
 int		get_value(t_do_op *tmp);
 int		*do_op(t_do_op *a, t_do_op *op, t_do_op *b);
 int		browse_last(t_do_op *list);
 char		*exec_op(char **tb);
 int		parenth(char **str, int i, char rep, bool recc);
+
 /*
 ** bitwise
 */

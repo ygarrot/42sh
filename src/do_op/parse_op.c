@@ -50,40 +50,62 @@ char	**all_op(int index)
 	}
 	return (!index ? tb : assign);
 }
-/*int	check_classic(char **tb, int *i)
-{
-	
-	if (get_sep(tb[*i], all_op(0)) < 0)
-		if (get_sep(tb[++*i], all_op(0)) < 0)
-			return (-ft_printf("operator expected\n"));
-	else
-	{
-		if (tb[*i] == '?')
-			if (check_ternaries(tb, i))
-				return (-1);
 
-		if (get_sep(tb[++*i], all_op(0)) < 0 && get_sep(tb[++*i], CREMENT))
-			if ()
-		return (-1)
-			
+int	check_classic(char **tb, int *i)
+{
+	int		is_op;
+
+	if (tb[*i] && ft_isin(*tb[*i], "-~+") && !tb[*i][1] && ++*i)
+		return (check_classic(tb, i));
+	if (!tb[*i] || (!(is_op = check_op(tb[*i])) && !tb[++*i]))
+		return (1);
+	if (!(is_op = check_op(tb[*i])))
+		return (0 & ft_printf("operator expected\n"));
+	else if (is_op)
+	{
+		if (get_sep(tb[*i], all_op(1)) >= 0
+			&& tb[*i][0] != '=' && ((i - 1) < 0 || ft_str_isdigit(tb[*i - 1])))
+			return(0 & ft_printf("lvalue required\n"));
+		if (ft_isin(*tb[*i], ":?") && (--*i || 1))
+			return (1);
+		if (get_sep(tb[*i], CREMENT) >= 0 && ++*i)
+			return (check_classic(tb, i));
+		else if (!check_op(tb[++*i]) && !check_op(tb[*i]))
+			return (check_classic(tb, i));
+		return (0 & ft_printf("unknown error\n"));
 	}
+	return (is_op && get_sep(tb[++*i], CREMENT) >= 0 ?
+	check_classic(tb, i) : 0 & ft_printf("no operator\n"));
 }
+
+int	check_op(char *str)
+{
+	if (!str)
+		return (-1);
+	if (get_sep(str, all_op(0)) >= 0)
+		return (1);
+	return (0);
+}
+
+#define TERN "ERREUR DE TERN SYNTAX"
 
 int	check_ternaries(char **tb, int *i)
 {
-	int	i;
-	
-	i = 0;
-	if (get_sep(tb[i++], all_op(0)) >= 0)
-		return (i + 1);
-	if (*tb[i++ + 1] == '?')
-		if (!(i = check_ternaries(&tb[i + 1])))
-			return (-1);
-	if (*tb[i++] != ':' || !tb[i] || get_sep(tb[i++], all_op(0)) >= 0 )
-		return (-1);
-	return (i);
+	if (check_op(tb[*i]))
+		return (1);
+	if (!tb[++*i] || *tb[*i] != '?' || check_op(tb[++*i]) || !tb[*i + 1])
+		return (0 & ft_printf(TERN));
+	if (*tb[*i + 1] == '?')
+		if (!(check_ternaries(&tb[*i], i)))
+			return (0 & ft_printf("%s\n", TERN, "1"));
+	if (!check_classic(tb, i))
+		return (0 & ft_printf("%s\n", TERN, "2"));
+	if (!tb[*i] || *tb[++*i] != ':')
+		return (0 & ft_printf("%s\n", TERN, "3"));
+	++*i;
+	return (tb[*i] ? check_classic(tb, i) : 0 & ft_printf("%s %s\n", TERN, "3"));
 }
-*/
+
 int	check_all(char **tb)
 {
 	int		i;
@@ -95,13 +117,12 @@ int	check_all(char **tb)
 	{
 		if (parenth(&tb[i], -1, '\0', 0) < 0)
 			return (0);
-		if (get_sep(tb[i], CREMENT) < 0 && get_sep(tb[i], all) >= 0
-			&& ((i <= 0 || get_sep(tb[i - 1], all) >= 0)
-			|| (!tb[i + 1] || get_sep(tb[i + 1], all) >= 0)))
-			return (0 & ft_printf("2 operators\n"));
-		if (get_sep(tb[i], all_op(1)) >= 0
-				&& tb[i][0] != '=' && ((i - 1) < 0 || ft_str_isdigit(tb[i - 1])))
-			return (0 & ft_printf("lvalue required\n"));
+		if (!check_classic(tb, &i))
+			return (0);
+		if (tb[i] && !check_ternaries(tb, &i))
+			return (0);
+		if (!tb[i])
+			return (1);
 	}
 	return (1);
 }
@@ -110,26 +131,11 @@ int	check_all(char **tb)
 char	*parse_op(char *str)
 {
 	char	**tb;
-	int			i;
 
 	str[ft_strlen(str) - 1] = '\0';
 	ft_strcpy(str, &str[1]);
 	tb = ft_custom_split(str, all_op(0), 0);
 	if (!tb || !check_all(tb))
 		return (NULL);
-	i = -1;
-	while (++i)
-	{
-		if (*tb[i] != '(' && ft_mcharchr("/%", tb[i]) >= 0)
-		{
-			if ((ft_str_isdigit(tb[i + 1])
-	&& !ft_atoi(tb[i + 1])) || (!ft_str_isdigit(tb[i - 1])
-	&& ft_atoi(0)))
-			{
-				ft_printf("Divide by 0\n") ;
-				return (NULL);
-			}
-		}
-	}
 	return (exec_op(tb));
 }
