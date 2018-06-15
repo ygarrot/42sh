@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 15:52:44 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/15 15:59:46 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/15 17:20:00 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,16 @@ int		ft_dprintf_color(fd, str, i)
 
 	if (!str || str[i] != '{')
 		return (0);
+	if (!ft_strncmp("{whiteblack}", str, 12))
+		write(fd, "\33[40;37m", 8);
+	else if (!ft_strncmp("{blackwhite}", str, 12))
+		write(fd, "\33[47;30m", 8);
+	else
+	{
+		write(fd, "{", 1);
+		return (1);
+	}
+	return (12);
 }
 
 int		ft_dprintf(int fd, const char *str, ...)
