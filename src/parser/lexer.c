@@ -33,7 +33,7 @@ void	add_aliases(char **str)
 	if ((tmp = btree_search_item(*root, &tb[0], ft_hashcmp)))
 	{
 		ft_memdel((void**)&tb[0]);
-		tb[0] = tmp[1];
+		tb[0] = ft_strdup(tmp[1]);
 	}
 	*str = ft_str_tabjoin((const char**)tb);
 	ft_free_dblechar_tab(tb);

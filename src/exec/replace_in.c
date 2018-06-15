@@ -1,5 +1,4 @@
 
-
 #include "../../includes/sh.h"
 
 void recc_repl(t_tb **list)
@@ -15,16 +14,17 @@ void recc_repl(t_tb **list)
 		ft_memdel((void**)&(*list));
 }
 
-void add_glob(t_com *com, t_tb **list, char *str)
+int	 add_glob(t_com *com, t_tb **list, char *str)
 {
 	if (!str)
 	{
 		recc_repl(list);
-		return ;
+		return (1);
 	}
 	if (((*list)->glob = ft_glob(str, 0)))
 		ft_memdel((void**)&(*list)->str);
 	com->len += (*list)->str ? 1 : (*list)->glob->nb_paths;
+	return (0);
 }
 
 void replace_in(t_shell *sh, t_com *com)
@@ -43,9 +43,10 @@ void replace_in(t_shell *sh, t_com *com)
 		replace_local(sh, &list->str, i++);
 		ft_memdel((void**)&free);
 		arg_replace(sh, &list->str);
-		add_glob(com, &list, list->str);
-		list ? list = list->next : 0;
+		if (!add_glob(com, &list, list->str))
+			list ? list = list->next : 0;
 	}
+	list = com->tb;
 	if (!com->len)
 		ft_memdel((void**)&com->cli);
 	else
