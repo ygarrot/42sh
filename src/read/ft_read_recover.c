@@ -6,42 +6,37 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 12:18:57 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/13 15:44:24 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/15 14:16:55 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-static void	ft_read_recover_execute(t_line *line, int *val, char *buff)
-{
-
-
-}
-
-static void	ft_read_recover_pars(t_line *line, int *val, char *buff, t_read p)
+void	ft_read_recover_pars(t_line *line, int *val, char *buff, t_read *p)
 {
 	int	len;
+	int	i;
 
-	if (!line || !val || !buff || !*buff || !line->line)
+	if (!p || !line || !val || !buff || !*buff || !line->line)
 		return ;
-	len = parser.readline_active ? ft_lentospecial(buff) : (int)ft_strlen(buff);
-	if (p.readline_active && 0 >= len)
-		ft_read_recover_execute(line, val, buff);
-	else if (p.readline_active)
-		;
-	else
+	len = parser->readline_active ? ft_lentospecial(buff) : (int)ft_strlen(buff);
+	if (p->readline_active && 0 == len)
 	{
-		line->eof = (char*)ft_malloc(ft_strlen(line->line) + len + 1)
-		line->eof[0] = 0;
-		ft_strcat(line->eof, line->line);
-		ft_strcat(line->eof, buff);
-		*buff = 0;
-		ft_strdel(&line->line);
-		line->line = line->eof;
+		len = ft_read_recover_execute(line, val, buff, p->echo);
+		if (ft_strprefix(NEWLINE, buff) && p->echo)
+			write(p->fd, "\n", 1);
 	}
+	else if (p->readline_active && p->echo)
+		ft_printnchar(line, buff, val, len);
+	else
+		ft_read_recover_insert(line, val, buff, len);
+	i = 0;
+	while (buff[len])
+		buff[i++] = buff[len++];
+	buff[i] = 0;
 }
 
-int			ft_read_recover_end(char *str, t_read p)
+int		ft_read_recover_end(char *str, t_read p)
 {
 	size_t	size;
 
@@ -68,20 +63,38 @@ int			ft_read_recover_end(char *str, t_read p)
 	return (0);
 }
 
-char		*ft_read_recover(t_read *parser)
+int		ft_read_recover_init(t_read *parser, int *val, size_t size,
+		t_line *line)
+{
+	if (!parser)
+		return (-1);
+	ft_bzero((void*)val, size);
+	if (!(line->line = (char*)ft_memalloc(ft_strlen(parser->readline) +
+					ft_strlen(parser->prompt) + 1)))
+		return (-1);
+	line->line = 0;
+	if (parser->prompt)
+		ft_strcat(line->line, parser->prompt);
+	if (parser->readline)
+		ft_strcat(line->line, parser->readline);
+	val[1] = ft_strlen(parser->prompt);
+	val[5] = val[1];
+	val[0] = val[1] + ft_strlen(parser->readline);
+	val[4] = 1;
+	return (0);
+}
+
+char	*ft_read_recover(t_read *parser)
 {
 	t_line	line;
 	int		val[14];
 	char	buff[BUFFSIZE + 1];
 	char	tmp[2 * BUFFSIZE + 1];
 
-	if (!parser)
+	if (ft_read_recover_init(parser, val, sizeof(val), &line) == -1)
 		return (0);
-	line.line = (char*)ft_memalloc(1);
-	ft_bzero((void*)val, sizeof(val));
 	ft_bzero((void*)buff, sizeof(buff));
-	ft_bzero((void*)tmp, sizeof(buff));
-	val[4] = 1;
+	ft_bzero((void*)tmp, sizeof(tmp));
 	while (line.line && !ft_read_recover_end(line.line, *p))
 	{
 		val[9] = read(parser->fd, buff, BUFFSIZE);
@@ -91,7 +104,7 @@ char		*ft_read_recover(t_read *parser)
 			return (0);
 		buff[val[9]] = 0;
 		ft_strcat(tmp, buff);
-		ft_read_recover_pars(&line, val, tmp, *parser);
+		ft_read_recover_pars(&line, val, tmp, parser);
 	}
 	return (str);
 }
