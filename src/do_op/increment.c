@@ -51,7 +51,7 @@ int		unaire(t_do_op **b)
 		return (error_do_op("error do_op\n"));
 	if (!ft_strcmp(a->content, "++") || !ft_strcmp(a->content, "--"))
 		increment(a, !ft_strcmp(a->content, "++") ? 1 : -1);
-	else if (!ft_strcmp(a->content, "-") 
+	else if (!ft_strcmp(a->content, "-")
 	|| !ft_strcmp(a->content, "+") || !ft_strcmp(a->content, "~"))
 	{
 		if (check_op(a->next->content) && ft_strcmp(a->next->content, "-") 

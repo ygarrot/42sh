@@ -40,8 +40,8 @@ void sub_ar(t_shell *sh, char **arg, int i)
 
 void	sub_shell(t_shell *sh, char *str)
 {
-	pid_t	father;
 	char	*todel;
+	char	**env;
 	t_line	tmp;
 
 	if (!ft_strncmp(str, "((", 2))
@@ -52,13 +52,13 @@ void	sub_shell(t_shell *sh, char *str)
 	}
 	if (!bracket(++str, "()"))
 		return ;
+	env = sh->env;
+	sh->env  = ft_strtbdup(sh->env);
 	sh->sub.is_sub = 2;
 	str[ft_strlen(str) - 1] = '\0';
 	tmp.line = str;
-	if (!(father = fork()))
-		hard_split(sh, &tmp);
-	else if (father > 0)
-		wait(0);
+	hard_split(sh, &tmp);
+	sh->env = env;
 }
 
 void	replace_local(t_shell *sh, char **str, int i)

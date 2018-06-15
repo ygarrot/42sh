@@ -20,7 +20,8 @@ int		skip_comm(char *str)
 	i = 0;
 	if (!str || !*str)
 		return (0);
-	if (ft_isin(str[i], QUOTES) && (q = str[i++]))
+	if ((ft_isin(str[i], QUOTES) && (q = str[i++]))
+		|| (str[i] && str[i] == '(' && (q = ')')))
 	{
 		while (str[i] && str[i++] != q)
 		{
