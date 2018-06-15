@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 19:03:40 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/15 15:33:18 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/15 16:15:16 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ void		ft_sig_line(int sig);
 /*
 ** Fonction d'environnement
 */
+
+int			*ft_subshell(void);
+int			ft_subshell_get(void);
+void		ft_subshell_set(int val);
 
 char		***ft_storeenv(char **env);
 char		*ft_getenv_fromroot(char *str);
