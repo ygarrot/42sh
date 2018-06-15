@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 12:04:19 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/15 12:11:52 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/15 16:46:12 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ typedef struct stat	t_stat;
 typedef struct timespec		t_timespec;
 typedef struct sigevent		t_sigevent;
 typedef struct itimerval	t_timer;
+
+typedef struct	s_env
+{
+	char	***env;
+	int		i;
+}				t_env;
 
 typedef struct	s_read
 {
