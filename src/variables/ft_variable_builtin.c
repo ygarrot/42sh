@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:41:24 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/15 16:36:55 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/16 11:42:49 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	ft_variable_builtin_pars(char *str)
 	while (str[i] && !ft_isin(str[i], VAR_LIM))
 		i++;
 	if (str[i] == '=')
-		return (i  > 0 ? i : -1);
+		return (i > 0 ? i : -1);
 	if (str[i] != '[' || i == 0)
 		return (-1);
 	i++;
