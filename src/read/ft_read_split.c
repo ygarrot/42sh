@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:38:29 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/08 17:30:00 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/16 11:59:53 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,15 @@ char	**ft_read_split(t_read *parser, char *str)
 	count = 0;
 	while (str[i])
 	{
-	ft_putstr("COUCOU\n");
 		while (str[i] && ft_isin(str[i], " \t\n\v\r\f"))
 			i++;
 		len = ft_read_split_lenword(parser, &str[i]);
-		printf("{%s\n", array[0]);
 		array[count] = (str[i] && len) ? (ft_strndup(&str[i], len)) : (0);
-		printf("}%s\n", array[0]);
 		if (str[i] && !array[count] && 0)
 		{
 			ft_free_dblechar_tab(array);
 			return (0);
 		}
-		printf(">%s\n", array[count]);
 		count++;
 		i += len;
 	}

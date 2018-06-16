@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:40:00 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/08 17:21:58 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/16 12:00:29 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static int	ft_read_assign_(t_read *parser, char **array, int i)
 			2, ft_variable_isdeported(parser->variables[i])) == -1)
 			parser->error = 1;
 	}
-	printf("Inter if-while\n");
 	while (!parser->error && parser->variables[i] && parser->deep == 1)
 	{
 		tmp_name = ft_strdup(parser->variables[i]);
@@ -51,7 +50,6 @@ static int	ft_read_assign_(t_read *parser, char **array, int i)
 			parser->error = 1;
 		i++;
 	}
-	printf("Fin de la deuxieme fonction\n");
 	return (ft_read_assign__(parser, array, tmp_name, tmp_data));
 }
 
@@ -81,6 +79,5 @@ int			ft_read_assign(t_read *parser, char *str)
 			ft_memdel(&tmp_data);
 		i++;
 	}
-	printf("Fin de la premiere fonction\n");
 	return (ft_read_assign_(parser, array, i));
 }
