@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 15:45:17 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/15 16:43:28 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/16 11:09:06 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		wait_exec(t_shell *sh, char **arg)
 	int		ind;
 
 	if (!ft_strcmp(*arg, "exit"))
-		ft_exit(sh, EXIT_SUCCESS);
+		ft_exit(sh, arg[1] ? ft_atoi(arg[1]) : EXIT_SUCCESS);
 	if ((ind = ft_strisin_tab(arg[0], BUILT, 0)) >= 0)
 	{
 		if (exec_redi(sh, sh->com->redi) < 0)
