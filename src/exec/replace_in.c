@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/16 18:30:46 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/16 18:52:07 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/16 19:44:04 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,18 +76,20 @@ void replace_in(t_shell *sh, t_com *com)
 	t_tb	*list;
 	int		i;
 	char *free;
+	int		ret;
 
 	i = 0;
 	free = NULL;
 	if (!(list = com->tb) || com->len < 0)
 		return ;
+	ret = list && list->next;
 	while (list)
 	{
 		free = list->str;
 		list->str = ft_find_and_replace(free, "\\", 1);
 		ft_memdel((void**)&free);
 		arg_replace(sh, &list->str);
-		replace_local(sh, &list->str, i++);
+		replace_local(sh, &list->str, i++, ret);
 		if (!add_glob(com, &list, list->str))
 			list ? list = list->next : 0;
 	}

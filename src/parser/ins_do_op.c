@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 14:59:58 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/16 11:35:03 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/16 19:44:00 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	sub_shell(t_shell *sh, char *str)
 {
 	char	*todel;
 	t_line	tmp;
+	t_com	*co[2];
 
 	if (!ft_strncmp(str, "((", 2))
 	{
@@ -53,15 +54,20 @@ void	sub_shell(t_shell *sh, char *str)
 		return ;
 	str[ft_strlen(str) - 1] = '\0';
 	tmp.line = ft_strdup(str);
+	*co = sh->com;
+	co[1] = sh->begin;
+	sh->com = 0;
+	sh->begin = 0;
 	ft_subshell_set(ft_subshell_get() + 1);
 	sh->env = *ft_storeenv(0, ft_subshell_get());
-	sh->sub.is_sub = 2;
 	hard_split(sh, &tmp);
 	ft_subshell_set(ft_subshell_get() - 1);
 	sh->env = *ft_storeenv(0, ft_subshell_get());
+	sh->com = *co;
+	sh->begin = co[1];
 }
 
-void	replace_local(t_shell *sh, char **str, int i)
+void	replace_local(t_shell *sh, char **str, int i, int ret)
 {
 	if (i > 0 || !str || !*str)
 		return ;
@@ -69,7 +75,7 @@ void	replace_local(t_shell *sh, char **str, int i)
 		sub_shell(sh, *str);
 	else if (ft_strlento_comm(*str, "="))
 	{
-		if (!str[1])
+		if (!ret)
 			ft_variable_builtin(*str);
 	}
 	else
