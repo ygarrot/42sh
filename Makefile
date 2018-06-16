@@ -6,18 +6,20 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2018/06/15 16:50:50 by tcharrie         ###   ########.fr        #
+#    Updated: 2018/06/16 13:03:26 by tcharrie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = 21sh
 
-FLAGS =  -Wall -Werror -Wextra -g3 #-fsanitize=address,undefined
+FLAGS =  -Wall -Werror -Wextra -g3 -fsanitize=address,undefined
 
 SRC_FOLDER = src/
 
 SRC_FP = \
 		  main.c \
+
+SRC_FP += \
 		  builtin/ft_cd.c \
 		  builtin/ft_echo.c \
 		  builtin/ft_env.c \

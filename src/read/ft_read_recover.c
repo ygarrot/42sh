@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 12:18:57 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/15 15:51:54 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/16 12:52:40 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,13 @@ int		ft_read_recover_init(t_read *parser, int *val, size_t size,
 	ft_bzero((void*)val, size);
 	if (!(line->line = (char*)ft_memalloc(ft_strlen(parser->readline) +
 					ft_strlen(parser->prompt) + 1)))
+	{
+		dprintf(2, "21sh: read: recover: init: Failed malloc\n");
 		return (-1);
-	line->line = 0;
+	}
+	line->eof = 0;
+	line->size_eof = 0;
+	line->size_line = 1;
 	if (parser->prompt)
 		ft_strcat(line->line, parser->prompt);
 	if (parser->readline)
@@ -94,7 +99,10 @@ char	*ft_read_recover(t_read *parser)
 	char	tmp[2 * BUFFSIZE + 1];
 
 	if (ft_read_recover_init(parser, val, sizeof(val), &line) == -1)
+	{
+		dprintf(2, "21sh: read: recover: failed init\n");
 		return (0);
+	}
 	ft_bzero((void*)buff, sizeof(buff));
 	ft_bzero((void*)tmp, sizeof(tmp));
 	while (line.line && !ft_read_recover_end(line.line, *parser))
