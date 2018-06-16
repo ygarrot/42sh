@@ -6,11 +6,11 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 17:14:50 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/05/27 13:57:01 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/16 18:50:24 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh.h"
+#include "../../includes/sh.h"
 
 /*
 ** Split la chaine de caractere en fonction de ';' && '&'
@@ -67,7 +67,7 @@ t_parser	*easy_split(t_parser *c, char *str, char isamp)
 	return (c);
 }
 
-int			hard_split(t_shell *sh, t_line *line)
+void			hard_split(t_shell *sh, t_line *line)
 {
 	char		**tb;
 	t_parser	*par;
@@ -75,21 +75,20 @@ int			hard_split(t_shell *sh, t_line *line)
 
 	str = line->line;
 	if (!str)
-		return (1);
+		return ;
 	sh->here_doc = line->eof;
-	if (!(par = count_parser(&str)))
-		return (-1);
+	if (!(par = count_parser(&str, 0)))
+		return ;
 	free_parser(par);
 	mallcheck(par = (t_parser*)ft_memalloc(sizeof(t_parser)));
 	replace_backslashn(&str);
-	if (!(tb = ft_strsplit_comm(str, "\n;")))
-		return (0);
-	if (!*tb)
-		ft_memdel((void**)&tb);
+	tb = ft_strsplit_comm(str, "\n;");
+	 tb && (!*tb) ? ft_memdel((void**)&tb) : 0;
+	!tb ? ft_memdel((void**)&str) : 0;
 	if (!tb)
-		return (0);
+		return ;
 	medium_split(par, tb);
 	ft_free_dblechar_tab(tb);
 	split_co(sh, par);
-	return (1);
+	ft_memdel((void**)&str);
 }

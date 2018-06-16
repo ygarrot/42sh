@@ -6,13 +6,11 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 15:43:55 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/16 18:06:32 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/16 18:19:23 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/sh.h"
-
-
 
 int		pre_op(t_do_op **list)
 {
@@ -22,10 +20,10 @@ int		pre_op(t_do_op **list)
 	{
 		(*list)->value = ft_atoi(parse_op((*list)->content));
 		(*list)->is_set = 1;
-		return (0);
+		return (1);
 	}
 	if (unaire(list))
-		return (0);
+		return (1);
 	if (!(*list)->next)
 		return (error_do_op("error do_op pre_op next\n"));
 	return (del_after_exec(list));
@@ -38,9 +36,11 @@ int		if_function(t_do_op **beg, int status)
 	if (!(list = *beg))
 		return (error_do_op("error do_op if_function\n"));
 	if ((status == 0 && (*list->content == '('
-					|| get_sep(list->content, CREMENT) >= 0))||
-			(status == 1 && (!ft_strcmp(list->content, "--") || !ft_strcmp(list->content, "++"))) ||
-			(status == 2 && (!ft_strcmp(list->content, "-") || !ft_strcmp(list->content, "+"))) ||
+					|| get_sep(list->content, CREMENT) >= 0)) ||
+			(status == 1 && (!ft_strcmp(list->content, "--")
+							|| !ft_strcmp(list->content, "++"))) ||
+			(status == 2 && (!ft_strcmp(list->content, "-")
+							|| !ft_strcmp(list->content, "+"))) ||
 			(status == 3 && ft_isin(*list->content, "~!")) ||
 			(status == 4 && !ft_strcmp(list->content, "**")) ||
 			(status == 5 && ft_isin(*list->content, "*/%")) ||
@@ -51,19 +51,18 @@ int		if_function(t_do_op **beg, int status)
 			(status == 10 && !ft_strcmp(list->content, "&")) ||
 			(status == 11 && !ft_strcmp(list->content, "^")) ||
 			(status == 12 && !ft_strcmp(list->content, "|")) ||
-			(status == 13  && !ft_strcmp(list->content, "&&")) ||
+			(status == 13 && !ft_strcmp(list->content, "&&")) ||
 			(status == 14 && !ft_strcmp(list->content, "||")) ||
 			(status == 15 && !ft_strcmp(list->content, "?")))
-		if (pre_op(beg) < 0)
-			return (-1);
+		return (pre_op(beg));
 	return (1);
 }
 
-int	*the_order(t_do_op **begin)
+int		*the_order(t_do_op **begin)
 {
-	int		i;
-	static int		ret;
-	t_do_op	*list;
+	int			i;
+	static int	ret;
+	t_do_op		*list;
 
 	i = -1;
 	while (*begin && (*begin)->next && ++i < 17)
@@ -77,7 +76,6 @@ int	*the_order(t_do_op **begin)
 			list ? list = list->next : 0;
 		}
 	}
-	//ft_printf("%d\n", (*begin)->value);
 	if (*begin)
 		!(*begin)->is_set ? (*begin)->value = get_value(*begin) : 0;
 	ret = *begin ? (*begin)->value : 0;
@@ -85,7 +83,7 @@ int	*the_order(t_do_op **begin)
 	return (&ret);
 }
 
-char *set_assign(t_do_op *list)
+char	*set_assign(t_do_op *list)
 {
 	int		*ret;
 
@@ -95,7 +93,7 @@ char *set_assign(t_do_op *list)
 		list = list->next;
 	while (list->prev)
 	{
-		if (get_sep(list->content, all_op(1)) >= 0 
+		if (get_sep(list->content, all_op(1)) >= 0
 				&& ft_strcmp(list->content, "=="))
 		{
 			if (!(ret = the_order(&list->next)))
@@ -112,7 +110,7 @@ char *set_assign(t_do_op *list)
 	return (ft_itoa(*ret));
 }
 
-char		*exec_op(char **tb)
+char	*exec_op(char **tb)
 {
 	t_do_op		*list;
 	t_do_op		*begin;

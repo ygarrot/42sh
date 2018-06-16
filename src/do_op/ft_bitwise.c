@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 13:53:22 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/16 14:17:39 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/16 18:11:41 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		ft_xor(int a, int b)
 int		ft_bitneg(int a, int b)
 {
 	(void)b;
-	return(~a);
+	return (~a);
 }
 
 int		ft_ternary(t_do_op *a, t_do_op *b, int *result)
@@ -41,7 +41,7 @@ int		ft_ternary(t_do_op *a, t_do_op *b, int *result)
 
 	ret = -1;
 	c = b->next;
-	if ((!a || !b || !c) && error_do_op("error do_op\n") )
+	if ((!a || !b || !c) && error_do_op("error do_op\n"))
 		return (0);
 	while (c && *c->content != ':')
 		c = c->next->next->next->next;

@@ -6,14 +6,13 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 11:08:36 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/16 18:06:33 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/16 18:12:37 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/sh.h"
 
-
-int (**f_opget(void))(int, int)
+int		(**f_opget(void))(int, int)
 {
 	static int		(*f_op[20])(int, int);
 
@@ -42,8 +41,8 @@ int (**f_opget(void))(int, int)
 
 int		get_value(t_do_op *tmp)
 {
-	char *s;
-	int i;
+	char	*s;
+	int		i;
 
 	if (!tmp)
 		return (error_do_op("error do_op\n"));
@@ -69,7 +68,7 @@ int		get_value(t_do_op *tmp)
 int		*do_op(t_do_op *a, t_do_op *op, t_do_op *b)
 {
 	static int		(**f_op)(int, int) = 0;
-	static int result = 0;
+	static int		result = 0;
 
 	if (!f_op)
 		f_op = f_opget();
@@ -77,7 +76,7 @@ int		*do_op(t_do_op *a, t_do_op *op, t_do_op *b)
 		return (&result);
 	a->value = get_value(a);
 	b->value = get_value(b);
-	op->code = ft_strisin_tab(op->content, OPE, 0) ;
+	op->code = ft_strisin_tab(op->content, OPE, 0);
 	op->code < 0 ? op->code = get_sep(op->content, COMP) + 14 : 0;
 	if (ft_isin(*op->content, "%/") && !b->value)
 	{

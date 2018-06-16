@@ -6,14 +6,11 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 16:34:09 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/10 13:34:45 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/16 18:15:08 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../../includes/sh.h"
-
-
 
 static int		countletters(char const *s, char **tb, int opt)
 {
@@ -21,7 +18,7 @@ static int		countletters(char const *s, char **tb, int opt)
 	int		co;
 
 	cl = 0;
-	while (get_sep((char*)&s[cl], tb) < 0  && s[cl])
+	while (get_sep((char*)&s[cl], tb) < 0 && s[cl])
 	{
 		if (opt)
 			while ((co = skip_comm((char*)&s[cl])))
@@ -67,7 +64,8 @@ static char		**cpy(char const *s, char **tb, char **fresh, int *opt)
 	{
 		while (!opt[1] && *s && ft_isin(*s, " \n\t"))
 			s++;
-		i3 = (tmp = get_sep((char*)&(*s), tb)) >= 0 ?
+		i3 =
+			(tmp = get_sep((char*)&(*s), tb)) >= 0 ?
 			ft_strlen(tb[tmp]) : countletters(s, tb, opt[1]);
 		if (i3 && !(fresh[i] = ft_strnew(i3)))
 		{
@@ -76,9 +74,7 @@ static char		**cpy(char const *s, char **tb, char **fresh, int *opt)
 		}
 		i2 = i3;
 		while (--i3 + 1)
-		{
 			fresh[i][i3] = s[i3];
-		}
 		s = &s[i2];
 	}
 	return (fresh);

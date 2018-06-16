@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/16 11:05:49 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/16 17:25:16 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/16 18:11:16 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,18 @@ t_do_op	*del_ternary(t_do_op **c)
 	return (*c);
 }
 
-int	del_after_exec(t_do_op **list)
+int		del_after_exec(t_do_op **list)
 {
-	int *err;
-	t_do_op *tmp[2];
-	t_do_op *tern;
+	int			*err;
+	t_do_op		*tmp[2];
+	t_do_op		*tern;
 
 	tmp[1] = NULL;
 	tern = *list;
 	if (!(err = do_op((*list)->prev, *list, (*list)->next)))
 		return (-1);
 	(*list) = (*list)->prev;
-	(*list)->value = *err; 
+	(*list)->value = *err;
 	(*list)->is_set = 1;
 	if (*tern->content == '?')
 		tmp[1] = del_ternary(&tern->next->next);

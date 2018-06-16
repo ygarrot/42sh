@@ -6,13 +6,13 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 15:35:20 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/16 16:20:15 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/16 18:30:23 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/sh.h"
 
-t_do_op **begin_op(t_do_op **beg)
+t_do_op		**begin_op(t_do_op **beg)
 {
 	static t_do_op *ret = 0;
 
@@ -21,7 +21,7 @@ t_do_op **begin_op(t_do_op **beg)
 	return (ret ? &ret : NULL);
 }
 
-void	free_do_op(t_do_op **beg)
+void		free_do_op(t_do_op **beg)
 {
 	if (!beg || !*beg)
 		return ;
@@ -31,10 +31,10 @@ void	free_do_op(t_do_op **beg)
 	ft_memdel((void**)&(*beg));
 }
 
-void	set_op_variable(char *key, int value)
+void		set_op_variable(char *key, int value)
 {
 	char *todel[2];
-	
+
 	*todel = ft_itoa(value);
 	todel[1] = ft_implode("=", key, *todel);
 	ft_variable_builtin(todel[1]);
@@ -42,7 +42,7 @@ void	set_op_variable(char *key, int value)
 	ft_memdel((void**)&todel[0]);
 }
 
-int		unaire(t_do_op **b)
+int			unaire(t_do_op **b)
 {
 	t_do_op *todel;
 	t_do_op *a;
@@ -61,12 +61,12 @@ int		unaire(t_do_op **b)
 	return (1);
 }
 
-void	increment(t_do_op *a, int i)
+void		increment(t_do_op *a, int i)
 {
-	t_do_op *r;
-	char *s;
+	t_do_op	*r;
+	char	*s;
 
-	r = ((!a->next || check_op(a->next->content))  ? a->prev : a->next);
+	r = ((!a->next || check_op(a->next->content)) ? a->prev : a->next);
 	if (!r || (r == a->prev && (r->is_inc = i)))
 		return ;
 	if (!(s = ft_variablepars(r->content)))

@@ -6,57 +6,18 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 12:06:05 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/16 16:00:55 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/16 19:05:35 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/sh.h"
 
-int		parenth(char **str, int i, char rep, bool recc)
-{
-	if (!*str)
-		return (1);
-	while ((*str)[++i])
-		if ((*str)[i] == '(')
-		{
-			while ((*str)[++i])
-			{
-				if ((*str)[i] == ')' && ((!recc ? (*str)[i] = rep : 0) || 1))
-					return (i);
-				if ((*str)[i] == '(' && (i = parenth(str, i - 1, rep, 1)) < 0)
-					return (-ft_printf("Parenthesis error\n"));
-			}
-			return (-1);
-		}
-	return (i);
-}
-
-char	**all_op(int index)
-{
-	static char **tb = 0;
-	static char **assign = 0;
-	if (!tb)
-	{
-		tb = ( char *[40]){"*=", "/=", "%=", "+=", "-=", "<<=", ">>=" "&=", "^=",
-	"|=", "==", "!=", "<=", ">=", "--", "++", "<<", ">>", "||", "|", "**", 
-	"&&", "&", "^", "~", "<", ">", "=", "*", "/", "%", "-", "+", "?", ":", 0};
-		tb = ft_strtbdup(tb);
-	}
-	if (!assign)
-	{
-		assign = (char *[20]){"*=", "/=", "%=", "+=", "-=", "<<=", ">>=", "&=",
-		"^=", "|=", "=", 0};
-		assign = ft_strtbdup(assign);
-	}
-	return (!index ? tb : assign);
-}
-
-int	check_classic(char **tb, int *i)
+int		check_classic(char **tb, int *i)
 {
 	int		is_op;
 
 	if (tb[*i] && ft_isin(*tb[*i], "-~+") && !tb[*i][1] && ++*i)
-		return (tb[*i] ? check_classic(tb, i) : 0 );
+		return (tb[*i] ? check_classic(tb, i) : 0);
 	if (!tb[*i] || (!(is_op = check_op(tb[*i])) && !tb[++*i]))
 		return (1);
 	if (!(is_op = check_op(tb[*i])))
@@ -65,11 +26,11 @@ int	check_classic(char **tb, int *i)
 	{
 		if (get_sep(tb[*i], all_op(1)) >= 0
 			&& tb[*i][0] != '=' && ((i - 1) < 0 || ft_str_isdigit(tb[*i - 1])))
-			return(0 & ft_printf("lvalue required\n"));
+			return (0 & ft_printf("lvalue required\n"));
 		if (ft_isin(*tb[*i], ":?") && (--*i || 1))
 			return (1);
-		if ((get_sep(tb[*i], CREMENT) >= 0 
-					|| ft_isin(*tb[*i + 1], "+-~")) && ++*i  )
+		if ((get_sep(tb[*i], CREMENT) >= 0
+					|| ft_isin(*tb[*i + 1], "+-~")) && ++*i)
 			return (check_classic(tb, i));
 		else if (!check_op(tb[++*i]) && !check_op(tb[*i]))
 			return (check_classic(tb, i));
@@ -79,7 +40,7 @@ int	check_classic(char **tb, int *i)
 	check_classic(tb, i) : 0 & ft_printf("no operator\n"));
 }
 
-int	check_op(char *str)
+int		check_op(char *str)
 {
 	if (!str)
 		return (-1);
@@ -88,9 +49,7 @@ int	check_op(char *str)
 	return (0);
 }
 
-#define TERN "ERREUR DE TERN SYNTAX"
-
-int	check_ternaries(char **tb, int *i)
+int		check_ternaries(char **tb, int *i)
 {
 	if (check_op(tb[*i]))
 		return (1);
@@ -106,12 +65,12 @@ int	check_ternaries(char **tb, int *i)
 	if (!tb[*i] || *tb[++*i] != ':')
 		return (0 & ft_printf("%s %s\n", TERN, "3"));
 	++*i;
-	return (tb[*i] ? check_classic(tb, i) : 0 & ft_printf("%s %s\n", TERN, "3"));
+	return (tb[*i] ? check_classic(tb, i) : 0 & ft_printf("%s\n", TERN, "3"));
 }
 
-int	check_all(char **tb)
+int		check_all(char **tb)
 {
-	int		i;
+	int			i;
 	char		**all;
 
 	i = -1;
@@ -130,7 +89,6 @@ int	check_all(char **tb)
 	return (1);
 }
 
-
 char	*parse_op(char *str)
 {
 	char	**tb;
@@ -140,7 +98,10 @@ char	*parse_op(char *str)
 	ft_strcpy(str, &str[1]);
 	tb = ft_custom_split(str, all_op(0), 0);
 	if (!tb || !check_all(tb))
+	{
+		ft_free_dblechar_tab(tb);
 		return (NULL);
+	}
 	ret = exec_op(tb);
 	return (ret);
 }

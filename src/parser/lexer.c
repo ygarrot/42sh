@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 15:40:03 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/09 16:37:00 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/16 19:00:00 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 ** Gere les erreurs de parsing, ne gere (surement) pas toutes les erreurs
 */
 
-void	add_aliases(char **str)
+void	add_aliases(char **str,char free)
 {
 	char **all_op; 
 	char **tb;
@@ -35,7 +35,7 @@ void	add_aliases(char **str)
 		ft_memdel((void**)&tb[0]);
 		tb[0] = ft_strdup(tmp[1]);
 	}
-	//ft_memdel((void**)&(*str));
+	free ? ft_memdel((void**)&(*str)) : 0;
 	*str = ft_str_tabjoin((const char**)tb);
 	ft_free_dblechar_tab(tb);
 }
@@ -89,7 +89,7 @@ int			sizeof_comm(char *str, t_parser *par)
 	return (i || !str[i] || str[i] == '\n' ? i + sep : -1);
 }
 
-t_parser	*count_parser(char **ptr)
+t_parser	*count_parser(char **ptr, char free)
 {
 	int			i;
 	t_parser	*par;
@@ -97,7 +97,7 @@ t_parser	*count_parser(char **ptr)
 	char		*str;
 
 	i = 0;
-	add_aliases(ptr);
+	add_aliases(ptr, free);
 	str = *ptr;
 	mallcheck(par = (t_parser*)ft_memalloc(sizeof(t_parser)));
 	while (str[i] && str[i] != '\n')

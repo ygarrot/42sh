@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 19:03:40 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/16 18:06:35 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/16 19:05:38 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,9 +309,9 @@ int			skip_comm(char *str);
 */
 
 int			sizeof_comm(char *str, t_parser *par);
-t_parser	*count_parser(char **str);
+t_parser	*count_parser(char **str, char free);
 
-int			hard_split(t_shell *sh, t_line *line);
+void		hard_split(t_shell *sh, t_line *line);
 t_parser	*easy_split(t_parser *c, char *str, char isamp);
 void		f_point(t_shell *sh, char **av);
 void		parse_exe(t_shell *sh, char *comm, char **argv);

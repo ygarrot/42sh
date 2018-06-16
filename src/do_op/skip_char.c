@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 14:05:20 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/02 17:26:12 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/16 18:25:12 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,21 @@ int		bracket(char *str, char *brack)
 	return (0);
 }
 
-int		ft_occiter2(char *str, int (*f)(int))
+int		parenth(char **str, int i, char rep, bool recc)
 {
-	int	i;
-
-	i = 0;
-	if (!str || !f)
-		return (0);
-	while (str[i])
-	{
-		if (!f(str[i]))
+	if (!*str)
+		return (1);
+	while ((*str)[++i])
+		if ((*str)[i] == '(')
+		{
+			while ((*str)[++i])
+			{
+				if ((*str)[i] == ')' && ((!recc ? (*str)[i] = rep : 0) || 1))
+					return (i);
+				if ((*str)[i] == '(' && (i = parenth(str, i - 1, rep, 1)) < 0)
+					return (-ft_printf("Parenthesis error\n"));
+			}
 			return (-1);
-		i++;
-	}
+		}
 	return (i);
 }
