@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/21 16:16:59 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/03 15:03:55 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/16 13:28:54 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int			btree_insert_data(t_btree **root, void *item, int (*cmpf)(void *,
 	else if (!(tmp = *root))
 		return (-!(*root = btree_create_node(item)));
 	val = cmpf(item, tmp->item);
-	while (val && (	(tmp->left && val < 0) || (tmp->right && val > 0)))
+	while (val && ((tmp->left && val < 0) || (tmp->right && val > 0)))
 	{
 		tmp = (val < 0) ? (tmp->left) : (tmp->right);
 		val = cmpf(item, tmp->item);

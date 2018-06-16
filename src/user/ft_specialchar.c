@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 11:47:33 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/15 15:46:29 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/16 11:44:04 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,8 @@ int		ft_lentospecial(char *str)
 		j = 0;
 		while (specialchar[j])
 		{
-		if (!ft_strncmp(specialchar[j], &str[i], ft_strlen(&str[i])) &&
-				ft_strlen(specialchar[j]) > ft_strlen(&str[i]))
+			if (!ft_strncmp(specialchar[j], &str[i], ft_strlen(&str[i])) &&
+					ft_strlen(specialchar[j]) > ft_strlen(&str[i]))
 				return (i ? i - 1 : 0);
 			j++;
 		}

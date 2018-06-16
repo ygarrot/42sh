@@ -6,20 +6,20 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:38:29 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/08 17:30:00 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/16 14:48:45 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-int		ft_read_split_lenword(t_read *parser, char *str)
+int		ft_read_split_lenword(t_read *parser, char *str, char *delim)
 {
-	int	i;
-	int	bl;
+	int		i;
+	int		bl;
 
 	i = 0;
 	bl = 0;
-	while (str[i] && (bl || !ft_isin(str[i], " \n\r\f\v\t")))
+	while (str[i] && (bl || !ft_isin(str[i], delim)))
 	{
 		bl = (str[i] == '\\' && !bl && parser->bl_active);
 		i++;
@@ -27,24 +27,36 @@ int		ft_read_split_lenword(t_read *parser, char *str)
 	return (i);
 }
 
-int		ft_read_split_countword(t_read *parser, char *str)
+char	**ft_read_split_init(t_read *parser, char **delim, char *str)
+{
+	if (!parser || !parser->variables || !parser->variables[0]
+			|| !delim || !str)
+		return (0);
+	if (!(*delim = ft_read_delim()))
+		return (0);
+	return ((char**)ft_memalloc((sizeof(char*)) *
+				(ft_tablen(parser->variables) + 1)));
+}
+
+int		ft_read_split_assign(int yall, char **array, char *str, char *delim)
 {
 	int	i;
-	int	bl;
-	int	count;
+	int	len;
 
 	i = 0;
-	bl = 0;
-	count = 0;
-	while (str[i])
-	{
-		while (!bl && str[i] && ft_isin(str[i], " \n\t\r\f\v"))
-			i++;
-		if (str[i])
-			count++;
-		i += ft_read_split_lenword(parser, &str[i]);
-	}
-	return (count);
+	while (str[i] && ft_isin(str[i], delim))
+		i++;
+	len = 0;
+	while (str[i + len] && (yall || !ft_isin(str[i + len], delim)))
+		len++;
+	while (yall && len > 0 && ft_isin(str[i + len], delim))
+		len--;
+	*array = (str[i] && len > 0) ? (ft_strndup(&str[i], len)) : (0);
+	while (yall && str[i + len])
+		len++;
+	while (str[i + len] && ft_isin(str[i + len], delim))
+		len++;
+	return (i + len);
 }
 
 char	**ft_read_split(t_read *parser, char *str)
@@ -52,30 +64,24 @@ char	**ft_read_split(t_read *parser, char *str)
 	char	**array;
 	int		i;
 	int		count;
-	int		len;
+	char	*delim;
 
-	count = ft_read_split_countword(parser, str);
-	if (!(array = (char**)ft_memalloc(count + 1)))
+	if (!(array = ft_read_split_init(parser, &delim, str)))
 		return (0);
 	i = 0;
 	count = 0;
 	while (str[i])
 	{
-	ft_putstr("COUCOU\n");
-		while (str[i] && ft_isin(str[i], " \t\n\v\r\f"))
-			i++;
-		len = ft_read_split_lenword(parser, &str[i]);
-		printf("{%s\n", array[0]);
-		array[count] = (str[i] && len) ? (ft_strndup(&str[i], len)) : (0);
-		printf("}%s\n", array[0]);
-		if (str[i] && !array[count] && 0)
+		i += ft_read_split_assign(!(parser->variables[count + 1]),
+				&array[count], &str[i], delim);
+		if (str[i] && !array[count])
 		{
 			ft_free_dblechar_tab(array);
 			return (0);
 		}
-		printf(">%s\n", array[count]);
 		count++;
-		i += len;
 	}
+	while (parser->variables[count])
+		array[count++] = (char*)ft_memalloc(1);
 	return (array);
 }

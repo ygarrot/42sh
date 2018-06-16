@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:42:13 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/10 13:37:39 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/16 12:25:33 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*ft_variablepars(char *str)
 		return (0);
 	if (*str == '{')
 		return (ft_variablepars_bracket(str));
-	i = 1;
+	i = 0;
 	while (str[i] && !ft_isin(str[i], VAR_LIM))
 		i += ft_lenchar_r(str, i);
 	c = str[i];

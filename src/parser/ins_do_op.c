@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 14:59:58 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/10 18:11:22 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/16 11:35:03 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void sub_ar(t_shell *sh, char **arg, int i)
 void	sub_shell(t_shell *sh, char *str)
 {
 	char	*todel;
-	char	**env;
 	t_line	tmp;
 
 	if (!ft_strncmp(str, "((", 2))
@@ -52,15 +51,14 @@ void	sub_shell(t_shell *sh, char *str)
 	}
 	if (!bracket(++str, "()"))
 		return ;
-	env = sh->env;
-	sh->env  = ft_strtbdup(sh->env);
-	sh->sub.is_sub = 2;
 	str[ft_strlen(str) - 1] = '\0';
 	tmp.line = ft_strdup(str);
 	ft_subshell_set(ft_subshell_get() + 1);
+	sh->env = *ft_storeenv(0, ft_subshell_get());
+	sh->sub.is_sub = 2;
 	hard_split(sh, &tmp);
 	ft_subshell_set(ft_subshell_get() - 1);
-	sh->env = env;
+	sh->env = *ft_storeenv(0, ft_subshell_get());
 }
 
 void	replace_local(t_shell *sh, char **str, int i)

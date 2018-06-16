@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 12:18:57 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/15 15:51:54 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/16 14:56:35 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ int		ft_read_recover_end(char *str, t_read p)
 {
 	size_t	size;
 
+	size = ft_sigint(0);
+	if (ft_read_timer_sig_interrup(0) || size)
+		return (size ? 2 : 1);
 	size = ft_strlen(str);
-	if (ft_read_timer_sig_interrup(0) == 1)
-		return (1);
 	if (p.nchars_exact > 0 && size > p.nchars_exact)
 		ft_addtofd(&str[size + 1], p.fd);
 	if (p.nchars_exact > 0)
@@ -71,8 +72,13 @@ int		ft_read_recover_init(t_read *parser, int *val, size_t size,
 	ft_bzero((void*)val, size);
 	if (!(line->line = (char*)ft_memalloc(ft_strlen(parser->readline) +
 					ft_strlen(parser->prompt) + 1)))
+	{
+		dprintf(2, "21sh: read: recover: init: Failed malloc\n");
 		return (-1);
-	line->line = 0;
+	}
+	line->eof = 0;
+	line->size_eof = 0;
+	line->size_line = 1;
 	if (parser->prompt)
 		ft_strcat(line->line, parser->prompt);
 	if (parser->readline)
@@ -97,7 +103,7 @@ char	*ft_read_recover(t_read *parser)
 		return (0);
 	ft_bzero((void*)buff, sizeof(buff));
 	ft_bzero((void*)tmp, sizeof(tmp));
-	while (line.line && !ft_read_recover_end(line.line, *parser))
+	while (line.line && !(val[12] = ft_read_recover_end(line.line, *parser)))
 	{
 		val[9] = read(parser->fd, buff, BUFFSIZE);
 		if (val[9] < 0)
@@ -108,5 +114,7 @@ char	*ft_read_recover(t_read *parser)
 		ft_strcat(tmp, buff);
 		ft_read_recover_pars(&line, val, tmp, parser);
 	}
+	if (val[12] == 2)
+		ft_strdel(&line.line);
 	return (line.line);
 }

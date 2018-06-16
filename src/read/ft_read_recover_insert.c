@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 11:25:39 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/15 15:43:48 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/16 12:37:55 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_read_recover_insert(t_line *line, int *val, char *buff, int len)
 
 	ft_strdel(&line->eof);
 	l = ft_strlen(line->line);
-	if (!(line->eof = (char*)malloc(l + len + 1)))
+	if (!(line->eof = (char*)ft_memalloc(l + len + 1)))
 		return ;
 	line->eof[0] = 0;
 	ft_strncat(line->eof, line->line, val[0]);
@@ -78,7 +78,8 @@ int		ft_read_recover_execute_a(t_line *line, int *val, char *buff, int echo)
 	else if ((i = ft_strprefix(KEY_UP_SHITED, buff)))
 		echo ? ft_move_up(line, val) : ft_read_move_up(line, val);
 	else if ((i = ft_strprefix(KEY_DOWN, buff)))
-		echo ? ft_move_tohist(line, val, -1) : ft_read_movetohist(line, val, -1);
+		echo ? ft_move_tohist(line, val, -1) :
+			ft_read_movetohist(line, val, -1);
 	else if ((i = ft_strprefix(KEY_DOWN_SHIFTED, buff)))
 		echo ? ft_move_down(line, val) : ft_read_move_down(line, val);
 	else if ((i = ft_strprefix(NEWLINE, buff)))

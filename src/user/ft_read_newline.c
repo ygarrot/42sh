@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 11:48:59 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/13 13:05:40 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/16 11:43:38 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int		ft_read_newline(t_line *line, int *val, t_parser *pars)
 		str = ft_strdup(&(line->line)[val[5]]);
 		if (!(tmp = count_parser(&str)))
 			return (-1);
-		ft_memdel((void**)&str);
 		line->parser_nb++;
 		ft_parserpushback(line->parser, tmp);
 		if (!line->parser)

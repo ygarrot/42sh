@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:38:33 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/15 15:45:43 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/16 15:06:25 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		ft_read_timer_sig_interrup(int sig)
 	static int	save = 0;
 	int			tmp;
 
-	tmp = sig;
+	tmp = save;
 	if (sig == SIGALRM)
 		save = 1;
 	else
@@ -29,7 +29,6 @@ void	ft_read_timer_sig(int sig)
 {
 	if (sig == SIGALRM)
 		ft_read_timer_sig_interrup(sig);
-	printf("RING A BELL\n");
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 09:52:26 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/13 13:04:27 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/16 12:01:59 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int		ft_setattr(void)
 		ft_fatal("Can't set the terminal to have great power, exit ...");
 	return (1);
 }
+
 int		ft_terminal_set(t_termios *term)
 {
 	static t_termios	save;

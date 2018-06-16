@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_op.c                                         :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/16 11:46:57 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/16 11:46:58 by tcharrie         ###   ########.fr       */
+/*   Created: 2018/06/16 12:06:05 by tcharrie          #+#    #+#             */
+/*   Updated: 2018/06/16 14:55:22 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/sh.h"
+#include "sh.h"
 
-int	error_do_op(char *str)
+int	main(int ac, char **av, char **env)
 {
-	ft_printf("%s", str);
-	free_do_op(begin_op(NULL));
-	return (-1);
+	t_variable	*v;
+	(void)ac;
+
+	ft_initsig();
+	ft_read_builtin(&av[1], &env);
+	v = ft_variableget("REPLY");
+	if (v)
+		printf("%s\n", v->str);
+	return (0);
 }
