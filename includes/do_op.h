@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 16:51:54 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/10 18:21:35 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/16 18:06:35 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct s_do_op
     struct s_do_op *next;
     char	*content;
 	bool	is_set;
-	bool	is_spec;
+	int		is_spec;
 	int		is_inc;
 	int		sign;
 	int		value;
@@ -41,14 +41,17 @@ typedef struct s_do_op
 ** math functions
 */
 
+int		exe_assign(t_do_op *to_ass,char *str, int value);
+int		is_incre(t_do_op **b, t_do_op*a);
+int	del_after_exec(t_do_op **list);
 int	error_do_op(char *str);
 t_do_op **begin_op(t_do_op **beg);
 int		unaire(t_do_op **a);
 void	increment(t_do_op *a, int i);
 void	set_op_variable(char *key, int value);
 char	**all_op(int index);
-void	del_ternary(t_do_op *c);
-void	free_op(t_do_op *tmp);
+t_do_op	*del_ternary(t_do_op **c);
+void	free_op(t_do_op **tmp);
 char	*parse_op(char *str);
 int (**f_opget(void))(int, int);
 int		calc_op(char **op_tb);

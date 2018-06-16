@@ -6,28 +6,16 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 15:43:55 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/10 18:22:36 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/16 18:06:32 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/sh.h"
 
-void	free_op(t_do_op *tmp)
-{
-	if (!tmp)
-		return ;
-	tmp->next ? tmp->next->prev = tmp->prev : 0;
-	tmp->prev ? tmp->prev->next = tmp->next : 0;
-	ft_memdel((void**)&tmp->content);
-	ft_memdel((void**)&tmp);
-}
+
 
 int		pre_op(t_do_op **list)
 {
-	t_do_op	*tmp;
-	int		tp;
-	int		*err;
-
 	if (!list)
 		return (error_do_op("error do_op no op pre_op\n"));
 	if (*(*list)->content == '(')
@@ -36,27 +24,17 @@ int		pre_op(t_do_op **list)
 		(*list)->is_set = 1;
 		return (0);
 	}
-	tp = (ft_isin(*(*list)->content, "~!") && !(*list)->content[1]);
 	if (unaire(list))
 		return (0);
 	if (!(*list)->next)
 		return (error_do_op("error do_op pre_op next\n"));
-	tmp = tp ? (*list)->next : (*list)->next->next;
-	if (!(err = do_op((*list)->prev, *list, (*list)->next)))
-		return (-1);
-	(*list)->prev->value = *err; 
-	(*list) = (*list)->prev;
-	tp ? free_op((*list)->next->next) : 0;
-	free_op((*list)->next);
-	(*list)->is_set = 1;
-	(*list)->next = tmp;
-	return (0);
+	return (del_after_exec(list));
 }
 
 int		if_function(t_do_op **beg, int status)
 {
 	t_do_op *list;
-	
+
 	if (!(list = *beg))
 		return (error_do_op("error do_op if_function\n"));
 	if ((status == 0 && (*list->content == '('
@@ -99,6 +77,7 @@ int	*the_order(t_do_op **begin)
 			list ? list = list->next : 0;
 		}
 	}
+	//ft_printf("%d\n", (*begin)->value);
 	if (*begin)
 		!(*begin)->is_set ? (*begin)->value = get_value(*begin) : 0;
 	ret = *begin ? (*begin)->value : 0;
@@ -116,12 +95,13 @@ char *set_assign(t_do_op *list)
 		list = list->next;
 	while (list->prev)
 	{
-		if (get_sep(list->content, all_op(1)) >= 0)
+		if (get_sep(list->content, all_op(1)) >= 0 
+				&& ft_strcmp(list->content, "=="))
 		{
 			if (!(ret = the_order(&list->next)))
 				return (NULL);
-			list->prev->value = *ret;
 			list = list->prev;
+			list->value = exe_assign(list, list->next->content, *ret);
 			set_op_variable(list->content, list->value);
 			list->is_set = 1;
 		}

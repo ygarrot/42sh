@@ -18,7 +18,6 @@ void	alias_file(t_shell *sh)
 	{
 		(*line)[tb[1]] = '\0';
 		line[3] = ft_strjoin(line[2], *line);
-		ft_printf("join: %s \n", line[3]);
 		ft_memdel((void**)&line[2]);
 		line[2] = line[3];
 		if (!tb[1])
@@ -29,7 +28,6 @@ void	alias_file(t_shell *sh)
 	hard_split(sh, &line_s);
 	ft_memdel((void**)&(*line));
 	ft_memdel((void**)&line_s.line);
-	ft_memdel((void**)&line[2]);
 }
 
 t_btree		**alias_tb(void)

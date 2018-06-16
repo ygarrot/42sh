@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 12:06:05 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/10 18:24:58 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/16 16:00:55 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	check_classic(char **tb, int *i)
 	int		is_op;
 
 	if (tb[*i] && ft_isin(*tb[*i], "-~+") && !tb[*i][1] && ++*i)
-		return (check_classic(tb, i));
+		return (tb[*i] ? check_classic(tb, i) : 0 );
 	if (!tb[*i] || (!(is_op = check_op(tb[*i])) && !tb[++*i]))
 		return (1);
 	if (!(is_op = check_op(tb[*i])))
@@ -68,13 +68,14 @@ int	check_classic(char **tb, int *i)
 			return(0 & ft_printf("lvalue required\n"));
 		if (ft_isin(*tb[*i], ":?") && (--*i || 1))
 			return (1);
-		if (get_sep(tb[*i], CREMENT) >= 0 && ++*i)
+		if ((get_sep(tb[*i], CREMENT) >= 0 
+					|| ft_isin(*tb[*i + 1], "+-~")) && ++*i  )
 			return (check_classic(tb, i));
 		else if (!check_op(tb[++*i]) && !check_op(tb[*i]))
 			return (check_classic(tb, i));
 		return (0 & ft_printf("unknown error\n"));
 	}
-	return (is_op && get_sep(tb[++*i], CREMENT) >= 0 ?
+	return (is_op && get_sep(tb[*i], CREMENT) >= 0 ?
 	check_classic(tb, i) : 0 & ft_printf("no operator\n"));
 }
 
@@ -96,12 +97,14 @@ int	check_ternaries(char **tb, int *i)
 	if (!tb[++*i] || *tb[*i] != '?' || check_op(tb[++*i]) || !tb[*i + 1])
 		return (0 & ft_printf(TERN));
 	if (*tb[*i + 1] == '?')
-		if (!(check_ternaries(&tb[*i], i)))
-			return (0 & ft_printf("%s\n", TERN, "1"));
+	{
+		if (!(check_ternaries(&tb[*i - 2], i)))
+			return (0 & ft_printf("%s %s\n", TERN, "1"));
+	}
 	if (!check_classic(tb, i))
-		return (0 & ft_printf("%s\n", TERN, "2"));
+		return (0 & ft_printf("%s %s\n", TERN, "2"));
 	if (!tb[*i] || *tb[++*i] != ':')
-		return (0 & ft_printf("%s\n", TERN, "3"));
+		return (0 & ft_printf("%s %s\n", TERN, "3"));
 	++*i;
 	return (tb[*i] ? check_classic(tb, i) : 0 & ft_printf("%s %s\n", TERN, "3"));
 }

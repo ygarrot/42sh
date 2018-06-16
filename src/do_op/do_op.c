@@ -6,38 +6,12 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 11:08:36 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/10 18:11:18 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/16 18:06:33 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/sh.h"
 
-void	del_ternary(t_do_op *c)
-{
-	t_do_op *tmp;
-	t_do_op *to_del;
-
-	if (!c && error_do_op("error do_op : del_ternary\n"))
-		return ;
-	while (c && c->is_set)
-	{
-		tmp = c;
-		while (*tmp->content == '?')
-		{
-			c = c->next->next->next->next;
-			while (tmp != c)
-			{
-				to_del = tmp;
-				tmp = tmp->next;
-				free_op(to_del);
-			}
-		}
-		tmp = c->next->next;
-		free_op(c->next);
-		free_op(c);
-		c = tmp;
-	}
-}
 
 int (**f_opget(void))(int, int)
 {
@@ -74,32 +48,37 @@ int		get_value(t_do_op *tmp)
 	if (!tmp)
 		return (error_do_op("error do_op\n"));
 	if (tmp->is_set)
-		return (tmp->value * (tmp->sign | 1));
+		return (tmp->value);
 	tmp->is_set = 1;
 	if (ft_str_isdigit(tmp->content))
-		return (ft_atoi(tmp->content));
-	s = ft_variablepars(tmp->content);
-	i = ft_atoi(s);
-	ft_memdel((void**)&s);
+		i = ft_atoi(tmp->content);
+	else
+	{
+		s = ft_variablepars(tmp->content);
+		i = ft_atoi(s);
+		ft_memdel((void**)&s);
+	}
+	i = i * (tmp->sign | 1);
+	tmp->is_spec == 1 ? i = ~i : 0;
+	tmp->is_spec == 2 ? i = !i : 0;
 	if (tmp->is_inc)
 		set_op_variable(tmp->content, i + tmp->is_inc);
-	return (i * (tmp->sign | 1));
+	return (i);
 }
 
 int		*do_op(t_do_op *a, t_do_op *op, t_do_op *b)
 {
 	static int		(**f_op)(int, int) = 0;
 	static int result = 0;
+
 	if (!f_op)
 		f_op = f_opget();
-	
-	//if (!a || !op || !b)
 	if (!ft_strcmp(op->content, "?") && (ft_ternary(a, b, &result) || 1))
 		return (&result);
 	a->value = get_value(a);
 	b->value = get_value(b);
-	op->code = get_sep(op->content, OPE) ;
-	op->code < 0 ? op->code = get_sep(op->content, COMP) : 0;
+	op->code = ft_strisin_tab(op->content, OPE, 0) ;
+	op->code < 0 ? op->code = get_sep(op->content, COMP) + 14 : 0;
 	if (ft_isin(*op->content, "%/") && !b->value)
 	{
 		error_do_op("error do_op\n");

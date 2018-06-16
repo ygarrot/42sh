@@ -6,13 +6,13 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2018/06/15 16:50:50 by tcharrie         ###   ########.fr        #
+#    Updated: 2018/06/16 14:13:35 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = 21sh
 
-FLAGS =  -Wall -Werror -Wextra -g3 #-fsanitize=address,undefined
+FLAGS =  -Wall -Werror -Wextra -g3 -fsanitize=address#,undefined
 
 SRC_FOLDER = src/
 
@@ -162,6 +162,7 @@ SRC_FP += \
 
 SRC_FP += \
 		 do_op/do_op.c \
+		 do_op/do_list.c \
 		 do_op/increment.c \
 		 do_op/exe_op.c \
 		 do_op/ft_bitwise.c \
@@ -170,6 +171,7 @@ SRC_FP += \
 		 do_op/logic_op.c \
 		 do_op/op.c \
 		 do_op/parse_op.c \
+		 do_op/free_do.c \
 		 do_op/skip_char.c
 
 #Colors

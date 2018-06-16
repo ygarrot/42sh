@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 15:35:20 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/10 18:22:15 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/16 16:20:15 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,13 @@ int		unaire(t_do_op **b)
 		return (error_do_op("error do_op\n"));
 	if (!ft_strcmp(a->content, "++") || !ft_strcmp(a->content, "--"))
 		increment(a, !ft_strcmp(a->content, "++") ? 1 : -1);
-	else if (!ft_strcmp(a->content, "-")
-	|| !ft_strcmp(a->content, "+") || !ft_strcmp(a->content, "~"))
-	{
-		if (check_op(a->next->content) && ft_strcmp(a->next->content, "-") 
-	&& ft_strcmp(a->next->content, "+") && *a->next->content == '~')
-			return (0);
-		a->next->sign = (a->sign | 1) * (*a->content == '+' ? 1 : -1);
-		a->next->is_spec = ft_strcmp(a->content, "~");
-		return (unaire(&(*b)->next));
-	}
+	else if (is_incre(b, a))
+		return (1);
 	else
 		return (0);
 	todel = *b;
 	*b = (*b)->next;
-	free_op(todel);
+	free_op(&todel);
 	return (1);
 }
 

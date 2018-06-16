@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 11:59:55 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/02 11:41:21 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/16 10:18:40 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		stream(t_shell *sh, t_redi *redi)
 	}
 	right = !redi->type ? S_IRWXU : S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
 	flag = O_RDWR | (redi->type == 5 ? O_TRUNC : 0) |
-		(!redi->type || redi->type == 5 ? O_CREAT : 0)
+		(!redi->type || redi->type == 1 || redi->type == 5 ? O_CREAT : 0)
 		| (redi->type == 1 ? O_APPEND : 0);
 	if (redi->fd[1] < 0 && (redi->fd[1] = open(redi->path, flag, right)) < 0)
 		return (-ft_printf("21sh: no such file: %s\n", redi->path));
