@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 19:03:40 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/16 19:44:06 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 10:17:12 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -379,6 +379,8 @@ int			write_env(char **env);
 ** substitute functions
 */
 
+int		check_bracket(char *str);
+int		skip_bracket(char *str);
 void	add_comm(t_com *com, char *str);
 void replace_in(t_shell *sh, t_com *com);
 int		local_env(char **tmp, char *todel);

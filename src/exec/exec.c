@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 15:45:17 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/16 11:09:06 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/17 10:45:33 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,7 @@ int		search_exec(t_shell *sh, char *comm, char **argv)
 		!access(temp, F_OK | X_OK) ? index = exe(sh, temp, argv) :
 			ft_memdel((void**)&temp);
 	}
-	!temp && index >= 0 ? index = -ft_printf("command not found : %s\n", comm)
-		: ft_memdel((void**)&temp);
+	!temp && index >= 0 ? exe(sh, *argv, argv) : ft_memdel((void**)&temp);
 	ft_free_dblechar_tab(paths);
 	return (index >= 0 ? 1 : -1);
 }
@@ -145,7 +144,6 @@ int		sort_comm(t_shell *sh)
 			return (*fail);
 		shift_com(sh, *fail);
 	}
-	//sh->sub.is_sub == 2 ? exit(EXIT_SUCCESS) : 0;
 	free_comm(sh);
 	return (0);
 }

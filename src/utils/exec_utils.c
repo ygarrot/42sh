@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 14:21:32 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/09 16:47:50 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 10:16:18 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,3 +58,4 @@ void	set_redi_path(t_redi *redi)
 		ft_printf("Erreur lors du nettoyage des here_doc\n");
 	ft_memdel((void**)&tmp);
 }
+

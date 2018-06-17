@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 15:40:03 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/16 19:00:00 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 10:26:37 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int			get_hdoc(char *str, int i, t_parser *par)
 			hdoc = ft_strlento_comm(&str[i], ENDWORDVIS) - 1;
 			todel = ft_strndup(&str[i], hdoc < 0 ? ft_strlen(&str[i]) : hdoc);
 			par = push_front(par, ft_find_and_replace(todel, "\\", 1), 0);
-			i+=hdoc;
+			i += hdoc;
 			ft_memdel((void**)&todel);
 		}
 			return (i);
@@ -97,6 +97,8 @@ t_parser	*count_parser(char **ptr, char free)
 	char		*str;
 
 	i = 0;
+	if (check_bracket(*ptr) < 0)
+		return (NULL);
 	add_aliases(ptr, free);
 	str = *ptr;
 	mallcheck(par = (t_parser*)ft_memalloc(sizeof(t_parser)));

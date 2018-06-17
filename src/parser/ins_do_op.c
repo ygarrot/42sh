@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 14:59:58 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/16 19:44:00 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 10:52:51 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,13 @@ void	sub_shell(t_shell *sh, char *str)
 		ft_memdel((void**)&todel);
 		return ;
 	}
-	if (!bracket(++str, "()"))
+	if (!bracket(str, "()"))
 		return ;
+	++str;
 	str[ft_strlen(str) - 1] = '\0';
 	tmp.line = ft_strdup(str);
 	*co = sh->com;
 	co[1] = sh->begin;
-	sh->com = 0;
-	sh->begin = 0;
 	ft_subshell_set(ft_subshell_get() + 1);
 	sh->env = *ft_storeenv(0, ft_subshell_get());
 	hard_split(sh, &tmp);
