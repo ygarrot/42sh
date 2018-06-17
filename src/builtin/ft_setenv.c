@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/04 16:56:40 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/15 16:35:23 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/17 15:17:13 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ void		ft_setenv(char **arg, char ***env)
 	env = ft_storeenv(0, ft_subshell_get());
 	if (!arg || !env || !*env)
 		write(STDOUT_FILENO, "\n", 1);
-	else if (!*arg || !arg[1])
-		ft_putendl_fd("21sh: setenv VARNAME [VARVALUE]", 2);
+	else if (!*arg || !arg[1] || !ft_variable_checkname(arg[1]))
+		ft_putendl_fd(!arg[1] ? "21sh: setenv VARNAME [VARVALUE]" :
+				"21sh: setenv: variable name is wrong", 2);
 	else
 	{
 		if ((value = (char*)malloc(ft_strlen(arg[1]) + ft_strlen(arg[2]) + 2)))

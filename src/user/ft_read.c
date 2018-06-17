@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 13:33:27 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/17 14:35:52 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/17 15:04:01 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int				ft_read(t_line *line, int *val)
 	char		tmp[2 * BUFFSIZE + 1];
 	int			re;
 
-	int	i;
 	ft_bzero((void*)tmp, 2 * BUFFSIZE);
 	ft_sigint(0);
 	while (1)
@@ -52,15 +51,6 @@ int				ft_read(t_line *line, int *val)
 		if (ft_sigint(0))
 			return (ft_sigintcall(line));
 		val[9] = read(STDIN_FILENO, buf, BUFFSIZE);
-		i = 0;
-		if (*buf == '?')
-		{
-			while (i < 10)
-			{
-				printf("%d : %d\n", i, val[i]);
-				i++;
-			}
-		}
 		if (ft_sigint(0) || val[9] < 0)
 			return (ft_sigintcall(line));
 		buf[val[9]] = 0;

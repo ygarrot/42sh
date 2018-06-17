@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 15:28:08 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/15 12:11:48 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/17 15:12:54 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ t_variable	*ft_variable_create(char *name, void *data, int deep, int deported)
 {
 	t_variable	*el;
 
+	if (!ft_variable_checkname(name))
+		return (0);
 	if (!(el = (t_variable*)malloc(sizeof(t_variable))))
 		return (0);
 	el->name = name;
