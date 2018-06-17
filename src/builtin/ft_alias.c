@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/17 12:18:36 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 12:45:43 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 14:49:14 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void		alias_file(t_shell *sh)
 	t_line	line_s;
 
 	*line = ft_strjoin(getenv("HOME"), "/.42shrc");
-	tb[0] = open(*line, O_RDWR);
+	*line ? tb[0] = open(*line, O_RDWR) : 0;
 	ft_memdel((void**)&(*line));
-	if (tb[0] < 0)
+	if (!*line || tb[0] < 0)
 		return ;
 	mallcheck(*line = ft_memalloc(4096 * sizeof(char)));
 	line[2] = ft_strnew(1);
