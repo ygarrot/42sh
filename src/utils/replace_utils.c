@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 12:10:51 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/05/27 15:14:09 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 14:46:55 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,7 @@ int		local_env(char **tmp, char *todel)
 	int ret;
 
 	ret = 0;
-	if ((*tmp = ft_getenv_fromroot(todel)))
-		ret = 1;
-	if (!ret && (*tmp = ft_variablepars(todel)))
-		ret = 2;
+	*tmp = ft_variablepars(todel);
 	ft_memdel((void**)&todel);
-	return (ret);
+	return (2);
 }

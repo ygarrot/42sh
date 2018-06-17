@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 13:41:24 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 11:48:12 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 14:44:30 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	assign(char **arg, int i)
 	char	*temp[3];
 	char	*todel;
 	int		len;
-	int		del;
 
 	if ((*arg)[i] == '$'
 			|| ((*arg)[i] == '~' && (!i || (*arg)[i - 1] == ' ')))
@@ -26,7 +25,7 @@ void	assign(char **arg, int i)
 		len = ft_mcharchr(temp[0], " /*{\'\"");
 		len = len >= 0 ? (size_t)len : ft_strlen(temp[0]);
 		todel = ft_strndup(temp[0], len);
-		if (!(del = local_env(&temp[1], todel)))
+		if (!local_env(&temp[1], todel))
 			return ;
 		todel = (i > 0 ? ft_strndup(*arg, i) : ft_strdup(""));
 		temp[2] = *arg;
@@ -34,7 +33,7 @@ void	assign(char **arg, int i)
 				, &(*arg)[i + 1 + ((*arg)[i] == '$' ? len : 0)]);
 		ft_memdel((void**)&temp[2]);
 		ft_memdel((void**)&todel);
-		del == 2 ? ft_memdel((void**)&todel) : 0;
+		ft_memdel((void**)&temp[1]);
 	}
 }
 

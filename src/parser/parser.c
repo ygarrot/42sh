@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 17:14:50 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 12:29:05 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 14:47:21 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void		hard_split(t_shell *sh, t_line *line)
 	replace_backslashn(&str);
 	tb = ft_strsplit_comm(str, "\n;");
 	tb && (!*tb) ? ft_memdel((void**)&tb) : 0;
+	!tb ? ft_memdel((void**)&par) : 0;
 	!tb ? ft_memdel((void**)&str) : 0;
 	if (!tb)
 		return ;
