@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstfusion.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/17 16:16:30 by tcharrie          #+#    #+#             */
+/*   Updated: 2018/06/17 16:16:46 by tcharrie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 static void	ft_lstfusion_(t_list *left, t_list *right, int (*cmp)(void *,
@@ -25,7 +37,8 @@ static void	ft_lstfusion_(t_list *left, t_list *right, int (*cmp)(void *,
 	left->next = right;
 }
 
-void	ft_lstfusion(t_list **left, t_list *right, int (*cmp)(void *, void *))
+void		ft_lstfusion(t_list **left, t_list *right, int (*cmp)(void *,
+			void *))
 {
 	t_list	*tmp;
 	t_list	*next;

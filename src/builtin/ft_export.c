@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/02 12:35:22 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/03 15:45:07 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/17 17:10:03 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	ft_export_(char **arg, char ***env)
 
 	if (!(var = ft_variableget(arg[1])))
 	{
-		dprintf(2, "Undefined var\n");
+		ft_putstr_fd("Undefined var\n", 2);
 		if (!(str = ft_getenv(*env, arg[1])))
 		{
 			str = "";

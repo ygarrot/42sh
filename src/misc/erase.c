@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 13:28:44 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/05/26 17:01:34 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 16:17:52 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	epur_tb(t_com *com, int len)
 void	erase_shell(t_shell *sh)
 {
 	t_btree **root;
-	
+
 	if (!sh)
 		return ;
 	root = alias_tb();

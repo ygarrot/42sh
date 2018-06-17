@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 14:59:58 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 16:02:58 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 17:01:53 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	sub_shell(t_shell *sh, char *str)
 		ft_memdel((void**)&todel);
 		return ;
 	}
-	if (!bracket(str, "()") ||  parenth(&str,-1, '\0', 0) < 0)
+	if (!bracket(str, "()") || parenth(&str, -1, '\0', 0) < 0)
 		return ;
 	++str;
 	tmp.line = str;
@@ -80,8 +80,8 @@ void	replace_local(t_shell *sh, char **str, int i, int ret)
 
 void	tmp_sh(t_shell *sh, int index, int is_sub)
 {
-	static t_com *co;
-	static t_com *begin;
+	static t_com *co = 0;
+	static t_com *begin = 0;
 
 	if (index == 1)
 	{
@@ -93,9 +93,10 @@ void	tmp_sh(t_shell *sh, int index, int is_sub)
 	}
 	else
 	{
-		begin = sh->begin;
 		sh->com = co;
 		sh->begin = begin;
+		begin = 0;
+		co = 0;
 		sh->sub.is_sub = 0;
 	}
 }

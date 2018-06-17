@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 15:03:59 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 14:23:41 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 16:49:31 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		skip_br(char *str, int i)
 				if (str[i] == '(' && (tmp = skip_br(&str[i], -1)) < 0)
 					return (-ft_printf("Parenthesis error\n"));
 				else if (str[i] == '(')
-					i+= tmp;
+					i += tmp;
 			}
 			return (-1);
 		}

@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 11:59:55 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 14:04:41 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 17:10:51 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 int		safe_dup(int fd1, int fd2, int *pipe)
 {
 	if (fd1 != -1 && dup2(fd1, fd2) == -1)
-		return (-printf("dup error\n"));
+		return (-ft_printf("dup error\n"));
 	close(pipe[1]);
 	close(pipe[0]);
 	return (0);
@@ -103,7 +103,7 @@ int		exec_pipe(t_shell *sh, char *comm, char **argv)
 	tmp = sh->com->next;
 	pipe_fd = (tmp && tmp->type & 4 ? tmp->pipe : sh->sub.pipe);
 	if (pipe(pipe_fd))
-		return (-printf("Broken pipe\n"));
+		return (-ft_printf("Broken pipe\n"));
 	father = fork();
 	if (!father)
 	{

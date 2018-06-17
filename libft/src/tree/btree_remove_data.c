@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 14:55:48 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/03 16:12:28 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/17 17:08:59 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ static void	btree_remove_data_easy(t_btree **root, void (*del)(void*))
 		trade = root[0]->right;
 	else
 		trade = root[0]->left;
-	if (!root[0])
-		printf("LA AUSSI\n");
 	if (root[0]->parent && root[0]->parent->left == root[0])
 		root[0]->parent->left = trade;
 	else if (root[0]->parent)

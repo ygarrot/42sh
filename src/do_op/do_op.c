@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 11:08:36 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/17 16:22:41 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 16:48:52 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int			*do_op(t_do_op *a, t_do_op *op, t_do_op *b)
 	op->code < 0 ? op->code = get_sep(op->content, COMP) + 14 : 0;
 	if (ft_isin(*op->content, "%/") && !b->value)
 	{
-		//ft_printf("error\n");
 		error_do_op("error do_op\n");
 		return (0);
 	}

@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/16 18:30:46 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 14:12:52 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 17:02:35 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int		split_tmp(t_com *com, t_tb **list, char *str)
 
 int		add_glob(t_com *com, t_tb **list, char *str)
 {
-	if (!str || split_tmp(com, list, str))
+	if (!str)
 	{
 		recc_repl(list);
 		return (1);
@@ -85,10 +85,11 @@ void	replace_in(t_shell *sh, t_com *com)
 	ret = list && list->next;
 	while (list)
 	{
+		arg_replace(sh, &list->str);
+		split_tmp(com, &list, list->str);
 		free = list->str;
 		list->str = ft_find_and_replace(free, "\\", 1);
 		ft_memdel((void**)&free);
-		arg_replace(sh, &list->str);
 		replace_local(sh, &list->str, i++, ret);
 		if (!add_glob(com, &list, list->str))
 			list ? list = list->next : 0;
