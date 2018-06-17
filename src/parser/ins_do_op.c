@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 14:59:58 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 12:28:22 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 13:21:19 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	sub_shell(t_shell *sh, char *str)
 		return ;
 	++str;
 	str[ft_strlen(str) - 1] = '\0';
-	tmp.line = ft_strdup(str);
+	tmp.line = str;
 	*co = sh->com;
 	co[1] = sh->begin;
 	ft_subshell_set(ft_subshell_get() + 1);

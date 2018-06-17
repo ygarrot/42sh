@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 14:21:32 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 12:26:08 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 12:55:58 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ char	*ft_getenv(char **tb, char *str)
 
 void	reset_std(t_shell *sh, t_com *com, t_redi *redi)
 {
-	if (ft_strisin_tab(*com->cli, FBUILT, 0) >= 0
-			|| (sh->com->next && sh->com->next->type & 4))
+	if (ft_strisin_tab(*com->cli, BUILT, 0) < 0)
 		return ;
 	if ((redi->type == 2 || redi->type == 3)
 			&& !ft_strcmp(redi->path, "-") && redi->fd[0] < 3)

@@ -6,13 +6,13 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2018/06/17 12:33:46 by ygarrot          ###   ########.fr        #
+#    Updated: 2018/06/17 12:56:21 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = 21sh
 
-FLAGS =  -Wall -Werror -Wextra -g3 -fsanitize=address,undefined
+FLAGS =  -Wall -Werror -Wextra -g3 #-fsanitize=address,undefined
 
 SRC_FOLDER = src/
 
