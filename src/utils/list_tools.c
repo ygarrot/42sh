@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 17:26:45 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 10:43:26 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 14:04:42 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,16 @@ void		shift_com(t_shell *sh, int fail)
 	if (!sh->com)
 		return ;
 	sh->com = sh->com->next;
-	sh->com && !(sh->com->type & 4) ? replace_in(sh, sh->com) : 0;
+	sh->com ? replace_in(sh, sh->com) : 0;
 	while (sh->com && (!sh->com->cli
 	|| (sh->com->type && !(sh->com->type & (fail >= 0 ? 2 : 1)))))
 	{
-		!(sh->com->type & 4) ? replace_in(sh, sh->com) : 0;
+		replace_in(sh, sh->com);
 		sh->com = sh->com->next;
 		if (sh->com && sh->com->type & 32)
 			return ;
 	}
+	sh && sh->com ? replace_in(sh, sh->com) : 0;
 }
 
 void		free_comm(t_shell *sh)

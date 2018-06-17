@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 14:59:58 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 13:21:19 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 14:17:33 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	sub_shell(t_shell *sh, char *str)
 	t_line	tmp;
 	t_com	*co[2];
 
-	if (!ft_strncmp(str, "((", 2))
+	if (!ft_strncmp(str, "((", 2) && str[ft_strlen(str - 2)] == ')')
 	{
 		todel = parse_op(str);
 		ft_memdel((void**)&todel);
@@ -52,8 +52,9 @@ void	sub_shell(t_shell *sh, char *str)
 	}
 	if (!bracket(str, "()"))
 		return ;
+	if (parenth(&str,-1, '\0', 0) < 0)
+		return ;
 	++str;
-	str[ft_strlen(str) - 1] = '\0';
 	tmp.line = str;
 	*co = sh->com;
 	co[1] = sh->begin;

@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 15:03:59 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 12:22:54 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 14:17:20 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	replace_backslashn(char **str)
 
 int		skip_br(char *str, int i)
 {
+	int tmp;
+
 	if (!str || !*str)
 		return (0);
 	while (str[++i])
@@ -44,8 +46,10 @@ int		skip_br(char *str, int i)
 			{
 				if (str[i] == ')')
 					return (i);
-				if (str[i] == '(' && (i = skip_br(str, i - 1)) < 0)
+				if (str[i] == '(' && (tmp = skip_br(&str[i], -1)) < 0)
 					return (-ft_printf("Parenthesis error\n"));
+				else if (str[i] == '(')
+					i+= tmp;
 			}
 			return (-1);
 		}
