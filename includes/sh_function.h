@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 19:03:40 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 12:15:58 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 16:03:00 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -346,6 +346,7 @@ void		ft_export(char **arg, char ***env);
 ** exec
 */
 
+void	tmp_sh(t_shell *sh, int index, int is_sub);
 int			redi(t_shell *sh, t_redi *redi);
 int			wait_exec(t_shell *sh, char **cli);
 int			sort_comm(t_shell *sh);

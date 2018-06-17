@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 13:41:24 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 15:05:02 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 16:02:58 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	assign(char **arg, int i)
 			|| ((*arg)[i] == '~' && (!i || (*arg)[i - 1] == ' ')))
 	{
 		temp[0] = (*arg)[i] == '$' ? &(*arg)[i + 1] : "HOME";
-		len = ft_mcharchr(temp[0], " /*{\'\"");
+		len = ft_mcharchr(temp[0], VAR_LIM);
 		len = len >= 0 ? (size_t)len : ft_strlen(temp[0]);
 		todel = ft_strndup(temp[0], len);
 		if (!local_env(&temp[1], todel))
@@ -78,7 +78,6 @@ char	*replace_loop(t_shell *sh)
 
 void	comm_substitute(t_shell *sh, char **str, int i)
 {
-	t_com	*com;
 	t_line	tmp;
 	char	*glue;
 	int		len;
@@ -86,9 +85,8 @@ void	comm_substitute(t_shell *sh, char **str, int i)
 
 	if ((*str)[i++] != '`' || ft_charchr('`', &(*str)[i]) <= 0)
 		return ;
-	com = sh->com;
 	ft_bzero(&sh->sub, sizeof(sh->sub));
-	sh->sub.is_sub = 1;
+	tmp_sh(sh, 1, 1);
 	len = ft_strlento(&(*str)[i], '`');
 	mallcheck(tmp.line = ft_strndup(&(*str)[i], len));
 	hard_split(sh, &tmp);
@@ -101,8 +99,7 @@ void	comm_substitute(t_shell *sh, char **str, int i)
 	ft_memdel((void**)&tmp.line);
 	ft_memdel((void**)&to_del[1]);
 	ft_memdel((void**)&(*to_del));
-	sh->com = com;
-	sh->sub.is_sub = 0;
+	tmp_sh(sh, 0, 0);
 }
 
 void	get_sub(t_shell *sh)

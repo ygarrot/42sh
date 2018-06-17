@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 16:51:31 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 10:46:12 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 15:24:52 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,11 @@ void	parse_exe(t_shell *sh, char *comm, char **arg)
 	else if ((index = ft_strisin_tab(arg[0], FBUILT, 0)) >= 0)
 		sh->f_built[index](arg, &sh->env);
 	else if (execve(comm, arg, sh->env))
-		exit(error_exec(arg, 0));
+	{
+		error_exec(arg, 0);
+		sh->status = 256;
+		exit(EXIT_FAILURE);
+	}
 }
 
 int		error_exec(char **argv, int is_redi)
