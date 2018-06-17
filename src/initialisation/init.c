@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 13:14:26 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/13 12:51:05 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/17 17:37:01 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,8 @@ void		f_point(t_shell *sh, char **argv)
 	sh->built[2] = &ft_unsetenv;
 	sh->built[3] = &ft_alias;
 	sh->built[4] = &ft_unalias;
+	sh->built[5] = &ft_read_builtin;
+	sh->built[6] = &ft_unset;
+	sh->built[7] = &ft_export;
 	sh->f_built[0] = &ft_echo;
 }

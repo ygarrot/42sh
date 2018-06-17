@@ -6,13 +6,13 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2018/06/17 16:23:14 by ygarrot          ###   ########.fr        #
+#    Updated: 2018/06/17 17:49:28 by tcharrie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = 21sh
 
-FLAGS =  -Wall -Werror -Wextra -g3 #-fsanitize=address,undefined
+FLAGS =  -Wall -Werror -Wextra -g3 -fsanitize=address,undefined
 
 SRC_FOLDER = src/
 
@@ -52,7 +52,8 @@ SRC_FP +=\
 		variables/ft_variable_builtin.c
 
 SRC_FP += \
-		  env/ft_storeenv.c
+		  env/ft_storeenv.c \
+		  env/ft_getenv.c
 
 SRC_FP += \
 		  exec/exec.c \
