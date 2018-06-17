@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 15:40:03 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 13:18:16 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 14:29:09 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,18 +96,18 @@ t_parser	*count_parser(char **ptr, char free)
 	int			sep;
 	char		*str;
 
-	i = 0;
-	if (check_bracket(*ptr) < 0)
+	if (!(i = 0) && check_bracket(*ptr) < 0)
+	{
+		free ? ft_memdel((void**)&(*ptr)) : 0;
 		return (NULL);
+	}
 	add_aliases(ptr, free);
-	str = *ptr;
 	mallcheck(par = (t_parser*)ft_memalloc(sizeof(t_parser)));
-	while (str[i] && str[i] != '\n')
+	while ((str = *ptr) && str[i] && str[i] != '\n')
 	{
 		while (str[i] && str[i] == ' ')
 			i++;
-		sep = sizeof_comm(&str[i], par);
-		if (sep < 0)
+		if ((sep = sizeof_comm(&str[i], par)) < 0)
 		{
 			ft_printf("yosh: parse error near `%s'\n", par->op);
 			free_parser(par);
