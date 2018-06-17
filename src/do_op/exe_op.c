@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 15:43:55 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 15:02:29 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 16:22:19 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int		*the_order(t_do_op **begin)
 	i = -1;
 	while (*begin && (*begin)->next && ++i < 17)
 	{
+		begin_op(begin);
 		list = *begin;
 		while (list)
 		{
@@ -79,7 +80,6 @@ int		*the_order(t_do_op **begin)
 	if (*begin)
 		!(*begin)->is_set ? (*begin)->value = get_value(*begin) : 0;
 	ret = *begin ? (*begin)->value : 0;
-	free_do_op(begin);
 	return (&ret);
 }
 
@@ -108,6 +108,7 @@ char	*set_assign(t_do_op *list)
 	if (!(ret = the_order(&list)))
 		return (NULL);
 	all_op(-1);
+	free_do_op(begin_op(NULL));
 	return (ft_itoa(*ret));
 }
 
