@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 13:33:27 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/05/27 14:59:00 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/17 14:35:52 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int				ft_read(t_line *line, int *val)
 	char		tmp[2 * BUFFSIZE + 1];
 	int			re;
 
+	int	i;
 	ft_bzero((void*)tmp, 2 * BUFFSIZE);
 	ft_sigint(0);
 	while (1)
@@ -51,6 +52,15 @@ int				ft_read(t_line *line, int *val)
 		if (ft_sigint(0))
 			return (ft_sigintcall(line));
 		val[9] = read(STDIN_FILENO, buf, BUFFSIZE);
+		i = 0;
+		if (*buf == '?')
+		{
+			while (i < 10)
+			{
+				printf("%d : %d\n", i, val[i]);
+				i++;
+			}
+		}
 		if (ft_sigint(0) || val[9] < 0)
 			return (ft_sigintcall(line));
 		buf[val[9]] = 0;
@@ -69,7 +79,7 @@ int				ft_read_process(t_line *line, int *val,
 	int	re;
 
 	ft_bzero((void*)i, sizeof(i));
-	while (!i[0] || ft_strlen(tmp) - i[1] > BUFFSIZE)
+	while (tmp[i[1]] == '\n' || !i[0] || ft_strlen(tmp) - i[1] > BUFFSIZE)
 	{
 		if (tmp[i[1]] == 4 && (re = ft_read_eot(line, val, pars)))
 			return (re);
