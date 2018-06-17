@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 14:05:20 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 10:52:54 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 12:01:10 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,10 @@ int		bracket(char *str, char *brack)
 
 int		parenth(char **str, int i, char rep, bool recc)
 {
-	if (!*str)
-		return (1);
+	if (!str || !*str)
+		return (0);
 	while ((*str)[++i])
+	{
 		if ((*str)[i] == '(')
 		{
 			while ((*str)[++i])
@@ -52,6 +53,7 @@ int		parenth(char **str, int i, char rep, bool recc)
 			}
 			return (-1);
 		}
+	}
 	return (i);
 }
 
@@ -69,7 +71,7 @@ int		skip_bracket(char *str)
 		return (0);
 	while (str[++i])
 	{
-		i += skip_comm(&str[i]);
+		i += br_util(&str[i]);
 		if (str[i] == '(')
 		{
 			if ((tmp = skip_bracket(&str[i])) < 0)
@@ -82,6 +84,7 @@ int		skip_bracket(char *str)
 	}
 	return (-1);
 }
+
 int		check_bracket(char *str)
 {
 	int	i;
@@ -91,7 +94,7 @@ int		check_bracket(char *str)
 	tmp = 0;
 	while (str[++i])
 	{
-		i += skip_comm(&str[i]);
+		i += br_util(&str[i]);
 		if ((tmp = skip_bracket(&str[i])) < 0)
 		{
 			ft_printf("parse error near `()'\n");

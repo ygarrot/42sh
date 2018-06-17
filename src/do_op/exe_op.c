@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 15:43:55 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/16 18:19:23 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 12:41:14 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ char	*set_assign(t_do_op *list)
 	}
 	if (!(ret = the_order(&list)))
 		return (NULL);
+	all_op(-1);
 	return (ft_itoa(*ret));
 }
 

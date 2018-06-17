@@ -6,13 +6,13 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 14:59:58 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 10:52:51 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 12:28:22 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/sh.h"
 
-void sub_ar(t_shell *sh, char **arg, int i)
+void	sub_ar(t_shell *sh, char **arg, int i)
 {
 	char *todel[3];
 
@@ -28,7 +28,7 @@ void sub_ar(t_shell *sh, char **arg, int i)
 		comm_substitute(sh, arg, i);
 		return ;
 	}
-	*todel = ft_strndup(*arg, i - 2 );
+	*todel = ft_strndup(*arg, i - 2);
 	!*todel ? *todel = ft_strnew(1) : 0;
 	if (!(todel[1] = parse_op(&(*arg)[i])))
 		todel[1] = ft_strnew(1);

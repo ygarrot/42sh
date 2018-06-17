@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 12:06:05 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/16 19:05:35 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 12:43:23 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		check_classic(char **tb, int *i)
 		if (ft_isin(*tb[*i], ":?") && (--*i || 1))
 			return (1);
 		if ((get_sep(tb[*i], CREMENT) >= 0
-					|| ft_isin(*tb[*i + 1], "+-~")) && ++*i)
+			|| (tb[*i] && tb[*i + 1] && ft_isin(*tb[*i + 1], "+-~"))) && ++*i)
 			return (check_classic(tb, i));
 		else if (!check_op(tb[++*i]) && !check_op(tb[*i]))
 			return (check_classic(tb, i));
@@ -99,6 +99,7 @@ char	*parse_op(char *str)
 	tb = ft_custom_split(str, all_op(0), 0);
 	if (!tb || !check_all(tb))
 	{
+		all_op(-1);
 		ft_free_dblechar_tab(tb);
 		return (NULL);
 	}

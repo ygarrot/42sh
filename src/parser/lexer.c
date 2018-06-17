@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 15:40:03 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 10:26:37 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 12:28:36 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@
 ** Gere les erreurs de parsing, ne gere (surement) pas toutes les erreurs
 */
 
-void	add_aliases(char **str,char free)
+void		add_aliases(char **str, char free)
 {
-	char **all_op; 
-	char **tb;
-	char	**tmp;
+	char		**all_op;
+	char		**tb;
+	char		**tmp;
 	t_btree		**root;
 
 	root = alias_tb();
 	all_op = (char *[14]){"||", "&&", "|", "&", ";", ">>",
-	"<<", ">&", "<&" , "\n", " ","<",">", 0};
+	"<<", ">&", "<&", "\n", " ", "<", ">", 0};
 	tb = ft_custom_split(*str, all_op, 1);
 	if ((tmp = btree_search_item(*root, &tb[0], ft_hashcmp)))
 	{
@@ -63,7 +63,7 @@ int			get_hdoc(char *str, int i, t_parser *par)
 			i += hdoc;
 			ft_memdel((void**)&todel);
 		}
-			return (i);
+		return (i);
 	}
 	return (i + 1);
 }

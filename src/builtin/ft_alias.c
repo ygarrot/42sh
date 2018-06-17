@@ -1,27 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_alias.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/17 12:18:36 by ygarrot           #+#    #+#             */
+/*   Updated: 2018/06/17 12:45:43 by ygarrot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/sh.h"
 
-void	alias_file(t_shell *sh)
+void		alias_file(t_shell *sh)
 {
 	char	*line[4];
 	int		tb[3];
 	t_line	line_s;
 
-	*line = getenv("HOME");
-	*line = ft_strjoin(*line, "/.42shrc");
+	*line = ft_strjoin(getenv("HOME"), "/.42shrc");
 	tb[0] = open(*line, O_RDWR);
 	ft_memdel((void**)&(*line));
 	if (tb[0] < 0)
 		return ;
-	mallcheck(*line = ft_memalloc(BUFF_SIZE * sizeof(char)));
+	mallcheck(*line = ft_memalloc(4096 * sizeof(char)));
 	line[2] = ft_strnew(1);
-	while ((tb[1] = read(*tb, *line, BUFF_SIZE)) >= 0)
+	while ((tb[1] = read(*tb, *line, 4096)) >= 0)
 	{
 		(*line)[tb[1]] = '\0';
 		line[3] = ft_strjoin(line[2], *line);
 		ft_memdel((void**)&line[2]);
 		line[2] = line[3];
 		if (!tb[1])
-			break;
+			break ;
 	}
 	line_s.eof = NULL;
 	line_s.line = line[3];
@@ -39,9 +50,10 @@ t_btree		**alias_tb(void)
 	return (&alias_tb);
 }
 
-void	print_alias(t_btree **root)
+void		print_alias(t_btree **root)
 {
 	char	**content;
+
 	if (!root || !*root)
 		return ;
 	content = (*root)->item;
@@ -53,7 +65,7 @@ void	print_alias(t_btree **root)
 		print_alias(&(*root)->right);
 }
 
-void ft_alias(char **arg, char ***env)
+void		ft_alias(char **arg, char ***env)
 {
 	void	*tmp;
 	t_btree **root;
@@ -61,7 +73,8 @@ void ft_alias(char **arg, char ***env)
 
 	(void)env;
 	root = alias_tb();
-	if (!arg)
+	if (!arg ||
+	(arg && (!ft_strcmp(arg[1], "alias") || !ft_strcmp(arg[1], "unalias"))))
 	{
 		ft_printf("alias: An error occured\n");
 		return ;
@@ -74,7 +87,6 @@ void ft_alias(char **arg, char ***env)
 		ft_set_hash(root, tmp, &(arg[1])[len + 1]);
 		ft_memdel((void**)&tmp);
 	}
-	else
-		if ((tmp = btree_search_item(*root, &arg[1], ft_hashcmp)))
-			ft_printf("%s\n", ((char**)tmp)[1]);
+	else if ((tmp = btree_search_item(*root, &arg[1], ft_hashcmp)))
+		ft_printf("%s\n", ((char**)tmp)[1]);
 }

@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/16 18:30:46 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/16 19:44:04 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 12:33:11 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_tb	*get_last(t_tb *list, int *len)
 	return (list);
 }
 
-void recc_repl(t_tb **list)
+void	recc_repl(t_tb **list)
 {
 	if (!list)
 		return ;
@@ -34,11 +34,11 @@ void recc_repl(t_tb **list)
 		ft_memdel((void**)&(*list));
 }
 
-int	 split_tmp(t_com *com, t_tb **list, char *str)
+int		split_tmp(t_com *com, t_tb **list, char *str)
 {
 	char	**tb;
 	int		i;
-	t_tb *tmp[2];
+	t_tb	*tmp[2];
 
 	i = -1;
 	tb = ft_strsplit_comm(str, " ");
@@ -58,7 +58,7 @@ int	 split_tmp(t_com *com, t_tb **list, char *str)
 	return (1);
 }
 
-int	 add_glob(t_com *com, t_tb **list, char *str)
+int		add_glob(t_com *com, t_tb **list, char *str)
 {
 	if (!str || split_tmp(com, list, str))
 	{
@@ -71,11 +71,11 @@ int	 add_glob(t_com *com, t_tb **list, char *str)
 	return (0);
 }
 
-void replace_in(t_shell *sh, t_com *com)
+void	replace_in(t_shell *sh, t_com *com)
 {
 	t_tb	*list;
 	int		i;
-	char *free;
+	char	*free;
 	int		ret;
 
 	i = 0;

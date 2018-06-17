@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 12:08:50 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/16 19:05:38 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 12:15:57 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define HISTORYFILE "~/.sh_history"
 # define ENVFILE "/tmp/.sh_env"
 
-#define TERN "ERREUR DE TERN SYNTAX"
+# define TERN "ERREUR DE TERN SYNTAX"
 # define HASH_SIZE 1000
 # define BUFFSIZE 100
 # define ERR -1

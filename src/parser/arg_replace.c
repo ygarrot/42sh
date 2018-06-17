@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 13:41:24 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/13 13:05:17 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/17 11:48:12 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*replace_loop(t_shell *sh)
 	t_list	*to_del;
 	char	*glue;
 
-	mallcheck(glue = ft_memalloc(sh->sub.size * sizeof(char)));
+	mallcheck(glue = ft_memalloc(sh->sub.size * sizeof(char) + 1));
 	while (sh->sub.begin)
 	{
 		if (sh->sub.begin->content)
@@ -120,7 +120,7 @@ void	get_sub(t_shell *sh)
 	begin = sh->sub.begin;
 	while (begin->next)
 		begin = begin->next;
-	while (get_next_line(sh->sub.pipe[0], (char**)&begin->content))
+	while (get_next_line(sh->sub.pipe[0], (char**)&begin->content) > 0)
 	{
 		sh->sub.size += ft_strlen((char*)begin->content) + 1;
 		mallcheck(begin->next = (t_list*)ft_memalloc(sizeof(t_list)));

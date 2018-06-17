@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 19:03:40 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 10:17:12 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 12:15:58 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,7 +250,8 @@ int			ft_read_recover_init(t_read *p, int *val, size_t size, t_line *l);
 int			ft_read_recover_end(char *str, t_read parser);
 void		ft_read_recover_pars(t_line *l, int *val, char *buff, t_read *p);
 int			ft_read_recover_execute(t_line *l, int *val, char *buff, int echo);
-int			ft_read_recover_execute_a(t_line *l, int *val, char *buff, int echo);
+int			ft_read_recover_execute_a(t_line *l,
+		int *val, char *buff, int echo);
 void		ft_read_recover_insert(t_line *line, int *val, char *buff, int len);
 
 void		ft_read_move_left(t_line *line, int *val);
@@ -379,15 +380,17 @@ int			write_env(char **env);
 ** substitute functions
 */
 
-int		check_bracket(char *str);
-int		skip_bracket(char *str);
-void	add_comm(t_com *com, char *str);
-void replace_in(t_shell *sh, t_com *com);
-int		local_env(char **tmp, char *todel);
-void	replace_local(t_shell *sh, char **str, int i, int ret);
-char			**ft_custom_split(char *s, char **tb,int op);
-int		bracket(char *str, char *brack);
-void sub_ar(t_shell *sh, char **arg, int i);
+int			br_util(char *str);
+int			skip_br(char *str, int i);
+int			check_bracket(char *str);
+int			skip_bracket(char *str);
+void		add_comm(t_com *com, char *str);
+void		replace_in(t_shell *sh, t_com *com);
+int			local_env(char **tmp, char *todel);
+void		replace_local(t_shell *sh, char **str, int i, int ret);
+char		**ft_custom_split(char *s, char **tb, int op);
+int			bracket(char *str, char *brack);
+void		sub_ar(t_shell *sh, char **arg, int i);
 void		get_sub(t_shell *sh);
 void		comm_substitute(t_shell *sh, char **str, int i);
 
@@ -411,11 +414,10 @@ t_paths		*recc(char *str, char **regex);
 ** hash_functions
 */
 
-void	ft_unalias(char **arg, char ***env);
+void		ft_unalias(char **arg, char ***env);
 t_btree		**alias_tb(void);
-void ft_alias(char **arg, char ***env);
-void	alias_file(t_shell *sh);
-
+void		ft_alias(char **arg, char ***env);
+void		alias_file(t_shell *sh);
 
 void		ft_free_hash(t_btree **tb, size_t size);
 char		*ft_get_hash(t_btree **hash_tb, char *key);

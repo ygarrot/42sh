@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 15:45:52 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/09 15:47:38 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 12:23:06 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,4 @@ int	alias_cmp(void *s1, void *s2, int lvl)
 	if (!s1 || !s2)
 		return (0);
 	return (ft_strcmp(*((char**)s1), *((char**)s2)));
-
 }

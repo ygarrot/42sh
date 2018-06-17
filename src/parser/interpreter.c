@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 13:27:49 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/10 15:24:43 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 12:27:55 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	add_comm(t_com *com, char *str)
 	t_tb	*temp;
 
 	if (!com || !str)
-		return;
+		return ;
 	mallcheck(to_add = (t_tb*)ft_memalloc(sizeof(t_tb)));
 	to_add->str = str;
 	if (!(temp = com->tb))

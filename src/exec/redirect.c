@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 11:59:55 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 10:46:17 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 12:32:54 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ int		exec_pipe(t_shell *sh, char *comm, char **argv)
 		if (safe_dup(pipe_fd[1], STDOUT_FILENO, pipe_fd))
 			exit(EXIT_FAILURE);
 		parse_exe(sh, comm, argv);
-		
 	}
 	else if (father < 0)
 		return (-ft_printf("sh : fork error : %d", father));

@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 15:45:17 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 10:45:33 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/17 12:33:10 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		exe(t_shell *sh, char *comm, char **argv)
 	pid_t father;
 
 	if ((sh->com->next && sh->com->next->type & 4)
-	|| (sh->sub.is_sub  == 1 && (!sh->com->next || sh->com->next->type != 4)))
+	|| (sh->sub.is_sub == 1 && (!sh->com->next || sh->com->next->type != 4)))
 		return (exec_pipe(sh, comm, argv));
 	father = fork();
 	if (!father)
