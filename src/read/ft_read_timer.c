@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:38:33 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/16 15:06:25 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/19 12:25:02 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ int		ft_read_timer_sig_interrup(int sig)
 void	ft_read_timer_sig(int sig)
 {
 	if (sig == SIGALRM)
+	{
 		ft_read_timer_sig_interrup(sig);
+		ft_addtofd("\v", ft_fd_get());
+	}
 }
 
 /*
@@ -70,6 +73,7 @@ int		ft_read_timer(t_read *data)
 		return (0);
 	if (signal(SIGALRM, &ft_read_timer_sig) == SIG_ERR)
 		data->error = 1;
+	ft_read_timer_sig_interrup(0);
 	timer_set.it_interval.tv_sec = 0;
 	timer_set.it_interval.tv_usec = 0;
 	timer_set.it_value.tv_sec = data->timer.tv_sec;

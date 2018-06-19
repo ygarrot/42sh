@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 12:18:57 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/16 14:56:35 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/19 12:22:16 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,7 @@ int		ft_read_recover_init(t_read *parser, int *val, size_t size,
 	ft_bzero((void*)val, size);
 	if (!(line->line = (char*)ft_memalloc(ft_strlen(parser->readline) +
 					ft_strlen(parser->prompt) + 1)))
-	{
-		dprintf(2, "21sh: read: recover: init: Failed malloc\n");
 		return (-1);
-	}
 	line->eof = 0;
 	line->size_eof = 0;
 	line->size_line = 1;
@@ -106,15 +103,16 @@ char	*ft_read_recover(t_read *parser)
 	while (line.line && !(val[12] = ft_read_recover_end(line.line, *parser)))
 	{
 		val[9] = read(parser->fd, buff, BUFFSIZE);
-		if (val[9] < 0)
+		if (val[9] < 0 || ft_sigint(0))
 			ft_strdel(&line.line);
-		if (val[9] < 0)
-			return (0);
+		if (!line.line || ft_read_timer_sig_interrup(0))
+			return (line.line);
 		buff[val[9]] = 0;
 		ft_strcat(tmp, buff);
 		ft_read_recover_pars(&line, val, tmp, parser);
 	}
 	if (val[12] == 2)
 		ft_strdel(&line.line);
+	parser->error = (parser->error || (val[12] != 2 && !line.line));
 	return (line.line);
 }

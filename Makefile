@@ -6,13 +6,13 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2018/06/17 17:49:28 by tcharrie         ###   ########.fr        #
+#    Updated: 2018/06/19 11:58:46 by tcharrie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = 21sh
+NAME = 42sh
 
-FLAGS =  -Wall -Werror -Wextra -g3 -fsanitize=address,undefined
+FLAGS =  -Wall -Werror -Wextra# -g3 -fsanitize=address,undefined
 
 SRC_FOLDER = src/
 
@@ -135,7 +135,8 @@ SRC_FP += \
 		  signal/ft_sigint.c
 
 SRC_FP += \
-		  static/ft_subshell.c
+		  static/ft_subshell.c \
+		  static/ft_fd.c
 
 SRC_FP += \
 		  user/ft_getentry.c \
