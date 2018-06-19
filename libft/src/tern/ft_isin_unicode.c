@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/19 13:19:35 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/19 13:24:29 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/19 13:32:43 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_isin_unicode(char *str, char *look)
 	int	i;
 	int	j;
 
-	if (!str || !look)
+	if (!str || !look || !*str)
 		return (0);
 	i = 0;
 	j = ft_lenchar_r(str, 0);

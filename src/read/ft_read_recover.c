@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 12:18:57 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/19 12:22:16 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/19 15:09:20 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	ft_read_recover_pars(t_line *line, int *val, char *buff, t_read *p)
 int		ft_read_recover_end(char *str, t_read p)
 {
 	size_t	size;
+	int		bl;
 
 	size = ft_sigint(0);
 	if (ft_read_timer_sig_interrup(0) || size)
@@ -48,18 +49,19 @@ int		ft_read_recover_end(char *str, t_read p)
 		ft_addtofd(&str[size + 1], p.fd);
 	if (p.nchars_exact > 0)
 		return (size >= p.nchars_exact);
-	if (p.nchars > 0 && size > p.nchars)
-		ft_addtofd(&str[size + 1], p.fd);
-	if (p.nchars > 0 && size >= p.nchars)
-		return (1);
-	if (size == 0)
-		return (0);
 	size = 0;
-	while (str[size])
+	bl = 0;
+	while (str[size] && (p.nchars <= 0 || size < p.nchars) && (bl || !p.delim
+				|| !ft_strprefix(p.delim, &str[size])))
 	{
-		if (ft_strprefix(p.delim, &str[size]))
-			return (1);
-		size++;
+		bl = (p.bl_active && str[size] == '\\' && !bl);
+		size += ft_lenchar_r(str, size);
+	}
+	if (str[size] || (p.nchars > 0 && p.nchars == size))
+	{
+		str[size] = 0;
+		ft_addtofd(&str[size + 1], p.fd);
+		return (1);
 	}
 	return (0);
 }

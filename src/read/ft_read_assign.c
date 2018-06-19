@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:40:00 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/16 14:17:39 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/19 14:53:46 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,29 @@ static int	ft_read_assign__(t_read *parser, char **array, char *tmp_name,
 
 static int	ft_read_assign_(t_read *parser, char **array, int i)
 {
-	char	*tmp_name;
-	void	*tmp_data;
+	char				*tmp_name;
+	t_list				*lst;
+	t_variable_array	el;
 
 	tmp_name = 0;
-	tmp_data = 0;
 	if (!parser->error && parser->deep == 2)
 	{
-		tmp_name = ft_strdup(parser->variables[i]);
-		tmp_data = ft_strtbdup(&array[i]);
-		parser->error = (!tmp_name || !tmp_data);
-		if (!parser->error && ft_variableadd(tmp_name, tmp_data,
-			2, ft_variable_isdeported(parser->variables[i])) == -1)
+		lst = 0;
+		if ((tmp_name = ft_strdup(parser->variables[i])))
+		{
+			i = 0;
+			while (array[i])
+			{
+				el.str = array[i];
+				el.index = i;
+				ft_lstpushback(&lst, ft_lstnew((void*)&el, sizeof(el)));
+				i++;
+			}
+		}
+		parser->error = (!tmp_name || !lst);
+		if (!parser->error && ft_variableadd(tmp_name, lst,
+			2, ft_variable_isdeported(parser->variables[0])) == -1)
 			parser->error = 1;
-		if (parser->error)
-			ft_strtbdup(tmp_data);
 	}
 	return (ft_read_assign__(parser, array, tmp_name, i));
 }
@@ -57,7 +65,7 @@ int			ft_read_assign(t_read *parser, char *str)
 		return (-1);
 	if (!(array = ft_read_split(parser, str)))
 		return (-1);
-	while (!parser->error && array[i] && parser->deep == 1 &&
+	while (parser->deep == 1 && !parser->error && array[i] &&
 	parser->variables[i] && (parser->variables[i + 1] || !array[i + 1]))
 	{
 		tmp_name = ft_strdup(parser->variables[i]);
