@@ -110,6 +110,7 @@ t_parser	*count_parser(char **ptr, char free)
 		if ((sep = sizeof_comm(&str[i], par)) < 0)
 		{
 			ft_printf("yosh: parse error near `%s'\n", par->op);
+			ft_memdel((void**)&(*ptr));
 			free_parser(par);
 			return (NULL);
 		}

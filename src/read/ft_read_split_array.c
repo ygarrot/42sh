@@ -52,4 +52,5 @@ char	**ft_read_split_array(t_read *parser, char *str)
 		
 
 	}
+	return (NULL);
 }
