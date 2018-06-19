@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 19:03:40 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/19 11:58:23 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/19 13:13:26 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,6 +279,7 @@ void		ft_read_move_down(t_line *line, int *val);
 char		*ft_read_delim(void);
 int			ft_read_assign(t_read *parser, char *str);
 char		**ft_read_split(t_read *parser, char *str);
+char		**ft_read_split_array(t_read *parser, char *str);
 
 /*
 ** ...

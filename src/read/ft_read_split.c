@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:38:29 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/16 14:48:45 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/19 13:10:54 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ char	**ft_read_split(t_read *parser, char *str)
 	int		count;
 	char	*delim;
 
+	if (parser->deep != 1)
+		return (parser->deep == 2 ? ft_read_split_array(parser, str) : 0);
 	if (!(array = ft_read_split_init(parser, &delim, str)))
 		return (0);
 	i = 0;

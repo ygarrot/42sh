@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:37:21 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/19 12:01:49 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/19 12:29:45 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	ft_read_builtin(char **arg, char ***env)
 	{
 		ft_fd_set(parser.fd);
 		str = ft_read_recover(&parser);
+		if (!str || ft_strcmp(parser.delim, "\n"))
+			write(ft_fd_get(), "\n", 1);
 		if (ft_read_assign(&parser, str) == -1)
 			parser.error = 1;
 		ft_read_terminal_reset(0, parser.fd);
