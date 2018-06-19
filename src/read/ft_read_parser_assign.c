@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:38:20 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/13 11:48:32 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/19 15:50:51 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,6 @@ int	ft_read_parser_a(t_read *parser, char *str)
 	if (!parser)
 		return (2);
 	parser->deep = 2;
-	if (!(str = ft_strdup(str)))
-	{
-		ft_putstr_fd("21sh: read: Failed to malloc\n", STDERR_FILENO);
-		parser->error = 1;
-		return (-1);
-	}
 	parser->variables = ft_strtbdup((char*[2]){str, 0});
 	if (!(parser->variables))
 	{
