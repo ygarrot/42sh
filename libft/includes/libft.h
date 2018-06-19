@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 15:23:29 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 16:17:05 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/19 13:24:20 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,4 +193,9 @@ void			ft_intswap(int *i, int *j);
 int				ft_power(int nb, int pow);
 int				ft_dblstr_add(char ***t, char *str);
 int				ft_cpy(char *filefrom, char *fileto);
+
+int				ft_lenchar_r(char *str, int pos);
+int				ft_lenchar_l(char *str, int pos);
+int				ft_isin_unicode(char *str, char *pattern);
+
 #endif

@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 12:06:15 by ygarrot           #+#    #+#              #
-#    Updated: 2018/06/17 17:07:46 by tcharrie         ###   ########.fr        #
+#    Updated: 2018/06/19 13:21:34 by tcharrie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,10 @@ SRC += \
 	   tern/ft_isprint.c \
 	   tern/ft_strisin.c \
 	   tern/ft_strisin_tab.c \
-	   tern/ft_min.c
+	   tern/ft_min.c \
+	   tern/ft_lenchar_r.c \
+	   tern/ft_lenchar_l.c \
+	   tern/ft_isin_unicode.c
 
 SRC += \
 	   print/ft_putchar.c \
