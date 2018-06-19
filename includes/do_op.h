@@ -37,6 +37,7 @@ typedef struct	s_do_op
 ** math functions
 */
 
+int		is_crement(char **tb);
 int				exe_assign(t_do_op *to_ass, char *str, int value);
 int				is_incre(t_do_op **b, t_do_op*a);
 int				del_after_exec(t_do_op **list);

@@ -79,6 +79,7 @@ char	*replace_loop(t_shell *sh)
 void	comm_substitute(t_shell *sh, char **str, int i)
 {
 	t_line	tmp;
+	t_shell	sub;
 	char	*glue;
 	int		len;
 	char	*to_del[2];
@@ -86,20 +87,20 @@ void	comm_substitute(t_shell *sh, char **str, int i)
 	if ((*str)[i++] != '`' || ft_charchr('`', &(*str)[i]) <= 0)
 		return ;
 	ft_bzero(&sh->sub, sizeof(sh->sub));
-	tmp_sh(sh, 1, 1);
+	tmp_sh(&sub, sh, 1, 1);
 	len = ft_strlento(&(*str)[i], '`');
 	mallcheck(tmp.line = ft_strndup(&(*str)[i], len));
-	hard_split(sh, &tmp);
+	hard_split(&sub, &tmp);
 	if (!(*to_del = ft_strndup(*str, i - 1)))
 		mallcheck(*to_del = ft_strnew(0));
-	glue = replace_loop(sh);
+	glue = replace_loop(&sub);
 	to_del[1] = *str;
 	mallcheck(*str = ft_implode(glue, *to_del, &(*str)[i + len + 1]));
 	ft_memdel((void**)&glue);
 	ft_memdel((void**)&tmp.line);
 	ft_memdel((void**)&to_del[1]);
 	ft_memdel((void**)&(*to_del));
-	tmp_sh(sh, 0, 0);
+	tmp_sh(&sub, sh, 0, 0);
 }
 
 void	get_sub(t_shell *sh)

@@ -10,17 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh.h"
+#include "../../includes/sh.h"
 
-void		f_point(t_shell *sh, char **argv)
+void	init_point(t_shell *sh)
 {
-	ft_bzero(sh, sizeof(sh));
-	if ((!argv || ft_strcmp(*argv, "-h")) &&
-		!(sh->hash_tb = (t_btree**)ft_memalloc(1000 * sizeof(t_btree*))))
-		exit(EXIT_FAILURE);
 	if ((sh->std[0] = dup(STDIN_FILENO)) < 0
-		|| (sh->std[1] = dup(STDOUT_FILENO)) < 0
-		|| (sh->std[2] = dup(STDERR_FILENO)) < 0)
+			|| (sh->std[1] = dup(STDOUT_FILENO)) < 0
+			|| (sh->std[2] = dup(STDERR_FILENO)) < 0)
 	{
 		ft_printf("std dup error\n");
 		ft_exit(sh, EXIT_FAILURE);
@@ -34,4 +30,13 @@ void		f_point(t_shell *sh, char **argv)
 	sh->built[6] = &ft_unset;
 	sh->built[7] = &ft_export;
 	sh->f_built[0] = &ft_echo;
+}
+
+void		f_point(t_shell *sh, char **argv)
+{
+	ft_bzero(sh, sizeof(sh));
+	if ((!argv || ft_strcmp(*argv, "-h")) &&
+			!(sh->hash_tb = (t_btree**)ft_memalloc(1000 * sizeof(t_btree*))))
+		exit(EXIT_FAILURE);
+	init_point(sh);
 }

@@ -12,6 +12,13 @@
 
 #include "../../includes/sh.h"
 
+int		is_crement(char **tb)
+{
+	if (ft_strcmp(*tb, "++") && ft_strcmp(*tb, "--"))
+		return (1);
+	return (!ft_str_isdigit(tb[1]));
+}
+
 static int	(**f_opget(void))(int, int)
 {
 	static int		(*f_op[20])(int, int);

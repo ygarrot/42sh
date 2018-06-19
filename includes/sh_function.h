@@ -296,6 +296,7 @@ int			error_exec(char **argv, int is_redi);
 ** list / erase
 */
 
+void	init_point(t_shell *sh);
 void		free_comm(t_shell *sh);
 void		erase_shell(t_shell *sh);
 void		free_parser(t_parser *begin);
@@ -355,7 +356,7 @@ void		ft_export(char **arg, char ***env);
 ** exec
 */
 
-void		tmp_sh(t_shell *sh, int index, int is_sub);
+void		tmp_sh(t_shell *tmp, t_shell *sh, int index, int is_sub);
 int			redi(t_shell *sh, t_redi *redi);
 int			wait_exec(t_shell *sh, char **cli);
 int			sort_comm(t_shell *sh);

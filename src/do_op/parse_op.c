@@ -16,8 +16,8 @@ int		check_classic(char **tb, int *i)
 {
 	int		is_op;
 
-	if (tb[*i] && ft_isin(*tb[*i], "-~+") && !tb[*i][1] && ++*i)
-		return (tb[*i] ? check_classic(tb, i) : 0);
+	if (tb[*i] && ft_mcharchr(tb[*i], "-~+") >= 0 && tb[*i][1] != '=' && ++*i)
+		return (tb[*i] && is_crement(&tb[*i - 1])  ? check_classic(tb, i) : 0);
 	if (!tb[*i] || (!(is_op = check_op(tb[*i])) && !tb[++*i]))
 		return (1);
 	if (is_op || !(is_op = check_op(tb[*i])))

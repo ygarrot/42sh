@@ -108,7 +108,7 @@ char	*set_assign(t_do_op *list)
 	if (!(ret = the_order(&list)))
 		return (NULL);
 	all_op(-1);
-	free_do_op(begin_op(NULL));
+	free_do_op(/*begin_op(NULL)*/&list);
 	return (ft_itoa(*ret));
 }
 

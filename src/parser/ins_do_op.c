@@ -41,6 +41,7 @@ void	sub_ar(t_shell *sh, char **arg, int i)
 void	sub_shell(t_shell *sh, char *str)
 {
 	char	*todel;
+	t_shell sub;
 	t_line	tmp;
 
 	if (!ft_strncmp(str, "((", 2) && str[ft_strlen(str) - 2] == ')')
@@ -53,13 +54,9 @@ void	sub_shell(t_shell *sh, char *str)
 		return ;
 	++str;
 	tmp.line = str;
-	tmp_sh(sh, 1, 0);
-	ft_subshell_set(ft_subshell_get() + 1);
-	sh->env = *ft_storeenv(0, ft_subshell_get());
-	hard_split(sh, &tmp);
-	ft_subshell_set(ft_subshell_get() - 1);
-	sh->env = *ft_storeenv(0, ft_subshell_get());
-	tmp_sh(sh, 0, 0);
+	tmp_sh(&sub, sh, 1, 0);
+	hard_split(&sub, &tmp);
+	tmp_sh(&sub, sh, 0, 0);
 }
 
 void	replace_local(t_shell *sh, char **str, int i, int ret)
@@ -78,25 +75,20 @@ void	replace_local(t_shell *sh, char **str, int i, int ret)
 	ft_memdel((void**)&(*str));
 }
 
-void	tmp_sh(t_shell *sh, int index, int is_sub)
+void	tmp_sh(t_shell *sub, t_shell *sh, int index, int is_sub)
 {
-	static t_com *co = 0;
-	static t_com *begin = 0;
-
-	if (index == 1)
+	if (!index)
 	{
-		begin = sh->begin;
-		co = sh->com;
-		sh->com = 0;
-		sh->begin = 0;
-		sh->sub.is_sub = is_sub;
+		sub->sub.is_sub = 0;
+		ft_subshell_set(ft_subshell_get() - 1);
+		sh->env = *ft_storeenv(0, ft_subshell_get());
+		return ;
 	}
-	else
-	{
-		sh->com = co;
-		sh->begin = begin;
-		begin = 0;
-		co = 0;
-		sh->sub.is_sub = 0;
-	}
+	ft_bzero(sub, sizeof(t_shell));
+	sub->env = *ft_storeenv(0, ft_subshell_get());
+	ft_subshell_set(ft_subshell_get() + 1);
+	sub->hash_tb = sh->hash_tb;
+	sub->sub.is_sub = is_sub;
+	init_point(sub);
+	sub->here_doc = sh->here_doc;
 }
