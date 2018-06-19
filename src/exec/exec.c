@@ -68,6 +68,7 @@ int		exe(t_shell *sh, char *comm, char **argv)
 int		search_exec(t_shell *sh, char *comm, char **argv)
 {
 	int		index;
+	int		ret;
 	char	*temp;
 	char	**paths;
 	char	*path;
@@ -77,17 +78,18 @@ int		search_exec(t_shell *sh, char *comm, char **argv)
 		return (!comm ? 0 : -ft_printf("command not found : %s\n", comm));
 	mallcheck(paths = ft_strsplit(path, ':'));
 	index = -1;
+	ret = -1;
 	while (!temp && paths[++index])
 	{
 		temp = ft_implode("/", paths[index], comm);
 		sh->hash_tb && !access(temp, F_OK | X_OK) ?
 			ft_set_hash(&sh->hash_tb[hash(comm) % HASH_SIZE], comm, temp) : 0;
-		!access(temp, F_OK | X_OK) ? index = exe(sh, temp, argv) :
+		!access(temp, F_OK | X_OK) ? ret = exe(sh, temp, argv) :
 			ft_memdel((void**)&temp);
 	}
-	!temp && index >= 0 ? exe(sh, *argv, argv) : ft_memdel((void**)&temp);
+	!temp && index >= 0 ? ret = exe(sh, *argv, argv) : ft_memdel((void**)&temp);
 	ft_free_dblechar_tab(paths);
-	return (index >= 0 ? 1 : -1);
+	return (ret);
 }
 
 int		exec_cli(t_shell *sh, t_com *com)

@@ -12,7 +12,9 @@
 
 NAME = 42sh
 
-FLAGS =  -Wall -Werror -Wextra# -g3 -fsanitize=address,undefined
+FLAGS =  -Wall -Werror -Wextra #-g3 -fsanitize=address,undefined
+
+SFLAGS =  -Wall -Werror -Wextra
 
 SRC_FOLDER = src/
 
