@@ -61,7 +61,7 @@ int		exe(t_shell *sh, char *comm, char **argv)
 		while (wait(&sh->status) != -1)
 			;
 	else
-		return (-ft_printf("sh : fork error : %d", father));
+		return (ft_error("sh : fork error : ", 0));
 	return (-WEXITSTATUS(sh->status));
 }
 
@@ -75,7 +75,7 @@ int		search_exec(t_shell *sh, char *comm, char **argv)
 
 	temp = NULL;
 	if (!comm || !(path = ft_getenv(sh->env, "PATH")))
-		return (!comm ? 0 : -ft_printf("command not found : %s\n", comm));
+		return (!comm ? 0 : ft_error("command not found : ", comm));
 	mallcheck(paths = ft_strsplit(&path[5], ':'));
 	index = -1;
 	ret = -1;

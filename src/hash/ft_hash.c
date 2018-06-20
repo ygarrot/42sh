@@ -40,8 +40,6 @@ int				ft_set_hash(t_btree **begin, char *key, char *value)
 	char	**tmp;
 
 	tmp = NULL;
-	if (begin)
-		ft_printf("ft_set_hash wtf\n");
 	if (!begin || !key || !value)
 		return (-1);
 	if (!*begin || !(tmp = btree_search_item(*begin, &key, ft_hashcmp)))
@@ -67,8 +65,6 @@ char			*ft_get_hash(t_btree **hash_tb, char *key)
 	char			**tmp;
 	t_btree			*root;
 
-	if (hash_tb)
-		ft_printf("get hash wtf\n");
 	if (!hash_tb || !key)
 		return (NULL);
 	index = hash(key) % HASH_SIZE;

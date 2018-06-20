@@ -49,7 +49,7 @@ int		parenth(char **str, int i, char rep, bool recc)
 				if ((*str)[i] == ')' && ((!recc ? (*str)[i] = rep : 0) || 1))
 					return (i);
 				if ((*str)[i] == '(' && (i = parenth(str, i - 1, rep, 1)) < 0)
-					return (-ft_printf("Parenthesis error\n"));
+					return (ft_error("Parenthesis error", 0));
 			}
 			return (-1);
 		}
@@ -97,7 +97,7 @@ int		check_bracket(char *str)
 		i += br_util(&str[i]);
 		if ((tmp = skip_bracket(&str[i])) < 0)
 		{
-			ft_printf("parse error near `()'\n");
+			ft_error("parse error near `()'", 0);
 			return (-1);
 		}
 		else

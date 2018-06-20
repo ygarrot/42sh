@@ -33,8 +33,10 @@ char	*ft_conversion_error(int code)
 
 int		ft_error(char *str, char *arg)
 {
-	ft_putendl_fd(str, 2);
-	ft_putendl_fd(arg, 2);
+	if (!str)
+		return (-1);
+	arg ? ft_putstr_fd(str, 2) : ft_putendl_fd(str, 2);
+	arg ? ft_putendl_fd(arg, 2) : 0;
 	return (-1);
 }
 

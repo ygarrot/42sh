@@ -14,7 +14,7 @@
 
 int	error_do_op(char *str)
 {
-	ft_printf("%s", str);
+	ft_error(str, 0);
 	free_do_op(begin_op(NULL));
 	return (-1);
 }
