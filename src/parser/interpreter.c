@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 13:27:49 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/20 19:48:10 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/20 20:25:40 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	add_redi(t_com *com, t_redi *toadd)
 
 	to_del = toadd->path;
 	toadd->path = ft_find_and_replace(toadd->path, "\\", 1);
+	ft_memdel((void**)&to_del);
 	if (!com->redi)
 	{
 		com->redi = toadd;
