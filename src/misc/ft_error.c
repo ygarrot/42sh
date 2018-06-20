@@ -31,6 +31,13 @@ char	*ft_conversion_error(int code)
 	return (0);
 }
 
+int		ft_error(char *str, char *arg)
+{
+	ft_putendl_fd(str, 2);
+	ft_putendl_fd(arg, 2);
+	return (-1);
+}
+
 void	ft_errorlog(char *msg)
 {
 	int		fd;

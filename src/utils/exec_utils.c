@@ -32,13 +32,13 @@ void	reset_std(t_shell *sh, t_com *com, t_redi *redi)
 			&& !ft_strcmp(redi->path, "-") && redi->fd[0] < 3)
 	{
 		if (dup2(sh->std[redi->fd[0]], redi->fd[0]) == -1)
-			ft_printf("STDIN dup error\n");
+			ft_error("STDIN dup error", 0);
 		return ;
 	}
 	if (close(redi->fd[1]) == -1)
-		ft_printf("21sh: close error on %s\n", com->redi->path);
+		ft_error("21sh: close error on", com->redi->path);
 	if (redi->fd[0] < 3 && dup2(sh->std[redi->fd[0]], redi->fd[0]) == -1)
-		ft_printf("STDIN dup error\n");
+		ft_error("STDIN dup error", 0);
 }
 
 void	set_redi_path(t_redi *redi)
@@ -54,6 +54,6 @@ void	set_redi_path(t_redi *redi)
 	redi->path[16] = redi->fd[0] + '0';
 	fd = open(redi->path, O_RDWR | O_CREAT | O_TRUNC, S_IRWXU);
 	if (fd < 0 || close(fd) < 0)
-		ft_printf("Erreur lors du nettoyage des here_doc\n");
+		ft_error("Erreur lors du nettoyage des here_doc\n", 0);
 	ft_memdel((void**)&tmp);
 }

@@ -18,7 +18,7 @@ void	init_point(t_shell *sh)
 			|| (sh->std[1] = dup(STDOUT_FILENO)) < 0
 			|| (sh->std[2] = dup(STDERR_FILENO)) < 0)
 	{
-		ft_printf("std dup error\n");
+		ft_putendl_fd("std dup error", 2);
 		ft_exit(sh, EXIT_FAILURE);
 	}
 	sh->built[0] = &ft_cd;
@@ -38,7 +38,5 @@ void	f_point(t_shell *sh, char **argv)
 	if (*argv && argv[1] && ft_strcmp(argv[1], "-h") &&
 			!(sh->hash_tb = (t_btree**)ft_memalloc(1000 * sizeof(t_btree*))))
 		exit(EXIT_FAILURE);
-	if (sh->hash_tb)
-		ft_printf("hash_initialize\n");
 	init_point(sh);
 }

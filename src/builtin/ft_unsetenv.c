@@ -21,9 +21,9 @@ void		ft_unsetenv(char **arg, char ***env)
 	if (!arg || !env || !*env || (i = 0))
 		write(STDOUT_FILENO, "\n", 1);
 	else if (!*arg || !arg[1] || (k = 0))
-		ft_printf("21sh: unsetenv: Argument missing\n");
+		ft_error("21sh: unsetenv: Argument missing", 0);
 	else if (arg[2])
-		ft_printf("21sh: unsetenv: Too many arguments\n");
+		ft_error("21sh: unsetenv: Too many arguments", 0);
 	else if ((j = ft_strlen(arg[1])) || 1)
 	{
 		while (env[0][i] &&

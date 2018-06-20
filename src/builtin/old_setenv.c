@@ -58,7 +58,7 @@ static void	ft_setenvaux(char **a, char **env)
 
 	if (!(tmp = (char*)malloc(sizeof(char) * (ft_strlen(a[1]) + 1))))
 	{
-		ft_printf("setenv: An error occured");
+		ft_error("setenv: An error occured", 0);
 		return ;
 	}
 	i = 0;

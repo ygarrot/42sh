@@ -21,7 +21,6 @@ void	assign(char **arg, int i)
 	if ((*arg)[i] == '$'
 			|| ((*arg)[i] == '~' && (!i || (*arg)[i - 1] == ' ')))
 	{
-		ft_printf("%s\n", &(*arg)[i]);
 		temp[0] = (*arg)[i] == '$' ? &(*arg)[i + 1] : "HOME";
 		len = ft_mcharchr(temp[0], VAR_LIM2);
 		len = len >= 0 ? (size_t)len : ft_strlen(temp[0]);
@@ -114,7 +113,7 @@ void	get_sub(t_shell *sh)
 		mallcheck(sh->sub.begin = (t_list*)ft_memalloc(sizeof(t_list)));
 	close(sh->sub.pipe[1]);
 	if (dup2(sh->sub.pipe[0], STDIN_FILENO) == -1)
-		ft_printf("dup error\n");
+		ft_error("dup error", 0);
 	begin = sh->sub.begin;
 	while (begin->next)
 		begin = begin->next;
@@ -128,7 +127,7 @@ void	get_sub(t_shell *sh)
 	if (dup2(sh->std[0], STDIN_FILENO) == -1
 		|| dup2(sh->std[1], STDOUT_FILENO) == -1)
 	{
-		ft_printf("STD dup error\n");
+		ft_error("STD dup error", 0);
 		ft_exit(sh, EXIT_FAILURE);
 	}
 }

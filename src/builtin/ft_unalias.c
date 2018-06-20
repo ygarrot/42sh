@@ -32,7 +32,7 @@ void	ft_unalias(char **arg, char ***env)
 	root = alias_tb();
 	if (!arg)
 	{
-		ft_printf("alias: An error occured\n");
+		ft_error("alias: An error occured", 0);
 		return ;
 	}
 	if (!ft_strcmp(arg[1], "-a"))

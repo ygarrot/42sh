@@ -33,7 +33,7 @@ static void	ft_cdaux(char **a, char ***env, char **prev)
 
 	getcwd(tmp, 256);
 	if (chdir(a[1]) == -1)
-		ft_printf("21sh: cd: Can't access %s\n", a[1]);
+		ft_error("21sh: cd: Can't access ", a[1]);
 	else
 	{
 		ft_strdel(prev);
@@ -50,7 +50,7 @@ static void	ft_cdback(char *a, char ***env, char **prev)
 
 	tmp = NULL;
 	if (a)
-		ft_printf("21sh: cd: Too many arguments (1 expected)\n");
+		ft_error("21sh: cd: Too many arguments (1 expected)", 0);
 	if (a || !prev)
 		return ;
 	if (!*prev)
@@ -59,7 +59,7 @@ static void	ft_cdback(char *a, char ***env, char **prev)
 	i = chdir(*prev);
 	ft_strdel(i == -1 ? &tmp : prev);
 	if (i == -1)
-		ft_printf("21sh: cd: Can't access %s\n", *prev);
+		ft_error("21sh: cd: Can't access %s\n", *prev);
 	else
 	{
 		*prev = tmp;
@@ -80,7 +80,7 @@ void		ft_cd(char **a, char ***env)
 		tmp = getcwd(tmp, 256);
 		s = ft_getenv_fromroot("HOME");
 		if (!s || chdir(s) == -1)
-			ft_printf("21sh: cd: Can't access %s\n", s);
+			ft_error("21sh: cd: Can't access %s\n", s);
 		else
 		{
 			ft_strdel(&prev);

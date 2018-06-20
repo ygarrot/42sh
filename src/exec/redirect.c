@@ -20,7 +20,7 @@
 int		safe_dup(int fd1, int fd2, int *pipe)
 {
 	if (fd1 != -1 && dup2(fd1, fd2) == -1)
-		return (-ft_printf("dup error\n"));
+		return (-ft_error("dup error", 0));
 	close(pipe[1]);
 	close(pipe[0]);
 	return (0);
@@ -35,7 +35,7 @@ int		stream(t_shell *sh, t_redi *redi)
 	{
 		if (redi->fd[1] < 0 && (redi->fd[1] = open(redi->path,
 						O_RDWR | O_CREAT | O_APPEND, S_IRWXU)) < 0)
-			return (-ft_printf("21sh: no such file: %s\n", redi->path));
+			return (-ft_error("21sh: no such file: \n", redi->path));
 		ft_putstr_fd(sh->here_doc, redi->fd[1]);
 		sh->here_doc += ft_strlen(sh->here_doc) + 1;
 		close(redi->fd[1]);
@@ -46,9 +46,9 @@ int		stream(t_shell *sh, t_redi *redi)
 		(!redi->type || redi->type == 1 || redi->type == 5 ? O_CREAT : 0)
 		| (redi->type == 1 ? O_APPEND : 0);
 	if (redi->fd[1] < 0 && (redi->fd[1] = open(redi->path, flag, right)) < 0)
-		return (-ft_printf("21sh: no such file: %s\n", redi->path));
+		return (-ft_error("21sh: no such file: ", redi->path));
 	if (!sh->com->tmp && dup2(redi->fd[1], redi->fd[0]) == -1)
-		return (-ft_printf("Failed to dup2\n"));
+		return (-ft_error("Failed to dup2", 0));
 	if (sh->com->tmp)
 		close(redi->fd[1]);
 	return (1);
@@ -103,7 +103,7 @@ int		exec_pipe(t_shell *sh, char *comm, char **argv)
 	tmp = sh->com->next;
 	pipe_fd = (tmp && tmp->type & 4 ? tmp->pipe : sh->sub.pipe);
 	if (pipe(pipe_fd))
-		return (-ft_printf("Broken pipe\n"));
+		return (-ft_error("Broken pipe", 0));
 	father = fork();
 	if (!father)
 	{
@@ -115,7 +115,7 @@ int		exec_pipe(t_shell *sh, char *comm, char **argv)
 		parse_exe(sh, comm, argv);
 	}
 	else if (father < 0)
-		return (-ft_printf("sh : fork error : %d", father));
+		return (-ft_error("sh : fork error ", 0));
 	if (sh->com->type & 4)
 		safe_dup(-1, 0, sh->com->pipe);
 	return (1);

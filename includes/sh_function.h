@@ -357,6 +357,7 @@ void		ft_export(char **arg, char ***env);
 ** exec
 */
 
+int		ft_error(char *str, char *arg);
 void		tmp_sh(t_shell *tmp, t_shell *sh, int index, int is_sub);
 int			redi(t_shell *sh, t_redi *redi);
 int			wait_exec(t_shell *sh, char **cli);

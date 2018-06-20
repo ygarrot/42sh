@@ -76,7 +76,7 @@ void		ft_alias(char **arg, char ***env)
 	if (!arg ||
 	(arg && (!ft_strcmp(arg[1], "alias") || !ft_strcmp(arg[1], "unalias"))))
 	{
-		ft_printf("alias: An error occured\n");
+		ft_error("alias: An error occured\n", 0);
 		return ;
 	}
 	if (!arg[1] || (!ft_strcmp(arg[1], "-p") && (arg++ || 1)))
@@ -88,5 +88,5 @@ void		ft_alias(char **arg, char ***env)
 		ft_memdel((void**)&tmp);
 	}
 	else if ((tmp = btree_search_item(*root, &arg[1], ft_hashcmp)))
-		ft_printf("%s\n", ((char**)tmp)[1]);
+		ft_error("%s\n", ((char**)tmp)[1]);
 }
