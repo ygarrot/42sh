@@ -60,7 +60,7 @@ int			is_incre(t_do_op **b, t_do_op *a)
 			unaire(&(*b)->next);
 			return (1);
 		}
-		if (ft_isin(*a->content, "+_"))
+		if (ft_isin(*a->content, "+-"))
 			a->next->sign = (a->sign | 1) * (*a->content == '+' ? 1 : -1);
 		a->next->is_spec |= !(ft_strcmp(a->content, "~"));
 		a->next->is_spec |= !(ft_strcmp(a->content, "!")) * 2;

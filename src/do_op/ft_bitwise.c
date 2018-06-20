@@ -55,6 +55,7 @@ int		ft_ternary(t_do_op *a, t_do_op *b, int *result)
 	*result = tmp->value;
 	if (tmp->next && *tmp->next->content == '?' && (*result = -2))
 		*result = ft_ternary(tmp, tmp->next->next, result);
-	a->is_set = *result;
+	a->is_set = 1;
+	a->value = *result;
 	return (*result);
 }

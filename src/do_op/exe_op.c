@@ -14,11 +14,15 @@
 
 int		pre_op(t_do_op **list)
 {
+	char	*todel;
+
 	if (!list)
 		return (error_do_op("error do_op no op pre_op\n"));
 	if (*(*list)->content == '(')
 	{
-		(*list)->value = ft_atoi(parse_op((*list)->content));
+		todel = parse_op((*list)->content);
+		(*list)->value = ft_atoi(todel);
+		ft_memdel((void**)&todel);
 		(*list)->is_set = 1;
 		return (1);
 	}
@@ -117,6 +121,7 @@ char	*exec_op(char **tb)
 	t_do_op		*list;
 	t_do_op		*begin;
 	int			i;
+
 
 	if (!tb)
 		return (NULL);

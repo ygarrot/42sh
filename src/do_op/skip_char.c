@@ -31,7 +31,7 @@ int		bracket(char *str, char *brack)
 	if (!str || !brack)
 		return (0);
 	if (*str == *brack)
-		if ((tmp = ft_charchr(brack[1], str)))
+		if ((tmp = ft_charchr(brack[1], str)) >= 0)
 			return (tmp);
 	return (0);
 }

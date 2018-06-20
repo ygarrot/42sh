@@ -20,6 +20,7 @@ static int		countletters(char const *s, char **tb, int opt)
 	cl = 0;
 	while (get_sep((char*)&s[cl], tb) < 0 && s[cl])
 	{
+		cl += bracket((char*)&s[cl], "()");
 		if (opt)
 			while ((co = skip_comm((char*)&s[cl])))
 				cl += co;
@@ -27,7 +28,6 @@ static int		countletters(char const *s, char **tb, int opt)
 			return (cl);
 		if (s[cl] && get_sep((char*)&s[cl], tb) < 0)
 			cl++;
-		cl += bracket((char*)&s[cl], "()");
 	}
 	return (cl);
 }
