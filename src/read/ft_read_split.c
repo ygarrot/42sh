@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:38:29 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/20 17:35:48 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 18:52:34 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,12 +105,9 @@ char	**ft_read_split(t_read *parser, char *str)
 			i += ft_lenchar_r(str, i);
 		if (parser->variables[count + 1] == 0 || !str[i])
 			array[count++] = ft_read_split_word(parser, &str[i], delim, 1);
-//			array[count++] = ft_strdup(str[i] ? &str[i] : "");
 		else
 		{
 			array[count++] = ft_read_split_word(parser, &str[i], delim, 0);
-//			array[count++] = ft_strndup(&str[i], ft_read_split_lenword(parser,
-//					&str[i], delim));
 			i += ft_read_split_lenword(parser, &str[i], delim);
 		}
 	}

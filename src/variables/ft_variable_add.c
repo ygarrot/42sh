@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:42:00 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/20 18:34:19 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 18:52:41 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ static int	ft_variableadd_(t_variable *var, t_btree **root)
 		ft_lstfusion(&(var->array), prev->array, &ft_variable_arraycmp,
 				&ft_variable_lstdel);
 		prev->array = var->array;
-		//ft_lstfusion(&(prev->array), var->array, &ft_variable_arraycmp,
-		//		&ft_variable_lstdel);
 		free(var);
 		var = 0;
 	}

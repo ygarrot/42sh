@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2018/06/20 18:45:08 by ygarrot          ###   ########.fr        #
+#    Updated: 2018/06/20 18:55:33 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,8 @@ SRC_FP +=\
 		variables/ft_variable_misc.c \
 		variables/ft_variable_pars.c \
 		variables/ft_variable_add.c \
-		variables/ft_variable_builtin.c
+		variables/ft_variable_builtin.c \
+		variables/ft_variable_misc_second.c
 
 SRC_FP += \
 		  env/ft_storeenv.c \
