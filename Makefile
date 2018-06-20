@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2018/06/20 18:55:33 by ygarrot          ###   ########.fr        #
+#    Updated: 2018/06/20 19:01:44 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -208,7 +208,7 @@ $(NAME): $(OBJ)
 	@make -C libft -j
 	@gcc $(FLAGS) -o $(NAME) $^ -L libft -l ft -ltermcap
 	@printf "                                                        \r"
-	@printf "21sh built\n"
+	@printf "42sh built\n"
 
 test: all clean
 

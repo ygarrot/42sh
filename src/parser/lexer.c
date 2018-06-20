@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 15:40:03 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/20 18:38:51 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/20 19:18:52 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,29 +91,29 @@ int			sizeof_comm(char *str, t_parser *par)
 
 t_parser	*count_parser(char **ptr, char free)
 {
-	int			i;
+	int			i[2];
 	t_parser	*par;
-	int			sep;
 	char		*str;
 
-	if (!(i = 0) && check_bracket(*ptr) < 0)
+	if (!(*i = 0) && check_bracket(*ptr) < 0)
 	{
 		free ? ft_memdel((void**)&(*ptr)) : 0;
 		return (NULL);
 	}
 	add_aliases(ptr, free);
 	mallcheck(par = (t_parser*)ft_memalloc(sizeof(t_parser)));
-	while ((str = *ptr) && str[i] && str[i] != '\n')
+	while ((str = *ptr) && str[*i] && str[*i] != '\n')
 	{
-		while (str[i] && str[i] == ' ')
-			i++;
-		if ((i += sep || 1) && (sep = sizeof_comm(&str[i], par)) < 0)
+		while (str[*i] && str[*i] == ' ')
+			i[0]++;
+		if ((i[1] = sizeof_comm(&str[*i], par)) < 0)
 		{
 			ft_error("yosh: parse error near ", par->op);
 			ft_memdel((void**)&(*ptr));
 			free_parser(par);
 			return (NULL);
 		}
+		*i += i[1];
 	}
 	return (par);
 }
