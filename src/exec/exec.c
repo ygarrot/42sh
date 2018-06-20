@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 15:45:17 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/20 14:35:40 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 14:42:54 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		search_exec(t_shell *sh, char *comm, char **argv)
 	temp = NULL;
 	if (!comm || !(path = ft_getenv(sh->env, "PATH")))
 		return (!comm ? 0 : -ft_printf("command not found : %s\n", comm));
-	mallcheck(paths = ft_strsplit(path, ':'));
+	mallcheck(paths = ft_strsplit(&path[5], ':'));
 	index = -1;
 	ret = -1;
 	while (!temp && paths[++index])
