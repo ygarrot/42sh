@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:42:13 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/20 11:50:03 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 14:31:00 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@ char	*ft_variablepars_bracket(char *str)
 		return ((char*)ft_memalloc(1));
 	if (!var)
 		return ((char*)ft_strdup(tmp));
-	tmp = ft_variablestr(*var, pos);
-	return (tmp);
+	return (ft_variablestr(*var, pos));
 }
 
 /*

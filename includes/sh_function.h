@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 19:03:40 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/20 12:51:04 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 14:25:50 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void		ft_sig_line(int sig);
 /*
 ** Fonction statique
 */
-
 
 int			*ft_subshell(void);
 int			ft_subshell_get(void);
@@ -260,7 +259,7 @@ int			ft_read_recover_sig(char **str, t_read parser);
 void		ft_read_recover_pars(t_line *l, int *val, char *buff, t_read *p);
 int			ft_read_recover_execute(t_line *l, int *val, char *buff, int echo);
 int			ft_read_recover_execute_a(t_line *l,
-		int *val, char *buff, int echo);
+			int *val, char *buff, int echo);
 void		ft_read_recover_insert(t_line *line, int *val, char *buff, int len);
 
 void		ft_read_move_left(t_line *line, int *val);
@@ -298,7 +297,7 @@ int			error_exec(char **argv, int is_redi);
 ** list / erase
 */
 
-void	init_point(t_shell *sh);
+void		init_point(t_shell *sh);
 void		free_comm(t_shell *sh);
 void		erase_shell(t_shell *sh);
 void		free_parser(t_parser *begin);
@@ -418,7 +417,7 @@ void		free_globs(t_glob *glob);
 void		true_sort(t_paths *begin, t_paths *to_add);
 
 t_paths		*path_is_valid(char *path, char *name,
-		t_dirent *dire, char **regex);
+			t_dirent *dire, char **regex);
 t_paths		*end_sort(t_paths *tmp, char *str, char **regex);
 t_paths		*files_queue(char *str, DIR *dir, char **regex);
 t_paths		*recc(char *str, char **regex);

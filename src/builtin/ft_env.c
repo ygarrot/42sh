@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/04 17:59:13 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/20 13:50:42 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 14:26:40 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ static void		ft_envcpy(t_shell *sh, char **arg, char **env)
 	char	**newenv;
 	t_com	com;
 
-	i = 1;
-	if (arg[0] && !ft_strcmp(arg[0], "-i"))
+	if ((i = 1) && arg[0] && !ft_strcmp(arg[0], "-i"))
 		newenv = ((char**)ft_memalloc(sizeof(char*)));
 	else
 	{

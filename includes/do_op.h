@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 16:51:54 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 12:14:09 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/20 14:24:14 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct	s_do_op
 ** math functions
 */
 
-int		is_crement(char **tb);
+int				is_crement(char **tb);
 int				exe_assign(t_do_op *to_ass, char *str, int value);
 int				is_incre(t_do_op **b, t_do_op*a);
 int				del_after_exec(t_do_op **list);
