@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 16:51:31 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/20 18:15:33 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/20 18:28:29 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	parse_exe(t_shell *sh, char *comm, char **arg)
 	int		index;
 	char	**built;
 
-	built = (char *[10]){"cd", "setenv", "unsetenv", "alias", "unalias",
+	built = (char *[11]){"cd", "setenv", "unsetenv", "alias", "unalias",
 		"read", "unset", "export", 0};
 	if (exec_redi(sh, sh->com->redi) < 0)
 		exit(error_exec(arg, 1));
