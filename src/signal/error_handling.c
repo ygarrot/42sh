@@ -41,6 +41,6 @@ void	parse_exe(t_shell *sh, char *comm, char **arg)
 int		error_exec(char **argv, int is_redi)
 {
 	if (!is_redi)
-		ft_printf("Command not found %s\n", *argv);
+		ft_error("Command not found", *argv);
 	return (-1);
 }

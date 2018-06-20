@@ -47,7 +47,7 @@ int		skip_br(char *str, int i)
 				if (str[i] == ')')
 					return (i);
 				if (str[i] == '(' && (tmp = skip_br(&str[i], -1)) < 0)
-					return (-ft_printf("Parenthesis error\n"));
+					return (ft_error("Parenthesis error", 0));
 				else if (str[i] == '(')
 					i += tmp;
 			}
