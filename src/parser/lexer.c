@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 15:40:03 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/20 18:20:50 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/20 18:38:51 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ t_parser	*count_parser(char **ptr, char free)
 	{
 		while (str[i] && str[i] == ' ')
 			i++;
-		if ((sep = sizeof_comm(&str[i], par)) < 0 && (i += sep || 1))
+		if ((i += sep || 1) && (sep = sizeof_comm(&str[i], par)) < 0)
 		{
 			ft_error("yosh: parse error near ", par->op);
 			ft_memdel((void**)&(*ptr));

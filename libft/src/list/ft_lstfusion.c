@@ -6,24 +6,26 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/17 16:16:30 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/17 16:16:46 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 18:30:05 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 static void	ft_lstfusion_(t_list *left, t_list *right, int (*cmp)(void *,
-		void *))
+		void *), void (*del)(void*, size_t))
 {
 	t_list	*next;
 	int		val;
+	t_list	*todel;
 
-	while (right && left->next)
+	while (right && left && left->next)
 	{
 		val = cmp(left->next->content, right->content);
+		todel = (val == 0 ? right : 0);
 		if (val == 0)
 			right = right->next;
-		else if (val < 0)
+		else if (val > 0)
 		{
 			next = right->next;
 			right->next = left->next;
@@ -33,14 +35,14 @@ static void	ft_lstfusion_(t_list *left, t_list *right, int (*cmp)(void *,
 		}
 		else
 			left = left->next;
+		ft_lstdelone(&todel, del);
 	}
-	left->next = right;
+	ft_lstpushback(&left, right);
 }
 
 void		ft_lstfusion(t_list **left, t_list *right, int (*cmp)(void *,
-			void *))
+			void *), void (*del)(void *, size_t))
 {
-	t_list	*tmp;
 	t_list	*next;
 
 	if (!left || !right)
@@ -50,16 +52,18 @@ void		ft_lstfusion(t_list **left, t_list *right, int (*cmp)(void *,
 		*left = right;
 		return ;
 	}
-	tmp = *left;
-	if (cmp(right->content, tmp->content) < 0)
+	if (cmp(right->content, (*left)->content) < 0)
 	{
 		next = right->next;
-		right->next = tmp;
+		right->next = *left;
 		*left = right;
 		right = next;
-		tmp = *left;
 	}
-	while (right && cmp(right->content, tmp->content) == 0)
-		right = right->next;
-	ft_lstfusion_(*left, right, cmp);
+	while (right && cmp(right->content, (*left)->content) == 0)
+	{
+		next = right->next;
+		ft_lstdelone(&right, del);
+		right = next;
+	}
+	ft_lstfusion_(*left, right, cmp, del);
 }

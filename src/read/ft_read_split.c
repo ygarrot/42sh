@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:38:29 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/20 12:21:29 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 17:35:48 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,32 @@ char	**ft_read_split_check(t_read *parser, char **array)
 		i++;
 	}
 	return (array);
+}
+
+char	*ft_read_split_word(t_read *parser, char *str, char *delim, int y)
+{
+	int	i;
+	int	j;
+	int	bl;
+
+	(void)parser;
+	i = 0;
+	j = 0;
+	bl = 0;
+	if (y)
+	{
+		i = (i > 0 ? i - 1 : 0);
+		while (i > 0 && ft_isin_unicode(&str[i], delim))
+			i -= ft_lenchar_l(str, i);
+		i = (i >= 0 && !ft_isin_unicode(&str[i], delim) ? i + 1 : i);
+		return (i > 0 ? ft_strndup(str, i) : ft_strdup(""));
+	}
+	while (str[i] && (bl || !ft_isin_unicode(&str[i], delim)))
+	{
+		bl = (parser->bl_active && !bl && str[i] == '\\');
+		i += ft_lenchar_r(str, i);
+	}
+	return (i > 0 ? ft_strndup(str, i) : ft_strdup(""));
 }
 
 int		ft_read_split_lenword(t_read *parser, char *str, char *delim)
@@ -60,23 +86,6 @@ char	**ft_read_split_init(t_read *parser, char **delim, char *str)
 				(ft_tablen(parser->variables) + 1)));
 }
 
-int		ft_read_split_assign(int yall, char **array, char *str, char *delim)
-{
-	int	len;
-
-	len = 0;
-	while (str[len] && (yall || !ft_isin(str[len], delim)))
-		len++;
-	while (yall && len > 0 && ft_isin(str[len], delim))
-		len--;
-	*array = (*str && len > 0) ? (ft_strndup(str, len)) : (0);
-	while (yall && str[len])
-		len++;
-	while (str[len] && ft_isin(str[len], delim))
-		len++;
-	return (len);
-}
-
 char	**ft_read_split(t_read *parser, char *str)
 {
 	char	**array;
@@ -95,11 +104,13 @@ char	**ft_read_split(t_read *parser, char *str)
 		while (str[i] && ft_isin_unicode(&str[i], delim))
 			i += ft_lenchar_r(str, i);
 		if (parser->variables[count + 1] == 0 || !str[i])
-			array[count++] = ft_strdup(str[i] ? &str[i] : "");
+			array[count++] = ft_read_split_word(parser, &str[i], delim, 1);
+//			array[count++] = ft_strdup(str[i] ? &str[i] : "");
 		else
 		{
-			array[count++] = ft_strndup(&str[i], ft_read_split_lenword(parser,
-					&str[i], delim));
+			array[count++] = ft_read_split_word(parser, &str[i], delim, 0);
+//			array[count++] = ft_strndup(&str[i], ft_read_split_lenword(parser,
+//					&str[i], delim));
 			i += ft_read_split_lenword(parser, &str[i], delim);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 15:23:29 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/19 13:24:20 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 17:45:59 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,8 @@ void			ft_lstvoid(void *content, size_t t);
 size_t			ft_lstsize(t_list *lst);
 char			*ft_lsttostr(t_list *lst);
 int				ft_lstpushsort(t_list **l, t_list *n, int (*c)(void *, void*));
-void			ft_lstfusion(t_list **l, t_list *r, int (*c)(void *, void *));
+void			ft_lstfusion(t_list **l, t_list *r, int (*c)(void *, void *),
+		void (*del)(void*, size_t));
 
 void			*ft_memalloc(size_t size);
 void			*ft_memccpy(void *dest, const void *src, int c, size_t n);

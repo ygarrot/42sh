@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 11:48:51 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/06 13:41:31 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 18:21:02 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,27 @@ void	ft_variable_lstdel(void *content, size_t size)
 	}
 }
 
-void	ft_variabledel(void *var)
+void	ft_variabledel_tree(void *content)
 {
 	t_variable	*v;
 
-	if (!var)
+	if (!content)
 		return ;
-	v = (t_variable*)var;
+	v = (t_variable*)content;
+	ft_strdel(&(v->name));
+	ft_strdel(&(v->str));
+	ft_lstdel(&(v->array), &ft_variable_lstdel);
+	free(v);
+	v = 0;
+}
+
+void	ft_variabledel(void *content, size_t size)
+{
+	t_variable	*v;
+
+	if (!content || size == 0)
+		return ;
+	v = (t_variable*)content;
 	ft_strdel(&(v->name));
 	ft_strdel(&(v->str));
 	ft_lstdel(&(v->array), &ft_variable_lstdel);
@@ -59,6 +73,9 @@ int		ft_variable_arraycmp(void *left, void *right)
 {
 	if (!right || !left)
 		return (0);
-	return (((t_variable_array*)left)->index -
-			((t_variable_array*)right)->index);
+	if (((t_variable_array*)left)->index < ((t_variable_array*)right)->index)
+		return (-1);
+	if (((t_variable_array*)left)->index == ((t_variable_array*)right)->index)
+		return (0);
+	return (1);
 }

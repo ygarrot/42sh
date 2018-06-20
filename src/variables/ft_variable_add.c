@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:42:00 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/15 12:11:31 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 18:34:19 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,18 @@ static int	ft_variableadd_(t_variable *var, t_btree **root)
 	if (prev && prev->deep == 2 && var->deep == 2)
 	{
 		ft_strdel(&(var->name));
-		ft_lstfusion(&(prev->array), var->array, &ft_variable_arraycmp);
+		ft_lstfusion(&(var->array), prev->array, &ft_variable_arraycmp,
+				&ft_variable_lstdel);
+		prev->array = var->array;
+		//ft_lstfusion(&(prev->array), var->array, &ft_variable_arraycmp,
+		//		&ft_variable_lstdel);
 		free(var);
 		var = 0;
 	}
-	else if (btree_insert_data(root, var, &ft_variablecmp, &ft_variabledel))
+	else if (btree_insert_data(root, var, &ft_variablecmp,
+				&ft_variabledel_tree))
 	{
-		ft_variabledel(var);
+		ft_variabledel(var, sizeof(t_variable));
 		return (-1);
 	}
 	return (0);
@@ -45,7 +50,7 @@ int			ft_variableadd(char *name, void *data, int deep, int deported)
 	{
 		if (!(*root = ft_memalloc(sizeof(t_btree))))
 		{
-			ft_variabledel(var);
+			ft_variabledel(var, sizeof(t_variable));
 			return (-1);
 		}
 		root[0]->item = var;
