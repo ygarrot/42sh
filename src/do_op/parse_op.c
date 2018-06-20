@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 12:06:05 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 16:14:12 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/20 18:16:27 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		check_classic(char **tb, int *i)
 	int		is_op;
 
 	if (tb[*i] && ft_mcharchr(tb[*i], "-~+") >= 0 && tb[*i][1] != '=' && ++*i)
-		return (tb[*i] && is_crement(&tb[*i - 1])  ? check_classic(tb, i) : 0);
+		return (tb[*i] && is_crement(&tb[*i - 1]) ? check_classic(tb, i) : 0);
 	if (!tb[*i] || (!(is_op = check_op(tb[*i])) && !tb[++*i]))
 		return (1);
 	if (is_op || !(is_op = check_op(tb[*i])))

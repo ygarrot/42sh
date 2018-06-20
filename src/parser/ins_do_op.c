@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 14:59:58 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 17:01:53 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/20 18:10:45 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	tmp_sh(t_shell *sub, t_shell *sh, int index, int is_sub)
 	ft_bzero(sub, sizeof(t_shell));
 	sub->env = *ft_storeenv(0, ft_subshell_get());
 	ft_subshell_set(ft_subshell_get() + 1);
+	sub->tb_built = sh->tb_built;
 	sub->hash_tb = sh->hash_tb;
 	sub->sub.is_sub = is_sub;
 	init_point(sub);

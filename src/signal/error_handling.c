@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 16:51:31 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 15:24:52 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/20 18:15:33 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,16 @@ void	mallcheck(void *foo)
 
 void	parse_exe(t_shell *sh, char *comm, char **arg)
 {
-	int	index;
+	int		index;
+	char	**built;
 
+	built = (char *[10]){"cd", "setenv", "unsetenv", "alias", "unalias",
+		"read", "unset", "export", 0};
 	if (exec_redi(sh, sh->com->redi) < 0)
 		exit(error_exec(arg, 1));
 	if (!ft_strcmp(comm, "env"))
 		ft_env(sh, arg, &sh->env);
-	else if ((index = ft_strisin_tab(arg[0], BUILT, 0)) >= 0)
+	else if ((index = ft_strisin_tab(arg[0], built, 0)) >= 0)
 		exit(1);
 	else if ((index = ft_strisin_tab(arg[0], FBUILT, 0)) >= 0)
 		sh->f_built[index](arg, &sh->env);

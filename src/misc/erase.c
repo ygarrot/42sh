@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 13:28:44 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 16:17:52 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 18:11:17 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	erase_shell(t_shell *sh)
 		return ;
 	root = alias_tb();
 	free_comm(sh);
+	ft_free_dblechar_tab(sh->tb_built);
 	if (sh->hash_tb)
 		erase_hash_tab(sh->hash_tb);
 	btree_erase(root, erasehash);

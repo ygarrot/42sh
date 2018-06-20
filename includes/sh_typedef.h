@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 12:04:19 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/17 17:37:42 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 18:07:14 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ typedef struct	s_shell
 {
 	void		(*f_built[8])(char **av, char ***argv);
 	void		(*built[8])(char **av, char ***argv);
+	char		**tb_built;
 	int			status;
 	t_btree		**hash_tb;
 	int			std[3];
