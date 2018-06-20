@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:38:27 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/08 15:46:44 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 15:45:38 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int			ft_read_parser_u(t_read *parser, char *str)
 		parser->error = 1;
 		return (-1);
 	}
+	parser->fd = STDIN_FILENO;
 	return (2);
 }
 
