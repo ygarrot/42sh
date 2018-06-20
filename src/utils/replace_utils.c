@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 12:10:51 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 14:46:55 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/20 15:41:21 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,26 @@ int		local_env(char **tmp, char *todel)
 	*tmp = ft_variablepars(todel);
 	ft_memdel((void**)&todel);
 	return (2);
+}
+
+int		ft_variable_toskip(char *str)
+{
+	int	i;
+
+	if (!str)
+		return (0);
+	i = 0;
+	if (*str == '{')
+	{
+		while (str[i] && str[i] != '}')
+			i++;
+		if (str[i] == '}')
+			i++;
+	}
+	else
+	{
+		while (str[i] && !ft_isin(str[i], VAR_LIM))
+			i++;
+	}
+	return (i);
 }

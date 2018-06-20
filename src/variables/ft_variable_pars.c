@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:42:13 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/20 14:31:00 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 15:20:00 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		ft_variablepars_bracket_pos(char *str, size_t *i)
 		return (-1);
 	pos = 0;
 	if (str[*i] != '[')
-		return (0);
+		return (str[*i] == '}' ? 0 : -1);
 	i[0]++;
 	if (str[*i] < '0' || str[*i] > '9')
 		return (-1);
@@ -33,7 +33,7 @@ int		ft_variablepars_bracket_pos(char *str, size_t *i)
 		i[0]++;
 	else
 		return (-1);
-	return (pos);
+	return (str[*i] == '}' ? pos : -1);
 }
 
 char	*ft_variablepars_bracket(char *str)
@@ -51,13 +51,10 @@ char	*ft_variablepars_bracket(char *str)
 	pos = str[i];
 	str[i] = 0;
 	var = ft_variableget(&str[1]);
+	tmp = (var ? ft_getenv_fromroot(&str[1]) : 0);
 	str[i] = pos;
-	pos = ft_variablepars_bracket_pos(str, &i);
-	printf("%d\n", pos);
-	if (str[i] != '}' || pos == -1)
+	if ((pos = ft_variablepars_bracket_pos(str, &i)) == -1)
 		return (0);
-	if (!var)
-		tmp = ft_getenv_fromroot(&str[1]);
 	if (!var && !tmp)
 		return ((char*)ft_memalloc(1));
 	if (!var)

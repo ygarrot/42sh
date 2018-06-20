@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 19:03:40 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/20 14:25:50 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 15:40:21 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,7 @@ char		*ft_variablestr(t_variable var, int pos);
 int			ft_variablecmp(void *left, void *right);
 int			ft_variable_arraycmp(void *left, void *right);
 int			ft_variable_isdeported(char *name);
+int			ft_variable_toskip(char *str);
 
 /*
 ** Builtin read
