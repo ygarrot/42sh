@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 11:48:59 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/16 19:05:36 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/20 20:11:04 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int		ft_read_newline_eof(t_line *line, int *val, t_parser *pars)
 	if (!pars || !line || !line->line || !line->eof)
 		return (-1);
 	val[9] = 0;
+	printf("|%s|\n", pars->comm);
 	if ((ft_strlen(pars->comm) == 0 && ft_strlen(&(line->eof)[val[5]])) == 1
 	|| (!ft_strncmp(&(line->eof)[val[5]], pars->comm, ft_strlen(pars->comm)) &&
 		line->eof[val[5] + (int)ft_strlen(pars->comm)] == '\n'))
