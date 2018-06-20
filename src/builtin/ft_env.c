@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/04 17:59:13 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/20 14:26:40 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 14:56:21 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static size_t	ft_envcpy_add(char **arg, char **env)
 
 	if (!arg || !env)
 		return (0);
-	j = 0;
+	j = (arg[0] && !ft_strcmp(arg[0], "-i"));
 	while (arg[j] && ft_isin('=', arg[j]))
 	{
 		n = (size_t)ft_strlento(arg[j], '=') + 1;
@@ -43,8 +43,8 @@ static void		ft_envcpy(t_shell *sh, char **arg, char **env)
 	char	**newenv;
 	t_com	com;
 
-	if ((i = 1) && arg[0] && !ft_strcmp(arg[0], "-i"))
-		newenv = ((char**)ft_memalloc(sizeof(char*)));
+	if (arg[0] && !ft_strcmp(arg[0], "-i"))
+		newenv = ((char**)ft_memalloc(sizeof(char*) * (ft_tablen(arg) + 1)));
 	else
 	{
 		i = ft_tablen(env) + ft_tablen(arg);
@@ -53,8 +53,8 @@ static void		ft_envcpy(t_shell *sh, char **arg, char **env)
 		i = 0;
 		while (env[i++])
 			newenv[i - 1] = ft_strdup(env[i - 1]);
-		i = ft_envcpy_add(arg, newenv);
 	}
+	i = ft_envcpy_add(arg, newenv);
 	ft_bzero(&com, sizeof(t_com));
 	com.cli = &arg[i];
 	sh->env = newenv;
