@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:42:13 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/20 15:20:00 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 16:05:06 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ char	*ft_variablepars_bracket(char *str)
 	pos = str[i];
 	str[i] = 0;
 	var = ft_variableget(&str[1]);
-	tmp = (var ? ft_getenv_fromroot(&str[1]) : 0);
+	tmp = (!var ? ft_getenv_fromroot(&str[1]) : 0);
 	str[i] = pos;
 	if ((pos = ft_variablepars_bracket_pos(str, &i)) == -1)
 		return (0);
-	if (!var && !tmp)
+	if (!var && (!tmp || pos != 0))
 		return ((char*)ft_memalloc(1));
 	if (!var)
 		return ((char*)ft_strdup(tmp));
