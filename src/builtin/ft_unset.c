@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/02 13:17:26 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/03 15:45:16 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 18:03:44 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ void	ft_unset(char **arg, char ***env)
 		unsetenv = (char*[3]){"unsetenv", arg[1], 0};
 		ft_unsetenv(unsetenv, env);
 	}
-	btree_remove_data(root, (void*)&cmp, ft_variablecmp, ft_variabledel);
+	btree_remove_data(root, (void*)&cmp, ft_variablecmp, ft_variabledel_tree);
 }

@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/19 15:56:12 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/19 16:14:58 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 18:13:11 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		ft_read_split_countword(t_read *parser, char *str, char *delim)
 			i += ft_lenchar_r(str, i);
 		}
 	}
-	return (c);
+	return (c + 1);
 }
 
 int		ft_read_split_array_assign(t_read *parser, char *str,
@@ -77,7 +77,7 @@ char	**ft_read_split_array(t_read *parser, char *str)
 	while ((j = ft_read_split_array_assign(parser,
 					&str[i], &array[count++], delim)) > 0)
 		i += j;
-	*array = (*array == 0 && j == 0 ? ft_strdup("") : *array);
+	*array = (*array == 0 && j >= 0 ? ft_strdup("") : *array);
 	if (!*array || j == -1)
 	{
 		ft_free_dblechar_tab(array);

@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 19:03:40 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/20 15:40:21 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 17:58:31 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,9 @@ t_btree		**ft_variable(void);
 int			ft_variableadd(char *name, void *data, int deep, int deported);
 t_variable	*ft_variableget(char *name);
 
-void		ft_variabledel(void *var);
+void		ft_variable_lstdel(void *content, size_t size);
+void		ft_variabledel(void *content, size_t size);
+void		ft_variabledel_tree(void *content);
 t_variable	*ft_variable_create(char *name, void *data, int deep, int deported);
 int			ft_variable_checkname(char *str);
 void		ft_variable_builtin(char *str);
