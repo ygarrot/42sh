@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 09:52:26 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/16 12:01:59 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 17:05:13 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_init_terminal_data(void)
 	int		success;
 	char	term_buffer[2048];
 
-	if (!(termtype = getenv("TERM")))
+	if (!(termtype = ft_getenv_fromroot("TERM")))
 		ft_fatal("No terminal type is defined in the environment");
 	success = tgetent(term_buffer, termtype);
 	if (success < 0)
