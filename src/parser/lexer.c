@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 15:40:03 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/20 19:18:52 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/20 19:38:45 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,14 @@ int			sizeof_comm(char *str, t_parser *par)
 {
 	int		i;
 	char	sep;
+	int		tmp;
 
 	i = 0;
 	sep = 0;
 	while (str[i] && !(sep = is_sep(&str[i], par, SEP)))
 	{
-		i += skip_comm(&str[i]);
+		while ((tmp = skip_comm(&str[i])))
+			i += tmp;
 		i = get_hdoc(str, i, par);
 		if (i < 0)
 			return (-1);
