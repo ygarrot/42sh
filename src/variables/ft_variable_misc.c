@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 11:48:51 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/20 18:21:02 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 18:53:22 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,6 @@ void	ft_variabledel(void *content, size_t size)
 	ft_lstdel(&(v->array), &ft_variable_lstdel);
 	free(v);
 	v = 0;
-}
-
-int		ft_variable_isdeported(char *name)
-{
-	t_variable	*var;
-
-	if (!name)
-		return (0);
-	var = ft_variableget(name);
-	if (!var)
-		return (0);
-	return (var->deported && var->deep == 1);
 }
 
 int		ft_variable_arraycmp(void *left, void *right)
