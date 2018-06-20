@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 13:14:26 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/20 18:40:03 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/20 18:54:13 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ void	init_point(t_shell *sh)
 void	f_point(t_shell *sh, char **argv)
 {
 	ft_bzero(sh, sizeof(sh));
-	if ((!argv[1] || ft_strcmp(argv[1], "-h")) &&
-			!(sh->hash_tb = (t_btree**)ft_memalloc(1000 * sizeof(t_btree*))))
-		exit(EXIT_FAILURE);
+	if ((!argv[1] || ft_strcmp(argv[1], "-h")))
+		mallcheck (sh->hash_tb = (t_btree**)ft_memalloc(1000 * sizeof(t_btree*)));
+	else
+		sh->hash_tb = NULL;
 	sh->tb_built = (char *[11]){"cd", "setenv", "unsetenv", "alias", "unalias",
 		"read", "unset", "export", 0};
 	sh->tb_built = ft_strtbdup(sh->tb_built);

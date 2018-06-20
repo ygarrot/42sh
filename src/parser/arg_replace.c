@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/10 13:41:24 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/20 15:40:21 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 18:53:34 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*replace_loop(t_shell *sh)
 		if (sh->sub.begin->content)
 		{
 			ft_strcat(glue, (char*)sh->sub.begin->content);
-			ft_strcat(glue, " ");
+			sh->sub.begin->next ? ft_strcat(glue, " ") : 0;
 		}
 		to_del = sh->sub.begin;
 		sh->sub.begin = sh->sub.begin->next;
