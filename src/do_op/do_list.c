@@ -6,13 +6,13 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/16 14:07:55 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 12:40:00 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/20 18:57:43 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/sh.h"
 
-int		is_crement(char **tb)
+int			is_crement(char **tb)
 {
 	if (ft_strcmp(*tb, "++") && ft_strcmp(*tb, "--"))
 		return (1);
