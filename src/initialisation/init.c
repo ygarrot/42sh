@@ -35,8 +35,10 @@ void	init_point(t_shell *sh)
 void	f_point(t_shell *sh, char **argv)
 {
 	ft_bzero(sh, sizeof(sh));
-	if ((!argv || ft_strcmp(*argv, "-h")) &&
+	if (*argv && argv[1] && ft_strcmp(argv[1], "-h") &&
 			!(sh->hash_tb = (t_btree**)ft_memalloc(1000 * sizeof(t_btree*))))
 		exit(EXIT_FAILURE);
+	if (sh->hash_tb)
+		ft_printf("hash_initialize\n");
 	init_point(sh);
 }

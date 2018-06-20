@@ -49,6 +49,7 @@ void	erase_shell(t_shell *sh)
 		return ;
 	root = alias_tb();
 	free_comm(sh);
-	erase_hash_tab(sh->hash_tb);
+	if (sh->hash_tb)
+		erase_hash_tab(sh->hash_tb);
 	btree_erase(root, erasehash);
 }
