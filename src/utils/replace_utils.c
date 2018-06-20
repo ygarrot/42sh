@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 12:10:51 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/20 15:23:45 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 15:41:21 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int		ft_variable_toskip(char *str)
 	if (*str == '{')
 	{
 		while (str[i] && str[i] != '}')
+			i++;
+		if (str[i] == '}')
 			i++;
 	}
 	else
