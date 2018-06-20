@@ -21,8 +21,9 @@ void	assign(char **arg, int i)
 	if ((*arg)[i] == '$'
 			|| ((*arg)[i] == '~' && (!i || (*arg)[i - 1] == ' ')))
 	{
+		ft_printf("%s\n", &(*arg)[i]);
 		temp[0] = (*arg)[i] == '$' ? &(*arg)[i + 1] : "HOME";
-		len = ft_mcharchr(temp[0], VAR_LIM);
+		len = ft_mcharchr(temp[0], VAR_LIM2);
 		len = len >= 0 ? (size_t)len : ft_strlen(temp[0]);
 		todel = ft_strndup(temp[0], len);
 		if (!local_env(&temp[1], todel))

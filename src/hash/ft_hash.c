@@ -40,7 +40,7 @@ int				ft_set_hash(t_btree **begin, char *key, char *value)
 	char	**tmp;
 
 	tmp = NULL;
-	if (!begin || !key || !value)
+	if (!begin || !*begin || !key || !value)
 		return (-1);
 	if (!*begin || !(tmp = btree_search_item(*begin, &key, ft_hashcmp)))
 	{

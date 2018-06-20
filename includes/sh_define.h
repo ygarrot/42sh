@@ -84,5 +84,6 @@
 # define COMPLETION_COM 2
 
 # define VAR_LIM "~`!@#$%^&*()-+={}[]|;'\"?></.,\\$ "
+# define VAR_LIM2 "~`!@#$%^&*()-+=[]|;'\"?></.,\\$ "
 
 #endif
