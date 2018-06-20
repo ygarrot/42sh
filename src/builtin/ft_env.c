@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/04 17:59:13 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/05/26 13:41:07 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 13:50:42 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,34 +43,36 @@ static void		ft_envcpy(t_shell *sh, char **arg, char **env)
 	char	**newenv;
 	t_com	com;
 
-	if (!arg || !env)
-		return ;
-	i = ft_tablen(env) + ft_tablen(arg);
-	if (!(newenv = (char**)ft_memalloc(sizeof(char*) * (i + 1))))
-		return ;
-	i = 0;
-	while (env[i++])
-		newenv[i - 1] = ft_strdup(env[i - 1]);
-	i = ft_envcpy_add(arg, newenv);
+	i = 1;
+	if (arg[0] && !ft_strcmp(arg[0], "-i"))
+		newenv = ((char**)ft_memalloc(sizeof(char*)));
+	else
+	{
+		i = ft_tablen(env) + ft_tablen(arg);
+		if (!(newenv = (char**)ft_memalloc(sizeof(char*) * (i + 1))))
+			return ;
+		i = 0;
+		while (env[i++])
+			newenv[i - 1] = ft_strdup(env[i - 1]);
+		i = ft_envcpy_add(arg, newenv);
+	}
 	ft_bzero(&com, sizeof(t_com));
 	com.cli = &arg[i];
-	if (!arg[i])
+	sh->env = newenv;
+	if (newenv && !arg[i])
 		ft_env(sh, &arg[i], &newenv);
-	else
+	else if (newenv)
 		exec_cli(sh, &com);
 	ft_free_dblechar_tab(newenv);
+	sh->env = env;
 }
 
 void			ft_env(t_shell *sh, char **arg, char ***aenv)
 {
 	char	**env;
 
-	env = *aenv;
-	if (!arg || !env)
-	{
-		ft_printf("env: An error occured\n");
+	if (!arg || !aenv || !(env = *aenv))
 		return ;
-	}
 	if (!*arg || !arg[1])
 	{
 		while (*env)

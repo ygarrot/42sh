@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 19:03:40 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/19 13:13:26 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 12:51:04 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,7 +255,8 @@ int			ft_read_initterminal(t_read *parser);
 int			ft_read_terminal_reset(t_termios *term, int fd);
 char		*ft_read_recover(t_read *parser);
 int			ft_read_recover_init(t_read *p, int *val, size_t size, t_line *l);
-int			ft_read_recover_end(char *str, t_read parser);
+int			ft_read_recover_end(char **str, t_read parser);
+int			ft_read_recover_sig(char **str, t_read parser);
 void		ft_read_recover_pars(t_line *l, int *val, char *buff, t_read *p);
 int			ft_read_recover_execute(t_line *l, int *val, char *buff, int echo);
 int			ft_read_recover_execute_a(t_line *l,
@@ -280,6 +281,7 @@ char		*ft_read_delim(void);
 int			ft_read_assign(t_read *parser, char *str);
 char		**ft_read_split(t_read *parser, char *str);
 char		**ft_read_split_array(t_read *parser, char *str);
+char		**ft_read_split_check(t_read *parser, char **array);
 
 /*
 ** ...

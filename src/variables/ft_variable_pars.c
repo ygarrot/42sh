@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:42:13 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/17 15:25:22 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 11:50:03 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ char	*ft_variablepars_bracket(char *str)
 	var = ft_variableget(&str[1]);
 	str[i] = pos;
 	pos = ft_variablepars_bracket_pos(str, &i);
+	printf("%d\n", pos);
 	if (str[i] != '}' || pos == -1)
 		return (0);
 	if (!var)

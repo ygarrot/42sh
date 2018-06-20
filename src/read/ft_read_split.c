@@ -6,11 +6,33 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 12:38:29 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/19 13:10:54 by tcharrie         ###   ########.fr       */
+/*   Updated: 2018/06/20 12:21:29 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
+
+char	**ft_read_split_check(t_read *parser, char **array)
+{
+	int	i;
+
+	if (!parser || !parser->variables || !array || !parser->variables[0])
+	{
+		ft_free_dblechar_tab(array);
+		return (0);
+	}
+	i = 0;
+	while (parser->variables[i])
+	{
+		if (!array[i])
+		{
+			ft_free_dblechar_tab(array);
+			return (0);
+		}
+		i++;
+	}
+	return (array);
+}
 
 int		ft_read_split_lenword(t_read *parser, char *str, char *delim)
 {
@@ -40,23 +62,19 @@ char	**ft_read_split_init(t_read *parser, char **delim, char *str)
 
 int		ft_read_split_assign(int yall, char **array, char *str, char *delim)
 {
-	int	i;
 	int	len;
 
-	i = 0;
-	while (str[i] && ft_isin(str[i], delim))
-		i++;
 	len = 0;
-	while (str[i + len] && (yall || !ft_isin(str[i + len], delim)))
+	while (str[len] && (yall || !ft_isin(str[len], delim)))
 		len++;
-	while (yall && len > 0 && ft_isin(str[i + len], delim))
+	while (yall && len > 0 && ft_isin(str[len], delim))
 		len--;
-	*array = (str[i] && len > 0) ? (ft_strndup(&str[i], len)) : (0);
-	while (yall && str[i + len])
+	*array = (*str && len > 0) ? (ft_strndup(str, len)) : (0);
+	while (yall && str[len])
 		len++;
-	while (str[i + len] && ft_isin(str[i + len], delim))
+	while (str[len] && ft_isin(str[len], delim))
 		len++;
-	return (i + len);
+	return (len);
 }
 
 char	**ft_read_split(t_read *parser, char *str)
@@ -72,18 +90,18 @@ char	**ft_read_split(t_read *parser, char *str)
 		return (0);
 	i = 0;
 	count = 0;
-	while (str[i])
-	{
-		i += ft_read_split_assign(!(parser->variables[count + 1]),
-				&array[count], &str[i], delim);
-		if (str[i] && !array[count])
-		{
-			ft_free_dblechar_tab(array);
-			return (0);
-		}
-		count++;
-	}
 	while (parser->variables[count])
-		array[count++] = (char*)ft_memalloc(1);
-	return (array);
+	{
+		while (str[i] && ft_isin_unicode(&str[i], delim))
+			i += ft_lenchar_r(str, i);
+		if (parser->variables[count + 1] == 0 || !str[i])
+			array[count++] = ft_strdup(str[i] ? &str[i] : "");
+		else
+		{
+			array[count++] = ft_strndup(&str[i], ft_read_split_lenword(parser,
+					&str[i], delim));
+			i += ft_read_split_lenword(parser, &str[i], delim);
+		}
+	}
+	return (ft_read_split_check(parser, array));
 }

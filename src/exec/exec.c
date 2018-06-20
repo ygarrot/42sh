@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 15:45:17 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/17 16:49:05 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/06/20 13:43:15 by tcharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int		exec_cli(t_shell *sh, t_com *com)
 			sh->here_doc += ft_strlen(sh->here_doc) + 1;
 			fd = open(redi->path, O_RDWR | O_CREAT | O_TRUNC, S_IRWXU);
 			if (fd < 0 || close(fd) < 0)
-				ft_printf("Erreur lors du nettoyage des here_doc\n");
+				ft_putstr_fd("Erreur lors du nettoyage des here_doc\n", 2);
 		}
 		reset_std(sh, com, redi);
 		to_del = redi;
