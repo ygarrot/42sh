@@ -6,7 +6,7 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 12:54:57 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/05/27 14:10:17 by tcharrie         ###   ########.fr       */
+/*   Updated: 2019/08/17 13:31:25 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	ft_heredoc_purge_(char *str, t_parser *parser, int *i, int *j)
 {
-	int	k;
+	size_t	k;
 	int	u;
 	int	v;
 

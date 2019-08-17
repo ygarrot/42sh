@@ -6,14 +6,14 @@
 /*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 12:06:28 by tcharrie          #+#    #+#             */
-/*   Updated: 2018/06/15 15:45:26 by tcharrie         ###   ########.fr       */
+/*   Updated: 2019/08/17 13:30:15 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SH_INCLUDE_H
 # define SH_INCLUDE_H
 
-# include "../libft/includes/libft.h"
+# include "../libft/libft/includes/libft.h"
 # include "ft_printf.h"
 # include "do_op.h"
 # include <term.h>

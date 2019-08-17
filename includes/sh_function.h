@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/15 19:03:40 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/06/20 18:36:25 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/08/17 13:30:49 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -350,7 +350,6 @@ void		ft_unsetenv(char **arg, char ***env);
 void		ft_env(t_shell *sh, char **arg, char ***env);
 void		ft_exit(t_shell *sh, int val);
 int			ft_setenvvar(char **env, char *cur, char *var);
-int			ft_strlento(char *str, char c);
 char		**ft_strtbdup(char **tb);
 char		*ft_getenv(char **tb, char *str);
 void		ft_unset(char **arg, char ***env);
