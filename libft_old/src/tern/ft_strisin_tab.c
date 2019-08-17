@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/01 12:16:11 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/09 15:35:26 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/06 17:21:40 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		ft_strisin_tab(char *tofind, char **tab, int option)
 	}
 	else
 	{
-		while (i != option && tab[i] && !ft_strisin(tofind, tab[i]))
+		while (i != option && tab[i] && !ft_strcmp(tofind, tab[i], ft_strlento(tofind, ' '))
 			i++;
 		return ((i != option) ? i : -1);
 	}
